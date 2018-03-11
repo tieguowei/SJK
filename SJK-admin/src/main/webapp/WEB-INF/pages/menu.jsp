@@ -429,8 +429,8 @@ function formValidator(){
 
 <!--toolbar  -->
 <div id="toolbar" class="btn-toolbar">
-    <button onclick="addMenu()" type="button" class="btn btn-success">
-      <span class="glyphicon glyphicon-plus" aria-hidden="true">添加</span>
+    <button onclick="addMenu()" type="button" class="btn btn-success" style="margin-left: 956px;">
+      <span class="glyphicon  con-plus" aria-hidden="true" >添加</span>
     </button>
 </div>
 
