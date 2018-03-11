@@ -7,6 +7,8 @@ public class Headline {
 
     private String status;
 
+    private String merchantCode;
+
     private Date createTime;
 
     private Date updateTime;
@@ -27,6 +29,14 @@ public class Headline {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getMerchantCode() {
+        return merchantCode;
+    }
+
+    public void setMerchantCode(String merchantCode) {
+        this.merchantCode = merchantCode == null ? null : merchantCode.trim();
     }
 
     public Date getCreateTime() {

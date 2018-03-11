@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50513
 File Encoding         : 65001
 
-Date: 2018-03-11 15:00:34
+Date: 2018-03-11 21:38:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,6 +46,8 @@ CREATE TABLE `t_app_user` (
   `phone` varchar(20) CHARACTER SET utf8mb4 NOT NULL COMMENT '手机号（唯一性约束）',
   `nickname` varchar(20) DEFAULT NULL COMMENT '昵称',
   `password` varchar(50) NOT NULL COMMENT '用户密码，MD5加密',
+  `openId` varchar(50) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL COMMENT '微信头像路径',
   `account_balance` decimal(20,2) DEFAULT NULL COMMENT '账户余额',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '用户状态(1:正常,2:禁用,3删除)',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -141,6 +143,7 @@ CREATE TABLE `t_deregulation` (
   `merchat_code` varchar(20) NOT NULL COMMENT '商户编码',
   `detail` varchar(255) DEFAULT NULL COMMENT '举报内容',
   `informer_phone` varchar(20) DEFAULT NULL COMMENT '举报人联系电话',
+  `user_id` int(11) NOT NULL COMMENT '举报人用户id',
   `status` char(1) NOT NULL COMMENT '处理状态（1：已处理 2：未处理）',
   `amount_deducted` decimal(20,0) DEFAULT NULL COMMENT '每次扣除金额（商户详情表中的总押金要减少相应金额）',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -161,6 +164,7 @@ CREATE TABLE `t_headline` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text COMMENT '头条滚动字幕内容',
   `status` char(1) NOT NULL COMMENT '状态（1：正常播放 2：关闭本条消息）',
+  `merchant_code` varchar(50) DEFAULT NULL COMMENT '商户编码',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`)
@@ -293,7 +297,7 @@ CREATE TABLE `t_order` (
   `repayment_amount` decimal(20,2) DEFAULT NULL COMMENT '应付金额',
   `actually_money` decimal(20,2) NOT NULL COMMENT '实际支付金额（后期除去红包，优惠等）',
   `payment_type` int(4) DEFAULT NULL COMMENT '支付类型（1：微信支付2：支付宝支付）',
-  `status` char(1) NOT NULL COMMENT '订单状态（:0：已取消 1：未付款 2：已付款 3：已发货 4：交易成功 5：删除）',
+  `status` char(1) NOT NULL COMMENT '订单状态（1：未付款 2：已付款 3：已发货 4：交易成功 5：删除）',
   `payment_time` datetime NOT NULL COMMENT '支付时间',
   `end_time` datetime NOT NULL COMMENT '交易完成时间',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -345,7 +349,7 @@ CREATE TABLE `t_product` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
 -- ----------------------------
 -- Records of t_product

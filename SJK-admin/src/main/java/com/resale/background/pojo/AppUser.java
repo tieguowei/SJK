@@ -12,6 +12,10 @@ public class AppUser {
 
     private String password;
 
+    private String openid;
+
+    private String imageUrl;
+
     private BigDecimal accountBalance;
 
     private String status;
@@ -50,6 +54,22 @@ public class AppUser {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl == null ? null : imageUrl.trim();
     }
 
     public BigDecimal getAccountBalance() {

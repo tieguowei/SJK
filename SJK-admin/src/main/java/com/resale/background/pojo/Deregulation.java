@@ -14,6 +14,8 @@ public class Deregulation {
 
     private String informerPhone;
 
+    private Integer userId;
+
     private String status;
 
     private BigDecimal amountDeducted;
@@ -62,6 +64,14 @@ public class Deregulation {
 
     public void setInformerPhone(String informerPhone) {
         this.informerPhone = informerPhone == null ? null : informerPhone.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getStatus() {

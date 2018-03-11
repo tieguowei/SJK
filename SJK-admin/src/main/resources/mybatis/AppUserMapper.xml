@@ -6,6 +6,8 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="openId" property="openid" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
     <result column="account_balance" property="accountBalance" jdbcType="DECIMAL" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -70,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, nickname, password, account_balance, status, create_time, update_time
+    id, phone, nickname, password, openId, image_url, account_balance, status, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.resale.background.pojo.AppUserExample" >
     select
@@ -104,11 +107,13 @@
   </delete>
   <insert id="insert" parameterType="com.resale.background.pojo.AppUser" >
     insert into t_app_user (id, phone, nickname, 
-      password, account_balance, status, 
-      create_time, update_time)
+      password, openId, image_url, 
+      account_balance, status, create_time, 
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{accountBalance,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{password,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{accountBalance,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.resale.background.pojo.AppUser" >
     insert into t_app_user
@@ -124,6 +129,12 @@
       </if>
       <if test="password != null" >
         password,
+      </if>
+      <if test="openid != null" >
+        openId,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
       </if>
       <if test="accountBalance != null" >
         account_balance,
@@ -150,6 +161,12 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="accountBalance != null" >
         #{accountBalance,jdbcType=DECIMAL},
@@ -186,6 +203,12 @@
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.openid != null" >
+        openId = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageUrl != null" >
+        image_url = #{record.imageUrl,jdbcType=VARCHAR},
+      </if>
       <if test="record.accountBalance != null" >
         account_balance = #{record.accountBalance,jdbcType=DECIMAL},
       </if>
@@ -209,6 +232,8 @@
       phone = #{record.phone,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
+      openId = #{record.openid,jdbcType=VARCHAR},
+      image_url = #{record.imageUrl,jdbcType=VARCHAR},
       account_balance = #{record.accountBalance,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=CHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -228,6 +253,12 @@
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="accountBalance != null" >
         account_balance = #{accountBalance,jdbcType=DECIMAL},
@@ -249,6 +280,8 @@
     set phone = #{phone,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      openId = #{openid,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
       account_balance = #{accountBalance,jdbcType=DECIMAL},
       status = #{status,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

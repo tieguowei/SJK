@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.resale.background.pojo.Headline" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="CHAR" />
+    <result column="merchant_code" property="merchantCode" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, status, create_time, update_time
+    id, status, merchant_code, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -123,10 +124,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.resale.background.pojo.Headline" >
-    insert into t_headline (id, status, create_time, 
-      update_time, content)
-    values (#{id,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+    insert into t_headline (id, status, merchant_code, 
+      create_time, update_time, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{merchantCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.resale.background.pojo.Headline" >
     insert into t_headline
@@ -136,6 +139,9 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="merchantCode != null" >
+        merchant_code,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -153,6 +159,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=CHAR},
+      </if>
+      <if test="merchantCode != null" >
+        #{merchantCode,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -180,6 +189,9 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=CHAR},
       </if>
+      <if test="record.merchantCode != null" >
+        merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -198,6 +210,7 @@
     update t_headline
     set id = #{record.id,jdbcType=INTEGER},
       status = #{record.status,jdbcType=CHAR},
+      merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
@@ -209,6 +222,7 @@
     update t_headline
     set id = #{record.id,jdbcType=INTEGER},
       status = #{record.status,jdbcType=CHAR},
+      merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -220,6 +234,9 @@
     <set >
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="merchantCode != null" >
+        merchant_code = #{merchantCode,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -236,6 +253,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.resale.background.pojo.Headline" >
     update t_headline
     set status = #{status,jdbcType=CHAR},
+      merchant_code = #{merchantCode,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -244,6 +262,7 @@
   <update id="updateByPrimaryKey" parameterType="com.resale.background.pojo.Headline" >
     update t_headline
     set status = #{status,jdbcType=CHAR},
+      merchant_code = #{merchantCode,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

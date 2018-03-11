@@ -7,6 +7,7 @@
     <result column="merchat_code" property="merchatCode" jdbcType="VARCHAR" />
     <result column="detail" property="detail" jdbcType="VARCHAR" />
     <result column="informer_phone" property="informerPhone" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="amount_deducted" property="amountDeducted" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, merchat_name, merchat_code, detail, informer_phone, status, amount_deducted, 
+    id, merchat_name, merchat_code, detail, informer_phone, user_id, status, amount_deducted, 
     create_time, update_time, creator_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.resale.background.pojo.DeregulationExample" >
@@ -107,13 +108,13 @@
   </delete>
   <insert id="insert" parameterType="com.resale.background.pojo.Deregulation" >
     insert into t_deregulation (id, merchat_name, merchat_code, 
-      detail, informer_phone, status, 
-      amount_deducted, create_time, update_time, 
-      creator_id)
+      detail, informer_phone, user_id, 
+      status, amount_deducted, create_time, 
+      update_time, creator_id)
     values (#{id,jdbcType=INTEGER}, #{merchatName,jdbcType=VARCHAR}, #{merchatCode,jdbcType=VARCHAR}, 
-      #{detail,jdbcType=VARCHAR}, #{informerPhone,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
-      #{amountDeducted,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{creatorId,jdbcType=INTEGER})
+      #{detail,jdbcType=VARCHAR}, #{informerPhone,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{amountDeducted,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.resale.background.pojo.Deregulation" >
     insert into t_deregulation
@@ -132,6 +133,9 @@
       </if>
       <if test="informerPhone != null" >
         informer_phone,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="status != null" >
         status,
@@ -164,6 +168,9 @@
       </if>
       <if test="informerPhone != null" >
         #{informerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=CHAR},
@@ -206,6 +213,9 @@
       <if test="record.informerPhone != null" >
         informer_phone = #{record.informerPhone,jdbcType=VARCHAR},
       </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=CHAR},
       </if>
@@ -233,6 +243,7 @@
       merchat_code = #{record.merchatCode,jdbcType=VARCHAR},
       detail = #{record.detail,jdbcType=VARCHAR},
       informer_phone = #{record.informerPhone,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
       status = #{record.status,jdbcType=CHAR},
       amount_deducted = #{record.amountDeducted,jdbcType=DECIMAL},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -256,6 +267,9 @@
       </if>
       <if test="informerPhone != null" >
         informer_phone = #{informerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=CHAR},
@@ -281,6 +295,7 @@
       merchat_code = #{merchatCode,jdbcType=VARCHAR},
       detail = #{detail,jdbcType=VARCHAR},
       informer_phone = #{informerPhone,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
       status = #{status,jdbcType=CHAR},
       amount_deducted = #{amountDeducted,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
