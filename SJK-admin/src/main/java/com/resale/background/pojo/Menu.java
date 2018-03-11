@@ -1,6 +1,7 @@
 package com.resale.background.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Menu {
     private Integer menuId;
@@ -10,6 +11,8 @@ public class Menu {
     private String nameZh;
 
     private String menuUrl;
+    
+    private String menuIcon;
 
     private String menuType;
 
@@ -26,6 +29,8 @@ public class Menu {
     private Integer creatorId;
 
     private Date updateTime;
+    
+    private List<Menu>children;
 
     public Integer getMenuId() {
         return menuId;
@@ -122,4 +127,22 @@ public class Menu {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getMenuIcon() {
+		return menuIcon;
+	}
+
+	public void setMenuIcon(String menuIcon) {
+		this.menuIcon = menuIcon;
+	}
+
+	public List<Menu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Menu> children) {
+		this.children = children;
+	}
+    
+    
 }

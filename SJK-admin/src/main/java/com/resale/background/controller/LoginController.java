@@ -1,19 +1,16 @@
 package com.resale.background.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resale.background.constants.Constants;
-import com.resale.background.pojo.Menu;
 import com.resale.background.service.LoginService;
 import com.resale.background.util.ReturnMsgData;
+import com.resale.util.StringUtil;
 
 @Controller
 @RequestMapping("/login")
@@ -32,9 +29,19 @@ public class LoginController {
 	public ReturnMsgData doLoginByAccount(HttpServletRequest request){
 		try {
 			String yzm = request.getParameter(Constants.CHECK_CODE);
-			String merchantName = request.getParameter("merchant_name");
+			String merchantCode = request.getParameter("merchant_code");
 			String password = request.getParameter("password");
-			ReturnMsgData returnMsgData = loginService.getInfoByMerchantName(merchantName,password,yzm);
+			if(StringUtil.isBlank(password)){
+				return new ReturnMsgData("1000", "小子，请输入用户名");
+			}
+			if(StringUtil.isBlank(password)){
+				return new ReturnMsgData("1001", "小子，请输入密码");
+			}
+			
+			if(StringUtil.isBlank(yzm)){	
+				return new ReturnMsgData("1002", "小子，请输入验证码");
+			}
+			ReturnMsgData returnMsgData = loginService.getInfoByMerchantCode(merchantCode,password,yzm);
 			return returnMsgData;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,18 +50,6 @@ public class LoginController {
 		
 	}
 	
-	/**
-	 * 获取菜单
-	 * @param request
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/login.action")
-	public String getMenuByUserId(HttpServletRequest request,@RequestParam(value="uid")Integer id){
-		List<Menu>menuList=loginService.getMenuByUserId(id);
-		request.getSession().setAttribute("mlist", menuList);
-		return "forward:/index.jsp";
-	}
 	
 	
 	
@@ -77,7 +72,7 @@ public class LoginController {
 		loginService.deleteImageVerificationCode(key);
 	}
 	/**
-	 * 将图片验证码存入redis
+	 * 将图片验证码存入redis 并设置过期时间
 	 */
 	@RequestMapping("/getImageVerificationCode")
 	public void getImagevVerificationCode(String key,String value){

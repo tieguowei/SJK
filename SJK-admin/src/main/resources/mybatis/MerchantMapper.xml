@@ -225,4 +225,17 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据用户登陆账号查询用户信息 -->
+  <select id="getInfoByMerchantCode" parameterType="hashmap" resultMap="BaseResultMap">
+  		SELECT
+			id,
+			merchant_name,
+			merchant_code,
+			`password`
+		FROM
+			t_merchant
+		WHERE
+			merchant_code =#{merchantCode}
+  </select>
 </mapper>

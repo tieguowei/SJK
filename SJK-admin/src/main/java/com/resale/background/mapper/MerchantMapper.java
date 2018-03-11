@@ -3,6 +3,8 @@ package com.resale.background.mapper;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.MerchantExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface MerchantMapper {
@@ -27,4 +29,8 @@ public interface MerchantMapper {
     int updateByPrimaryKeySelective(Merchant record);
 
     int updateByPrimaryKey(Merchant record);
+    /**
+	 * 根据用户登陆账号查询用户信息
+	 */
+	Merchant getInfoByMerchantCode(Map<String, Object> map);
 }

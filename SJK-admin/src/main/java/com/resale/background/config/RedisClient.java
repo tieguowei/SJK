@@ -1,6 +1,8 @@
 package com.resale.background.config;
 
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +23,6 @@ public class RedisClient {
             jedis = jedisPool.getResource();  
             jedis.set(key, value);  
         } finally {  
-            //返还到连接池  
             jedis.close();  
         }  
     }  
@@ -33,7 +34,6 @@ public class RedisClient {
             jedis = jedisPool.getResource();  
             return jedis.get(key);  
         } finally {  
-            //返还到连接池  
             jedis.close();  
         }  
     }  
@@ -49,4 +49,39 @@ public class RedisClient {
             jedis.close();  
         }  
     }  
+    
+    /**
+     * 设置键的过期时间
+     * @param key
+     * @param seconds
+     * @return
+     */
+    public Long expire(String key, int seconds) {
+		Jedis jedis = jedisPool.getResource();
+		Long result = jedis.expire(key, seconds);
+		jedis.close();
+		return result;
+	}
+    
+    
+    
+    /**
+	 * 删除redis中前缀为prefix,值为value的所有记录
+	 * @param prefix
+	 * @param value
+	 */
+	public void delByKeyprefixAndValue(String prefix,String value){
+		Jedis jedis = jedisPool.getResource();
+		Set<String> keys = jedis.keys(prefix+"*");
+		if (keys!=null && keys.size()!=0) {
+			for (String key : keys) {
+				String thisValue = jedis.get(key);
+				if (thisValue!=null) {
+					if (thisValue.equals(value)) {
+						jedis.del(key);
+					}
+				}
+			}
+		}
+	}
 }

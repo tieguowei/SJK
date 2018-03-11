@@ -9,8 +9,8 @@
     <title>小二后台系统</title>
     <meta name="keywords" content="">
     <meta name="description" content="小二后台系统">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/base.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <link rel="stylesheet" href="${path}/css/common/base.css">
+    <link rel="stylesheet" href="${path}/css/login.css">
     <script src="${path}/js/jquery-1.8.0.min.js" charset="UTF-8" type="text/javascript"></script>
     <script type="text/javascript">
   //登陆
@@ -42,26 +42,15 @@
 				success:function(data){
 					//登陆成功
 					if(data.returnCode == 1005){
-						location.href="login/login.action?uid="+data.returnMsg;
+						location.href="${path}/menu/getMenuByMerchantId?uid="+data.returnMsg;
 					}else{
-						$("#checkError").html("<font color='red' size='4px'> "+data.returnMsg+"</font>");
+						$("#checkError").html("<font color='white' size='4px'> "+data.returnMsg+"</font>");
 					}
 				}
 				});
 		}
 	}
-		/* function login(){
-			$("#checkError").html("");
-			if(validate()){
-				$("#userlogin").submit();
-			}
-		}
 		
-		function resets(){
-			$("#username").textbox('setValue','');
-			$("#password").textbox('setValue','');
-			$("#chkcode").val("");
-		} */
 		//回车登录
 		$(document).keydown(function(event){ 
 			if(event.keyCode==13){
@@ -70,18 +59,15 @@
 		}); 
 		
 		function changeCheckIMG(){
-			$("#loginimg").attr("src","${pageContext.request.contextPath}/checkimg.jsp?timestamp=" + new Date());
+			$("#loginimg").attr("src","${path}/checkimg.jsp?timestamp=" + new Date());
 		}
-		/* function showerror(id,info){
-			$("#"+id).html("<font color='red'>× "+info+"</font>");
-		}  */
 	</script>
     
 </head>
 <body>
 <div class="top">
     <div class="logoBox">
-        <img src="${pageContext.request.contextPath}/images/login/logo.png" alt="">
+        <img src="${path}/images/login/logo.png" alt="">
         <div style="display: inline-block">
             <h3>后台管理系统</h3>
             <p>商品录入，报表展示，经营分析</p>
@@ -95,7 +81,7 @@
         <ul class="login">
             <li>
                 <div class="user">
-                    <input id="username" name="merchant_name" type="text" placeholder="请输入用户名">
+                    <input id="username" name="merchant_code" type="text" placeholder="请输入用户名">
                     <span class="del rR"></span>
                 </div>
             </li>
@@ -110,10 +96,10 @@
                     <input name="check_code" id="chkcode" type="text" placeholder="输入验证码">
                 </div>
                 <span >
-                	<img class="verification"  id="loginimg"  src="${pageContext.request.contextPath}/checkimg.jsp" 
+                	<img class="verification"  id="loginimg"  src="${path}/checkimg.jsp" 
                 	 alt="" >
                 </span>
-                 <span class="refresh"><img src="${pageContext.request.contextPath}/images/login/refresh.png"
+                 <span class="refresh"><img src="${path}/images/login/refresh.png"
                   style="margin-top: 10px;alt="" onclick="changeCheckIMG()">刷新</span>
             </li>
             <li>
@@ -132,5 +118,5 @@
     <p>版权所有：三剑客 </p>
 </div>
 </body>
-<script src="${pageContext.request.contextPath}/js/login.js"></script>
+<script src="${path}/js/login.js"></script>
 </html>

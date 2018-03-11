@@ -34,7 +34,7 @@ $(function (){
 	$("#test-table").bootstrapTable('destroy');
 	$('#test-table').bootstrapTable({
 		method : 'GET', //默认是post,不允许对静态文件访问
-		url: "${path }/menu/menuList.action",
+		url: "${path }/menu/getMenuList",
 		cache : false,
 		striped : true,// 隔行加亮
 		pagination : true, //开启分页功能    在表格底部显示分页工具栏
@@ -53,38 +53,32 @@ $(function (){
 		columns : [ {
 			checkbox:true
 		}   ,{
-			field : "menuId",
+			field : "menu_id",
 			title : "菜单编号",
 			class : 'col-md-1',
 			align : "center",
 			valign : "middle",
 			sortable : "true"
 		}, {
-			field : "menuName",
+			field : "name_zh",
 			title : "菜单名称",
 			align : "center",
 			valign : "middle",
 			sortable : "true"
 		}, {
-			field : "url",
+			field : "menu_url",
 			title : "请求地址",
 			align : "center",
 			valign : "middle",
 			sortable : "true"
 		}, {
-			field : "parentId",
-			title : "父级菜单id",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "icon",
+			field : "menu_icon",
 			title : "图标样式",
 			align : "center",
 			valign : "middle",
 			sortable : "true"
 		}, {
-			field : "str",
+			field : "menu_status",
 			title : "状态",
 			align : "center",
 			valign : "middle",
