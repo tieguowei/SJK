@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50513
 File Encoding         : 65001
 
-Date: 2018-03-11 10:53:23
+Date: 2018-03-11 15:00:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -194,21 +194,21 @@ CREATE TABLE `t_menu` (
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
-INSERT INTO `t_menu` VALUES ('1', '', '系统管理', null, null, null, '1', '0', null, null, '2018-03-11 08:50:17', '1', '2018-03-11 08:50:21');
-INSERT INTO `t_menu` VALUES ('2', '', '菜单管理', null, null, null, '1', '1', null, null, '2018-03-11 08:52:04', '1', '2018-03-11 08:52:08');
-INSERT INTO `t_menu` VALUES ('3', null, '角色管理', null, null, null, '1', '1', null, null, '2018-03-11 08:52:25', '1', '2018-03-11 08:52:29');
-INSERT INTO `t_menu` VALUES ('4', null, '用户管理', null, null, null, '1', '1', null, null, '2018-03-11 08:54:31', '1', '2018-03-11 08:54:35');
-INSERT INTO `t_menu` VALUES ('5', null, '商户管理', null, null, null, '1', '1', null, null, '2018-03-11 08:56:58', '1', '2018-03-11 08:57:05');
-INSERT INTO `t_menu` VALUES ('6', null, '我的地盘', null, null, null, '1', '0', null, null, '2018-03-11 08:57:36', '1', '2018-03-11 08:57:40');
-INSERT INTO `t_menu` VALUES ('7', null, '品类管理', null, null, null, '1', '6', null, null, '2018-03-11 08:58:28', '1', '2018-03-11 08:58:31');
-INSERT INTO `t_menu` VALUES ('8', null, '商品管理', null, null, null, '1', '6', null, null, '2018-03-11 08:59:10', '1', '2018-03-11 08:59:14');
-INSERT INTO `t_menu` VALUES ('9', null, '订单管理', null, null, null, '1', '6', null, null, '2018-03-11 09:08:29', '1', '2018-03-11 09:08:42');
-INSERT INTO `t_menu` VALUES ('10', null, '经营分析', null, null, null, '1', '6', null, null, '2018-03-11 09:10:19', '1', '2018-03-11 09:10:22');
-INSERT INTO `t_menu` VALUES ('11', null, '其他功能', null, null, null, '1', '0', null, null, '2018-03-11 09:13:46', '1', '2018-03-11 09:13:51');
-INSERT INTO `t_menu` VALUES ('12', null, '修改密码', null, null, null, '1', '11', null, null, '2018-03-11 09:14:10', '1', '2018-03-11 09:14:15');
-INSERT INTO `t_menu` VALUES ('13', null, '退出登录', null, null, null, '1', '11', null, null, '2018-03-11 09:14:36', '1', '2018-03-11 09:14:41');
-INSERT INTO `t_menu` VALUES ('14', null, '佣金设置', null, null, null, '1', '1', null, null, '2018-03-11 09:14:59', '1', '2018-03-11 09:15:01');
-INSERT INTO `t_menu` VALUES ('15', null, '头条管理', null, null, null, '1', '1', null, null, '2018-03-11 09:15:17', '1', '2018-03-11 09:15:20');
+INSERT INTO `t_menu` VALUES ('1', '', '系统管理', null, 'fa fa-cog', null, '1', '0', null, null, '2018-03-11 08:50:17', '1', '2018-03-11 08:50:21');
+INSERT INTO `t_menu` VALUES ('2', '', '菜单管理', 'menu/goMenuPage', 'fa fa-th-large', null, '1', '1', null, null, '2018-03-11 08:52:04', '1', '2018-03-11 08:52:08');
+INSERT INTO `t_menu` VALUES ('3', null, '角色管理', null, 'fa fa-th-large', null, '1', '1', null, null, '2018-03-11 08:52:25', '1', '2018-03-11 08:52:29');
+INSERT INTO `t_menu` VALUES ('4', null, '用户管理', null, 'fa fa-user', null, '1', '1', null, null, '2018-03-11 08:54:31', '1', '2018-03-11 08:54:35');
+INSERT INTO `t_menu` VALUES ('5', null, '商户管理', null, 'fa fa-user', null, '1', '1', null, null, '2018-03-11 08:56:58', '1', '2018-03-11 08:57:05');
+INSERT INTO `t_menu` VALUES ('6', null, '我的地盘', null, 'fa fa-home', null, '1', '0', null, null, '2018-03-11 08:57:36', '1', '2018-03-11 08:57:40');
+INSERT INTO `t_menu` VALUES ('7', null, '品类管理', null, 'fa fa-th-large', null, '1', '6', null, null, '2018-03-11 08:58:28', '1', '2018-03-11 08:58:31');
+INSERT INTO `t_menu` VALUES ('8', null, '商品管理', null, 'fa fa-th-large', null, '1', '6', null, null, '2018-03-11 08:59:10', '1', '2018-03-11 08:59:14');
+INSERT INTO `t_menu` VALUES ('9', null, '订单管理', null, 'fa fa-globe', null, '1', '6', null, null, '2018-03-11 09:08:29', '1', '2018-03-11 09:08:42');
+INSERT INTO `t_menu` VALUES ('10', null, '经营分析', null, 'fa fa-home', null, '1', '6', null, null, '2018-03-11 09:10:19', '1', '2018-03-11 09:10:22');
+INSERT INTO `t_menu` VALUES ('11', null, '其他功能', null, 'fa fa-cog', null, '1', '0', null, null, '2018-03-11 09:13:46', '1', '2018-03-11 09:13:51');
+INSERT INTO `t_menu` VALUES ('12', null, '修改密码', null, 'fa fa-key', null, '1', '11', null, null, '2018-03-11 09:14:10', '1', '2018-03-11 09:14:15');
+INSERT INTO `t_menu` VALUES ('13', null, '退出登录', null, 'fa fa-sign-out', null, '1', '11', null, null, '2018-03-11 09:14:36', '1', '2018-03-11 09:14:41');
+INSERT INTO `t_menu` VALUES ('14', null, '佣金设置', null, 'fa fa-th-large', null, '1', '1', null, null, '2018-03-11 09:14:59', '1', '2018-03-11 09:15:01');
+INSERT INTO `t_menu` VALUES ('15', null, '头条管理', null, 'fa fa-globe', null, '1', '1', null, null, '2018-03-11 09:15:17', '1', '2018-03-11 09:15:20');
 
 -- ----------------------------
 -- Table structure for t_merchant
@@ -218,7 +218,7 @@ CREATE TABLE `t_merchant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `merchant_name` varchar(50) DEFAULT NULL COMMENT '商户名称(或者管理员姓名)',
   `merchant_code` varchar(20) NOT NULL COMMENT '商家编码（M+随机五位数：M24675）',
-  `password` varchar(20) NOT NULL COMMENT '商户密码（默认000000）',
+  `password` varchar(50) NOT NULL COMMENT '商户密码（默认000000）',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -227,7 +227,7 @@ CREATE TABLE `t_merchant` (
 -- ----------------------------
 -- Records of t_merchant
 -- ----------------------------
-INSERT INTO `t_merchant` VALUES ('1', '管理员', 'admin', 'admin', '2018-03-11 08:00:31', '2018-03-11 08:00:36');
+INSERT INTO `t_merchant` VALUES ('1', '管理员', 'admin', 'c18730b3b89ec27663e81921209f915a', '2018-03-11 08:00:31', '2018-03-11 08:00:36');
 
 -- ----------------------------
 -- Table structure for t_merchant_detail

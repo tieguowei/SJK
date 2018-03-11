@@ -1,5 +1,7 @@
 package com.resale.background.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.resale.background.util.ReturnMsgData;
 
 public interface LoginService {
@@ -9,9 +11,10 @@ public interface LoginService {
 	 * @param userAccount
 	 * @param userPassword
 	 * @param yzm
+	 * @param request 
 	 * @return
 	 */
-	public ReturnMsgData getInfoByMerchantCode(String merchantCode, String userPassword, String yzm);	/**
+	public ReturnMsgData getInfoByMerchantCode(String merchantCode, String userPassword, String yzm, HttpServletRequest request);	/**
 	
 	 * 删除redis中的图片验证码
 	 * @param key

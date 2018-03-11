@@ -176,18 +176,12 @@ function formValidator(){
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                        <c:if test=""></c:if>
-                            <img alt="image" class="img-circle" src="${path}/static/img/profile_small.jpg" />
-                             </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">${user.userName}</strong>
-                             </span> <span class="text-muted text-xs block">${NAME } <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                          <li><a onclick="openPassDlg()">修改密码</a></li>
-                            <li class="divider"></li>
-                            <li><a onclick="quit()">安全退出</a></li>
-                        </ul>
+                    <div class="dropdown profile-element"> 
+                   		 <span>
+	                            <img alt="image" class="img-circle" src="${path}/static/img/profile_small.jpg" />
+                       &nbsp; &nbsp; &nbsp; &nbsp;
+                         		<font color="white">${merchantName}</font>
+                       </span>
                     </div>
                 </li>
                 <c:forEach items="${mlist}" var="tree">
@@ -229,9 +223,6 @@ function formValidator(){
             <div class="col-sm-4">
                 <h3></h3>
                  <ol class="breadcrumb">
-                    <li>
-                        <a href="#" id="index">首页</a>
-                    </li>
                     <li class="active">
                         <span>操作</span>
                     </li>

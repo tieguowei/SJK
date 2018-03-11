@@ -7,14 +7,6 @@ import java.util.List;
  *
  * Description: 分页组件
  *
- * @author daweiyao
- * @version 1.0
- * <pre>
- * Modification History: 
- * Date         Author      Version     Description 
- * ------------------------------------------------------------------ 
- * 2012-9-14      daweiyao      1.0        1.0 Version 
- * </pre>
  */
 public class PageModel {
 	

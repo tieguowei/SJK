@@ -61,11 +61,11 @@ public class MenuController {
 	@RequestMapping("/getMenuList")
 	public DataMsg getMenuList(HttpServletRequest request,DataMsg dataMsg){
 		try {
-			System.out.println("=================");
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
 			paramsCondition.put("pageNo", Integer.valueOf(request.getParameter("pageNumber")));
 			paramsCondition.put("pageSize", Integer.valueOf(request.getParameter("pageSize")));
 			PageModel pageModel =menuService.getMenuList(paramsCondition);
+			dataMsg.setTotal(pageModel.getTotalRecords());
 			dataMsg.setRows(pageModel.getList());
 		} catch (Exception e) {
 			e.printStackTrace();

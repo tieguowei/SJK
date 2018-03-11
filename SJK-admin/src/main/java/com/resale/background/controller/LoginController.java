@@ -41,7 +41,7 @@ public class LoginController {
 			if(StringUtil.isBlank(yzm)){	
 				return new ReturnMsgData("1002", "小子，请输入验证码");
 			}
-			ReturnMsgData returnMsgData = loginService.getInfoByMerchantCode(merchantCode,password,yzm);
+			ReturnMsgData returnMsgData = loginService.getInfoByMerchantCode(merchantCode,password,yzm,request);
 			return returnMsgData;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +72,7 @@ public class LoginController {
 		loginService.deleteImageVerificationCode(key);
 	}
 	/**
-	 * 将图片验证码存入redis 并设置过期时间
+	 * 将图片验证码存入redis 
 	 */
 	@RequestMapping("/getImageVerificationCode")
 	public void getImagevVerificationCode(String key,String value){
