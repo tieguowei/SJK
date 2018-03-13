@@ -4,14 +4,11 @@
 <html >
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="renderer" content="webkit" />
-    <title>小二后台系统</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="小二后台系统">
+    <title>登录页面</title>
     <link rel="stylesheet" href="${path}/css/common/base.css">
     <link rel="stylesheet" href="${path}/css/login.css">
     <script src="${path}/js/jquery-1.8.0.min.js" charset="UTF-8" type="text/javascript"></script>
+</head>
     <script type="text/javascript">
   //登陆
 	function doLogin(){
@@ -63,7 +60,6 @@
 		}
 	</script>
     
-</head>
 <body>
 <div class="top">
     <div class="logoBox">

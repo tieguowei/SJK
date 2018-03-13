@@ -72,7 +72,7 @@ public class LoginController {
 		loginService.deleteImageVerificationCode(key);
 	}
 	/**
-	 * 将图片验证码存入redis 
+	 * 将图片验证码存入redis 并设置过期时间
 	 */
 	@RequestMapping("/getImageVerificationCode")
 	public void getImagevVerificationCode(String key,String value){
