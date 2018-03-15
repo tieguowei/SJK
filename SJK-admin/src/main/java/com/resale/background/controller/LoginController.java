@@ -41,6 +41,7 @@ public class LoginController {
 		Merchant merchant = (Merchant) subject.getPrincipal();
 		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
 		model.addAttribute("mlist",menuList);
+		model.addAttribute("merchantName",merchant.getMerchantName());
         return "index";
 	  }
 	
