@@ -4,15 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 public class Menu {
-    private Integer menuId;
+	private Integer menuId;
 
     private String nameEn;
 
     private String nameZh;
 
     private String menuUrl;
-    
+
     private String menuIcon;
+
+    private String permission;
 
     private String menuType;
 
@@ -29,6 +31,7 @@ public class Menu {
     private Integer creatorId;
 
     private Date updateTime;
+
     
     private List<Menu>children;
 
@@ -142,6 +145,14 @@ public class Menu {
 
 	public void setChildren(List<Menu> children) {
 		this.children = children;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
 	}
     
     

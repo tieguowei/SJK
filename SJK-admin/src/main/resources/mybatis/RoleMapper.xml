@@ -255,4 +255,18 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!-- 根据用户ID查询角色信息 -->
+  <select id="findRoleByMerchantId" parameterType="int" resultMap="BaseResultMap">
+  	SELECT
+		r.id,
+		r.role_code,
+		r.role_name,
+		r.remark,
+		r.role_status
+	FROM
+	t_role r
+	left join t_merchant_role_relation mrr on r.id = mrr.role_id
+	where mrr.merchant_id = #{id}
+	and r.role_status = 1
+  </select>
 </mapper>

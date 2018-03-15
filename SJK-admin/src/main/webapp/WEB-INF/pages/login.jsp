@@ -11,7 +11,7 @@
 </head>
     <script type="text/javascript">
   //登陆
-	function doLogin(){
+	/* function doLogin(){
 	  
 	  //验证非空
 	   	var flag = true;
@@ -34,11 +34,12 @@
 			$.ajax({
 				type:'post',
 				dataType:'json',
-				url:'${path}/login/doLogin',
+				url:'${path}/login',
 				data:$("#form").serialize(),
 				success:function(data){
+					alert(data)
 					//登陆成功
-					if(data.returnCode == 1005){
+					if(data == null){
 						location.href="${path}/menu/getMenuByMerchantId?uid="+data.returnMsg;
 					}else{
 						$("#checkError").html("<font color='white' size='4px'> "+data.returnMsg+"</font>");
@@ -46,14 +47,14 @@
 				}
 				});
 		}
-	}
+	} */
 		
 		//回车登录
-		$(document).keydown(function(event){ 
+		/* $(document).keydown(function(event){ 
 			if(event.keyCode==13){
 				doLogin();
 			}
-		}); 
+		});  */
 		
 		function changeCheckIMG(){
 			$("#loginimg").attr("src","${path}/checkimg.jsp?timestamp=" + new Date());
@@ -72,12 +73,12 @@
 </div>
 <div class="container">
 <div class="loginBox">
-    <form id="form"  method="post" >
+    <form id="form"   method="post" >
         <h6>登录</h6>
         <ul class="login">
             <li>
                 <div class="user">
-                    <input id="username" name="merchant_code" type="text" placeholder="请输入用户名">
+                    <input id="username" name="username" type="text" placeholder="请输入用户名">
                     <span class="del rR"></span>
                 </div>
             </li>
@@ -100,11 +101,11 @@
             </li>
             <li>
             	<label id="checkError">
-		           
+		           ${msg}
 		         </label> 
             </li>
             <li>
-                <input type="button" value="登录" class="loginBtn" onclick="doLogin()">
+                <input type="submit" value="登录" class="loginBtn"  onclick="doLogin()"  />
             </li>
         </ul>
     </form>

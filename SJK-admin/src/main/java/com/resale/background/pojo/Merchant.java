@@ -3,13 +3,15 @@ package com.resale.background.pojo;
 import java.util.Date;
 
 public class Merchant {
-    private Integer id;
+	private Integer id;
 
     private String merchantName;
 
     private String merchantCode;
 
     private String password;
+
+    private String salt;
 
     private Date createTime;
 
@@ -62,4 +64,14 @@ public class Merchant {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+    
+    
 }

@@ -1,4 +1,4 @@
-package com.resale.background.config;
+package com.resale.background.redis;
 
 
 import java.util.Set;

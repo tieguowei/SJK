@@ -50,4 +50,10 @@ public interface MenuMapper {
 	 */
 	Long findAllByPageCount(Map<String, Object> paramsCondition);
 
+
+	/**
+	 * 根据商户角色id 查询权限
+	 */
+	List<Menu> permissionListRoleId(Integer id);
+
 }

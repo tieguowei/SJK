@@ -1,4 +1,4 @@
-package com.resale.background.config;
+package com.resale.background.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
