@@ -4,7 +4,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 
 import com.resale.background.constants.Constants;
 /**
@@ -46,4 +49,13 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
 			}
 			return super.onAccessDenied(request, response);
 		}
+		
+		
+	@Override
+	    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
+			// 登录成功后要跳转的链接
+			String successUrl ="/index.jsp";
+	        WebUtils.issueRedirect(request,response,successUrl);
+	        return false;
+	    }
 }

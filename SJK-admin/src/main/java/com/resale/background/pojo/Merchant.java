@@ -1,8 +1,14 @@
 package com.resale.background.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Merchant {
+public class Merchant implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 
     private String merchantName;

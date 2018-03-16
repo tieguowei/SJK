@@ -33,7 +33,7 @@ public class LoginController {
 	 * @param id
 	 * @return
 	 */
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"/","/indexPage"})
 	  public String index(Model model){
 	 	//从shiro的session中取merchant
 		Subject subject = SecurityUtils.getSubject();

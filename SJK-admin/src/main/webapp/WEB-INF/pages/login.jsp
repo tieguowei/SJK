@@ -10,51 +10,6 @@
     <script src="${path}/js/jquery-1.8.0.min.js" charset="UTF-8" type="text/javascript"></script>
 </head>
     <script type="text/javascript">
-  //登陆
-	/* function doLogin(){
-	  
-	  //验证非空
-	   	var flag = true;
-	  	var username=$("#username").val();
-		var password=$("#password").val();
-		var chkcode=$("#chkcode").val();
-		if(username.length==0){
-			flag=false;
-			return flag;
-		}
-		if(password.length==0){
-			flag=false;
-			return flag;
-		}
-		if(chkcode.length==0){
-			flag=false;
-			return flag;
-		} 
-		if(flag){
-			$.ajax({
-				type:'post',
-				dataType:'json',
-				url:'${path}/login',
-				data:$("#form").serialize(),
-				success:function(data){
-					alert(data)
-					//登陆成功
-					if(data == null){
-						location.href="${path}/menu/getMenuByMerchantId?uid="+data.returnMsg;
-					}else{
-						$("#checkError").html("<font color='white' size='4px'> "+data.returnMsg+"</font>");
-					}
-				}
-				});
-		}
-	} */
-		
-		//回车登录
-		/* $(document).keydown(function(event){ 
-			if(event.keyCode==13){
-				doLogin();
-			}
-		});  */
 		
 		function changeCheckIMG(){
 			$("#loginimg").attr("src","${path}/checkimg.jsp?timestamp=" + new Date());
