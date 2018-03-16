@@ -1,6 +1,7 @@
 package com.resale.background.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,6 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
-	
-	
 	
 	
 
@@ -58,7 +57,20 @@ public class MenuController {
 		}
 		return dataMsg;
 	}
-	
+	/**
+	 * 查询所有pid为0的菜单
+	 * @return map
+	 */
+	@ResponseBody
+	@RequestMapping("/getParentMenuList")
+	public List<Map<String,Object>> getParentMenuList(){
+		try {
+			return menuService.getParentMenuList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	
 }

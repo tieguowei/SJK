@@ -15,9 +15,14 @@ public interface MenuService {
 	 */
 	public List<Menu> getMenuByMerchantId(Integer id);
 	/**
-	 *  分页查询所有
+	 *  分页查询所有菜单
 	 * @param paramsCondition
 	 * @return
 	 */
 	public PageModel getMenuList(Map<String, Object> paramsCondition);
+	/**
+	 * 查询所有pid为0的菜单
+	 * @return map
+	 */
+	public List<Map<String, Object>> getParentMenuList();
 }

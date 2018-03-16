@@ -50,9 +50,9 @@ $(function (){
 		search : false,//显示搜素表单
 		silent : true, //刷新事件必须设置
 		sidePagination : "server", //表示服务端请求  
-		columns : [ {
+		columns : [ /* {
 			checkbox:true
-		}   ,{
+		}   , */{
 			field : "menu_id",
 			title : "菜单编号",
 			class : 'col-md-1',
@@ -74,6 +74,18 @@ $(function (){
 		}, {
 			field : "menu_icon",
 			title : "图标样式",
+			align : "center",
+			valign : "middle",
+			sortable : "true"
+		}, {
+			field : "menu_type",
+			title : "菜单类型",
+			align : "center",
+			valign : "middle",
+			sortable : "true"
+		}, {
+			field : "permission",
+			title : "权限编码",
 			align : "center",
 			valign : "middle",
 			sortable : "true"
@@ -285,10 +297,11 @@ function saveMenu(){
 		alert("填写信息不合法！");
 	}
 }
-//打开  添加
+//打开  添加 model
 function addMenu(){
+	
 	$.ajax({
-		url:'${path }/menu/parentMenu.action',
+		url:'${path }/menu/getParentMenuList',
 		dataType:'json',
 		type:'post',
 		success:function(data){

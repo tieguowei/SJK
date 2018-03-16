@@ -56,4 +56,10 @@ public interface MenuMapper {
 	 */
 	List<Menu> permissionListRoleId(Integer id);
 
+	/**
+	 * 查询所有pid为0的菜单
+	 * @return
+	 */
+	List<Map<String, Object>> getParentMenuList();
+
 }

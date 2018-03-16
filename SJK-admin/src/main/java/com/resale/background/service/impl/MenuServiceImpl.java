@@ -57,6 +57,11 @@ public class MenuServiceImpl implements MenuService {
 		return pageModel;
 	}
 
+	@Override
+	public List<Map<String, Object>> getParentMenuList() {
+		return menuMapper.getParentMenuList();
+	}
+
 	
 	
 

@@ -376,6 +376,8 @@
 		menu_id,
 		name_zh,
 		menu_icon,
+		permission,
+		menu_type,
 		CASE
 			WHEN menu_status = '1' THEN '启用' 
 			WHEN menu_status = '2' THEN '禁用' 
@@ -392,6 +394,7 @@
   	SELECT COUNT(*) FROM t_menu where menu_status = '1'
   </select>
   
+  <!-- 根据商户角色id 查询权限 -->
   <select id="permissionListRoleId" parameterType="int" resultMap="BaseResultMap">
   	SELECT
 		m.menu_id,
@@ -399,13 +402,23 @@
 		m.menu_icon,
 		m.menu_type,
 		m.menu_url,
-		m.permission
-FROM
-	t_menu m
-LEFT JOIN t_role_menu_relation mr ON m.menu_id = mr.menu_id
-WHERE
-	mr.role_id =#{id}
-	and m.menu_status = '1'
-  
+		m.permission,
+		m.menu_type
+	FROM
+		t_menu m
+	LEFT JOIN t_role_menu_relation mr ON m.menu_id = mr.menu_id
+	WHERE
+		mr.role_id =#{id}
+		and m.menu_status = '1'
+  </select>
+  <!-- 查询所有pid为0的菜单 -->
+  <select id="getParentMenuList" resultType="hashmap">
+	  SELECT
+		menu_id menuId,
+		name_zh menuName
+	FROM
+		t_menu
+	where parent_id = 0
+	and menu_status = 1
   </select>
 </mapper>
