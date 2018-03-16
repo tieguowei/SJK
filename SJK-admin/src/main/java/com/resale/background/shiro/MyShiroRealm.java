@@ -31,7 +31,6 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		logger.info("=========设置权限========");	       
     	SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
     	Merchant merchant  = (Merchant)principals.getPrimaryPrincipal();
         //根据商户ID查询角色信息
@@ -51,7 +50,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 	 /*主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确。*/
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-			logger.info("=========验证用户姓名 密码========");	       
 		 //获取用户的输入的账号.
 	        String merchantCode = (String)token.getPrincipal();
 	        //通过username从数据库中查找 User对象，如果找到，没找到.
