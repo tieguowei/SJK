@@ -30,7 +30,7 @@ public class MenuController {
 	 * 跳转到菜单列表页面
 	 * @return
 	 */
-	@RequiresPermissions("userInfo:Del")//权限管理;
+	@RequiresPermissions("menuManager:list")//权限管理;
 	@RequestMapping("/goMenuPage")
 	public String goMenuPage(){
 		return "menu";

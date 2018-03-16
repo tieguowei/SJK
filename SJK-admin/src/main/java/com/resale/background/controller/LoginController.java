@@ -36,11 +36,12 @@ public class LoginController {
     @RequestMapping({"/","/index"})
 	  public String index(Model model){
 	 	//从shiro的session中取merchant
-		/*Subject subject = SecurityUtils.getSubject();
+		Subject subject = SecurityUtils.getSubject();
 		//取身份信息
 		Merchant merchant = (Merchant) subject.getPrincipal();
 		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
-		model.addAttribute("mlist",menuList);*/
+		model.addAttribute("mlist",menuList);
+		model.addAttribute("merchantName",merchant.getMerchantName());
         return "index";
 	  }
 	
@@ -64,7 +65,7 @@ public class LoginController {
 	        }
 	        map.put("msg", msg);
 	      //此方法不处理登陆成功（认证成功），shiro认证成功会自动跳转到上一个请求路径
-	      //登陆失败还到login页面
+			//登陆失败还到login页面
 	        return "/login";
 	    }
 
