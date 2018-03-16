@@ -2,6 +2,8 @@ package com.resale.util;
 
 import java.security.MessageDigest;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+
 public class MD5Util {
 	
 	private static final String encryModel="MD5";
@@ -37,7 +39,12 @@ public class MD5Util {
     }
     
   public static void main(String[] args) {
-	  String md5 = md5("admin"+"SJK*)(bxdxa?a^%#)");
-	  System.out.println(md5);
+/*	  String md5 = md5("admin"+"SJK*)(bxdxa?a^%#)");
+*/	  String md5 = md5(md5("admin"+"8d78869f470951332959580424d4bf4f"));
+
+	SimpleHash hash = new SimpleHash("MD5", "admin","8d78869f470951332959580424d4bf4f",2);
+	
+
+	  System.out.println( hash.toString());
 }
 }

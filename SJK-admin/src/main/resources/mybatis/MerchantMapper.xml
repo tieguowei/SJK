@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.resale.background.mapper.MerchantMapper" >
   <resultMap id="BaseResultMap" type="com.resale.background.pojo.Merchant" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+       <id column="id" property="id" jdbcType="INTEGER" />
     <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
     <result column="merchant_code" property="merchantCode" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, merchant_name, merchant_code, password, create_time, update_time
+    id, merchant_name, merchant_code, password, salt, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.resale.background.pojo.MerchantExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.resale.background.pojo.Merchant" >
     insert into t_merchant (id, merchant_name, merchant_code, 
-      password, create_time, update_time
-      )
+      password, salt, create_time, 
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{merchantName,jdbcType=VARCHAR}, #{merchantCode,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.resale.background.pojo.Merchant" >
     insert into t_merchant
@@ -122,6 +123,9 @@
       </if>
       <if test="password != null" >
         password,
+      </if>
+      <if test="salt != null" >
+        salt,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -142,6 +146,9 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -172,6 +179,9 @@
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -189,6 +199,7 @@
       merchant_name = #{record.merchantName,jdbcType=VARCHAR},
       merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -207,6 +218,9 @@
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -221,6 +235,7 @@
     set merchant_name = #{merchantName,jdbcType=VARCHAR},
       merchant_code = #{merchantCode,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
@@ -232,7 +247,8 @@
 			id,
 			merchant_name,
 			merchant_code,
-			`password`
+			`password`,
+			 salt
 		FROM
 			t_merchant
 		WHERE

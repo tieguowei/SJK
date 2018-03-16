@@ -27,4 +27,8 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+    /**
+	 * 根据用户ID查询角色信息
+	 */
+	List<Role> findRoleByMerchantId(Integer id);
 }
