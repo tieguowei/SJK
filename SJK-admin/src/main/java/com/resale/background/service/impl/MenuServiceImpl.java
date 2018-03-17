@@ -1,5 +1,6 @@
 package com.resale.background.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +12,19 @@ import org.springframework.stereotype.Service;
 
 import com.resale.background.mapper.MenuMapper;
 import com.resale.background.pojo.Menu;
+import com.resale.background.pojo.Merchant;
+import com.resale.background.redis.RedisClient;
 import com.resale.background.service.MenuService;
 import com.resale.background.util.PageModel;
+import com.resale.util.SerializeUtil;
 
 @Service
 public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	MenuMapper menuMapper;
+	@Autowired
+	private RedisClient redisClinet;
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -60,6 +66,22 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List<Map<String, Object>> getParentMenuList() {
 		return menuMapper.getParentMenuList();
+	}
+
+	@Override
+	public Menu checkMenuNameIsRepeat(String nameZh) {
+		return menuMapper.checkMenuNameIsRepeat(nameZh);
+	}
+
+	@Override
+	public void saveMenu(Menu menu) {
+		//从redis取出登陆用户的信息
+		byte[] bs = redisClinet.get("merchant".getBytes());
+		Merchant merchant = (Merchant) SerializeUtil.unserialize(bs );
+		menu.setCreatorId(merchant.getId());
+		menu.setUpdateTime(new Date());
+		menu.setCreateTime(new Date());
+		menuMapper.insert(menu);
 	}
 
 	

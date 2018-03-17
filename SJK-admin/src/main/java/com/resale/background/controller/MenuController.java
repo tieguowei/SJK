@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.resale.background.pojo.Menu;
 import com.resale.background.service.MenuService;
 import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
+import com.resale.util.StringUtil;
 
 @Controller
 @RequestMapping("/menu")
@@ -22,7 +24,6 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
-	
 	
 
 	/**
@@ -72,5 +73,28 @@ public class MenuController {
 		}
 	}
 	
+	/**
+	 * 添加菜单
+	 * @param menu
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/saveMenu")
+	public String saveMenu(Menu menu){
+		try {
+			//根据菜单名称校验是否有重复
+			Menu result = menuService.checkMenuNameIsRepeat(StringUtil.trim(menu.getNameZh()));
+			if(result != null){
+				return "0";
+			}else{
+				menuService.saveMenu(menu);
+				return "1";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "2";
+		}
+		
+	}
 	
 }

@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript" src="${path }/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${path }/static/js/bootstrap.js"></script>
 <link href="${path }/static/css/style.css" rel="stylesheet" type="text/css">
@@ -23,6 +22,13 @@
 <script type="text/javascript" src="${path }/static/js/plugins/select2/select2.full.min.js"></script>
 <link href="${path }/static/js/plugins/treeview/bootstrap-treeview.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${path }/static/js/plugins/treeview/bootstrap-treeview.js"></script>
+
+
+<link href="${path }/static/js/plugins/switch/bootstrap-switch.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${path }/static/js/plugins/switch/bootstrap-switch.js"></script>
+
+<link href="${path }/static/css/info.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${path }/js/info.js"></script>
 
 
 </head>

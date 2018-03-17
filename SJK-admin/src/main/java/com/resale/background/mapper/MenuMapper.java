@@ -62,4 +62,9 @@ public interface MenuMapper {
 	 */
 	List<Map<String, Object>> getParentMenuList();
 
+	/*
+	 * 校验菜单名称是否重复
+	 */
+	Menu checkMenuNameIsRepeat(String nameZh);
+
 }

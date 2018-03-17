@@ -18,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
+import com.resale.background.redis.RedisClient;
 import com.resale.background.service.MenuService;
+import com.resale.util.SerializeUtil;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
 	private MenuService menuService;
+	@Autowired
+	private RedisClient redisClinet;
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	/**
@@ -35,14 +39,22 @@ public class LoginController {
 	 */
     @RequestMapping({"/","/indexPage"})
 	  public String index(Model model){
-	 	//从shiro的session中取merchant
-		Subject subject = SecurityUtils.getSubject();
-		//取身份信息
-		Merchant merchant = (Merchant) subject.getPrincipal();
-		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
-		model.addAttribute("mlist",menuList);
-		model.addAttribute("merchantName",merchant.getMerchantName());
-        return "index";
+    	try {
+    		//从shiro的session中取merchant
+    		Subject subject = SecurityUtils.getSubject();
+    		//取身份信息
+    		Merchant merchant = (Merchant) subject.getPrincipal();
+    		//将用户信息存到redis中
+    		redisClinet.set("merchant".getBytes(), SerializeUtil.serialize(merchant));
+    		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
+    		model.addAttribute("mlist",menuList);
+    		model.addAttribute("merchantName",merchant.getMerchantName());
+            return "index";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "index";
+		}
+	 	
 	  }
 	
 	 	@RequestMapping("/login")
@@ -71,16 +83,6 @@ public class LoginController {
 
 	
 	
-	/**
-	 * 退出登陆
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/quit.action")
-	public String quitLogin(HttpServletRequest request){
-		request.getSession().invalidate();
-		return "redirect:/login.jsp";
-	}
 	
 	/**
 	 * 删除redis中的图片验证码

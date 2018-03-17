@@ -6,6 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.resale.util.SerializeUtil;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -27,6 +29,17 @@ public class RedisClient {
         }  
     }  
       
+   public void set(byte[] bytes, byte[] serialize) {
+	   	Jedis jedis = null;
+	    try {  
+    	jedis = jedisPool.getResource();  
+    	jedis.set(bytes, serialize);
+	    } finally {  
+            jedis.close();  
+        }  
+    }
+    
+    
     public String get(String key){  
   
         Jedis jedis = null;  
@@ -37,6 +50,14 @@ public class RedisClient {
             jedis.close();  
         }  
     }  
+    
+    
+    public byte[] get(byte[] bytes) {
+	  Jedis jedis = null;  
+      jedis = jedisPool.getResource();  
+	  byte[] bs = jedis.get(bytes);  
+	  return bs;
+	}
     
     public Long delete(String key){  
     	  
@@ -84,4 +105,8 @@ public class RedisClient {
 			}
 		}
 	}
+
+	
+
+	
 }

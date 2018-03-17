@@ -25,4 +25,15 @@ public interface MenuService {
 	 * @return map
 	 */
 	public List<Map<String, Object>> getParentMenuList();
+	/**
+	 * 校验菜单名称是否重复
+	 * @param nameZh
+	 * @return
+	 */
+	public Menu checkMenuNameIsRepeat(String nameZh);
+	/**
+	 * 添加菜单
+	 * @param menu
+	 */
+	public void saveMenu(Menu menu);
 }

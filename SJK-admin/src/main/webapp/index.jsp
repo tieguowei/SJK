@@ -11,7 +11,3 @@
  	location.href="${path}/indexPage";
  })
  </script>
- <body>
- 
- nilai
- </body>

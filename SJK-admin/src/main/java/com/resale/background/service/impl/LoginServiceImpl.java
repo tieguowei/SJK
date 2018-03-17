@@ -42,22 +42,6 @@ public class LoginServiceImpl implements LoginService {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("merchantCode", merchantCode);
 		Merchant merchant = merchantMapper.getInfoByMerchantCode(map);
-		/*if(merchant!=null){
-			String md5Pwd = MD5Util.md5(password+Constants.MD5KEY);
-			if(merchant.getPassword().equals(md5Pwd)){
-				if(yzm.equalsIgnoreCase(redisClinet.get(Constants.CHECK_CODE))){
-					request.getSession().setAttribute("merchantName", merchant.getMerchantName());
-					return new ReturnMsgData("1005",merchant.getId().toString());//登陆成功
-				}else{
-					return new ReturnMsgData("1006", "验证码有误,请刷新");
-				}
-			}else{
-				return new ReturnMsgData("1004", "账号或密码错误");//密码错误
-			}
-		}else{
-			return new ReturnMsgData("1003", "账号或密码错误");//账号不存在
-		}*/
-		
 		return merchant;
 	}
 	
