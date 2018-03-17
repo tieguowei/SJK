@@ -350,6 +350,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
+  <!-- 设置查询条件 -->
+   <sql id="dynamicPageWhere">
+  	<if test="nameZh != null">
+  		and name_zh LIKE CONCAT('%',#{nameZh},'%') 
+ 	</if>
+  </sql>
   
   <!-- 根据用户id查找菜单 -->
   <select id="getMenuByMerchantId" parameterType="int" resultMap="BaseResultMap">
@@ -387,12 +393,14 @@
 	FROM
 		t_menu
 	where menu_status != '3'
+	<include refid="dynamicPageWhere"/> 
 	limit #{startIndex},#{pageSize}
   </select>
   
    <!--查询列表 分页总数 -->
   <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
   	SELECT COUNT(*) FROM t_menu where menu_status != '3'
+  	<include refid="dynamicPageWhere"/> 
   </select>
   
   <!-- 根据商户角色id 查询权限 -->

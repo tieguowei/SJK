@@ -49,6 +49,10 @@ public class MenuController {
 	public DataMsg getMenuList(HttpServletRequest request,DataMsg dataMsg){
 		try {
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
+			String nameZh = request.getParameter("nameZh");
+			if (StringUtil.isNotBlank(nameZh)) {
+				paramsCondition.put("nameZh", nameZh);
+			}
 			paramsCondition.put("pageNo", Integer.valueOf(request.getParameter("pageNumber")));
 			paramsCondition.put("pageSize", Integer.valueOf(request.getParameter("pageSize")));
 			PageModel pageModel =menuService.getMenuList(paramsCondition);

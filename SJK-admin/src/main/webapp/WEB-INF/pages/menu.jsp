@@ -17,100 +17,106 @@
 } 
 </style>
 <script type="text/javascript">
-$(function (){
-	
+$(function(){
 	formValidator();
-	
-	
-	$("#menu-table").bootstrapTable('destroy');
-	$('#menu-table').bootstrapTable({
-		method : 'GET', //默认是post,不允许对静态文件访问
-		url: "${path }/menu/getMenuList",
-		cache : false,
-		striped : true,// 隔行加亮
-		pagination : true, //开启分页功能    在表格底部显示分页工具栏
-		pageSize : 5, //默认每页条数
-		pageNumber : 1, //默认分页
-		pageList : [ 10, 20, 50, 100, 200, 500 ],//分页数
-		showColumns : true, //显示隐藏列
-		showRefresh : false, //显示刷新按钮
-		toolbar:"#toolbar",
-		singleselect : true,
-		minimumCountColumns: 2,// 设置最少显示列个数
-        clickToSelect: true, // 单击行即可以选中
-		search : false,//显示搜素表单
-		silent : true, //刷新事件必须设置
-		sidePagination : "server", //表示服务端请求  
-		columns : [ /* {
-			checkbox:true
-		}   , */{
-			field : "menu_id",
-			title : "菜单编号",
-			class : 'col-md-1',
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "name_zh",
-			title : "菜单名称",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "menu_url",
-			title : "请求地址",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "menu_icon",
-			title : "图标样式",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "menu_type",
-			title : "菜单类型",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "permission",
-			title : "权限编码",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-			field : "menu_status",
-			title : "状态",
-			align : "center",
-			valign : "middle",
-			sortable : "true"
-		}, {
-            field: 'operate',
-            title: '操作',
-           class : 'col-md-2',
-            align: 'center',
-            valign: 'middle',
-           formatter: operateFormatter,
-        }],
-		queryParamsType: "undefined",
-        queryParams: function queryParams(params) {   //设置查询参数
-            var param = {
-                pageNumber: params.pageNumber,
-                pageSize: params.pageSize,
-            };
-            return param;
-        },
-		formatLoadingMessage : function() {
-			return "请稍等，正在加载中...";
-		},
-
-		formatNoMatches : function() {
-			return '无符合条件的记录';
-		}
-	});
+	init();
 });
+ function init () {
+   $('#menu-table').bootstrapTable({
+	      url: "${path }/menu/getMenuList",
+	      method:"post",
+	      dataType: "json",
+	      contentType: "application/x-www-form-urlencoded",
+	      striped:true,//隔行变色
+	      cache:false,  //是否使用缓存
+	      showColumns:false,// 列
+	      toobar:'#toolbar',
+	      pagination: true, //分页
+	      sortable: false, //是否启用排序
+	      singleSelect: false,
+	      search:false, //显示搜索框
+	      buttonsAlign: "right", //按钮对齐方式
+	      showRefresh:false,//是否显示刷新按钮
+	      sidePagination: "server", //服务端处理分页
+	      pageSize : 5, //默认每页条数
+		  pageNumber : 1, //默认分页
+		  pageList : [ 10, 20, 50, 100, 200, 500 ],//分页数
+	      toolbar:"#toolbar",
+	      showColumns : true, //显示隐藏列
+	      uniqueId: "id", //每一行的唯一标识，一般为主键列
+	      queryParamsType:'',
+	      queryParams: queryParams,//传递参数（*）
+	      columns : [ {
+				field : "menu_id",
+				title : "菜单编号",
+				class : 'col-md-1',
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+				field : "name_zh",
+				title : "菜单名称",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+				field : "menu_url",
+				title : "请求地址",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+				field : "menu_icon",
+				title : "图标样式",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+				field : "menu_type",
+				title : "菜单类型",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+				field : "permission",
+				title : "权限编码",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+				field : "menu_status",
+				title : "状态",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			}, {
+	            field: 'operate',
+	            title: '操作',
+	           class : 'col-md-2',
+	            align: 'center',
+	            valign: 'middle',
+	           formatter: operateFormatter,
+	        }],
+			formatLoadingMessage : function() {
+				return "请稍等，正在加载中...";
+			},
+			formatNoMatches : function() {
+				return '无符合条件的记录';
+			}
+	    });
+	 
+	    //得到查询的参数
+	    function queryParams (params) {
+	      var temp = { 
+	        pageSize: params.pageSize,  //页面大小
+	        pageNumber: params.pageNumber, //页码
+	        nameZh: $("#menu_name").val(),
+	      };
+	      return temp;
+	    };
+	  }
+	 
+
 
 function operateFormatter(value, row, index) {
     return ['<button type="button" class=" btn btn-info" onclick="getValue('+row.menu_id+')">修改</button>',
@@ -120,7 +126,6 @@ function operateFormatter(value, row, index) {
 
 //删除
 function delMenu(id){
-	
     $.confirm({
         title: '提示信息!',
         content: '您确定要删除这条数据吗？',
@@ -207,6 +212,7 @@ function saveMenu(){
 			});
 		}
 }
+
 //打开  添加 加载pid为0的菜单
 function addMenu(){
 	
@@ -230,8 +236,99 @@ function addMenu(){
 
 
 
-function formValidator(){
 
+//修改 回显
+function getValue(id){
+
+	$.ajax({
+		url:'menu/getMenuById',
+		dataType:'json',
+		type:'post',
+		data:{
+			mid:id
+		}, 	 	
+		success:function(data){
+			$("#update_menu_id").val(id);
+			$("#update_menu_name").val(data.menu.nameZh);
+			$("#update_menu_url").val(data.menu.menuUrl);
+			$("#update_menu_icon").val(data.menu.menuIcon);
+			$("#update_menu_type").val(data.menu.menuType);
+			$("#update_menu_permission").val(data.menu.permission);
+			if(data.menu.menuStatus=='2'){
+				$("#close").prop('checked',true);
+			}else{
+				$("#open").prop('checked',true);
+			}
+			
+			$("#update_menu_parentId").empty();
+			$("#update_menu_parentId").append("<option value='0'>请选择</option>");
+			$.each(data.list,function(index,items){
+				if(data.menu.parentId==items.menuId){
+					$("#update_menu_parentId").append("<option selected value="+items.menuId+">"+items.menuName+"</option>");
+				}else{
+					$("#update_menu_parentId").append("<option value="+items.menuId+">"+items.menuName+"</option>");
+				}
+				
+				
+			});
+		},
+		error:function(){
+			alert("请求失败！");
+		}
+	});
+	$("#updateDlg").modal('show');
+
+}
+
+
+//修改
+function updateMenu(){
+		if($("#updateForm").data('bootstrapValidator').validate().isValid()){
+			$.ajax({
+				url:'menu/updateMenu',
+				dataType:'json',
+				type:'post',
+				data:$("#updateForm").serialize(),
+				success:function(data){
+					if(data == '1'){
+						$.alert({
+					        title: '提示信息！',
+					        content: '修改成功!',
+					        type: 'blue'
+					    });
+					}else{
+						$.alert({
+					        title: '提示信息！',
+					        content: '修改失败！',
+					        type: 'red'
+					    });
+					}
+					$("#menu-table").bootstrapTable('refresh');
+					closeDlg();
+				},
+				error:function(){
+					  $.alert({
+					        title: '提示信息！',
+					        content: '修改失败!',
+					        type: 'red'
+					    });
+				}
+			}); 
+		}
+}
+
+//关闭
+function closeDlg(){
+	$("#addDlg").modal('hide');
+	$("#updateDlg").modal('hide');
+	$("input[type=reset]").trigger("click");
+	$('#updateForm').data('bootstrapValidator', null);
+	$('#addForm').data('bootstrapValidator', null);
+	formValidator();
+}
+
+
+function formValidator(){
 	$("#addForm").bootstrapValidator({
 		fields:{
 			nameZh:{
@@ -309,100 +406,41 @@ function formValidator(){
 }
 
 
-//修改 回显
-function getValue(id){
-
-	$.ajax({
-		url:'menu/getMenuById',
-		dataType:'json',
-		type:'post',
-		data:{
-			mid:id
-		}, 	 	
-		success:function(data){
-			$("#update_menu_id").val(id);
-			$("#update_menu_name").val(data.menu.nameZh);
-			$("#update_menu_url").val(data.menu.menuUrl);
-			$("#update_menu_icon").val(data.menu.menuIcon);
-			$("#update_menu_type").val(data.menu.menuType);
-			$("#update_menu_permission").val(data.menu.permission);
-			if(data.menu.menuStatus=='2'){
-				$("#close").prop('checked',true);
-			}else{
-				$("#open").prop('checked',true);
-			}
-			
-			$("#update_menu_parentId").empty();
-			$("#update_menu_parentId").append("<option value='0'>请选择</option>");
-			$.each(data.list,function(index,items){
-				if(data.menu.parentId==items.menuId){
-					$("#update_menu_parentId").append("<option selected value="+items.menuId+">"+items.menuName+"</option>");
-				}else{
-					$("#update_menu_parentId").append("<option value="+items.menuId+">"+items.menuName+"</option>");
-				}
-				
-				
-			});
-		},
-		error:function(){
-			alert("请求失败！");
-		}
-	});
-	$("#updateDlg").modal('show');
-
+//搜索
+function searchMenu() {
+	  $("#menu-table").bootstrapTable('refresh');
+}
+//清空
+function empty(){
+	$("#menu_name").val('');
+	 $("#menu-table").bootstrapTable('refresh');
 }
 
-
-
-//修改
-function updateMenu(){
-
-		if($("#updateForm").data('bootstrapValidator').validate().isValid()){
-			$.ajax({
-				url:'menu/updateMenu',
-				dataType:'json',
-				type:'post',
-				data:$("#updateForm").serialize(),
-				success:function(data){
-					if(data == '1'){
-						$.alert({
-					        title: '提示信息！',
-					        content: '修改成功!',
-					        type: 'blue'
-					    });
-					}else{
-						$.alert({
-					        title: '提示信息！',
-					        content: '修改失败！',
-					        type: 'red'
-					    });
-					}
-					$("#menu-table").bootstrapTable('refresh');
-					closeDlg();
-				},
-				error:function(){
-					  $.alert({
-					        title: '提示信息！',
-					        content: '修改失败!',
-					        type: 'red'
-					    });
-				}
-			}); 
-		}
-}
-
-//关闭
-function closeDlg(){
-	$("#addDlg").modal('hide');
-	$("#updateDlg").modal('hide');
-	$("input[type=reset]").trigger("click");
-	$('#updateForm').data('bootstrapValidator', null);
-	$('#addForm').data('bootstrapValidator', null);
-	formValidator();
-}
 </script>
 </head>
 <body>
+
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<form id="conForm" class=" form-inline">
+			  <div class="form-group">
+			    <div class="col-md-2 ">
+			    <input type="text" class="form-control" id="menu_name" placeholder="请输入菜单名称">
+			    </div>
+			  </div>
+  		<button type="button" onclick="searchMenu()" class="btn btn-info ">
+   			<span class="glyphicon glyphicon-search" aria-hidden="true" >  搜索</span>
+   		</button>
+   		<button type="button" onclick="empty()" class="btn btn-danger ">
+   			<span class="glyphicon glyphicon-remove" aria-hidden="true" > 清空</span>
+   		</button>
+</form>
+	</div>
+</div>
+
+
+
 <table id="menu-table" class="table table-hover table-striped table-condensed table-bordered"></table>
 
 <!--toolbar  -->

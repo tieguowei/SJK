@@ -18,17 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
-import com.resale.background.redis.RedisClient;
 import com.resale.background.service.MenuService;
-import com.resale.util.SerializeUtil;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
 	private MenuService menuService;
-	@Autowired
-	private RedisClient redisClinet;
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	/**
@@ -100,8 +96,16 @@ public class LoginController {
 	}*/
 	
 	 @RequestMapping("/403")
-	    public String unauthorizedRole(){
-	        System.out.println("------没有权限-------");
+	 public String unauthorizedRole(){
 	        return "403";
-	    }
+	  }
+	 
+	 /**
+	  * 退出登陆
+	  * @return
+	  */
+	 @RequestMapping("/logout")
+	 public String logout(){
+		 return "index";
+	 }
 }
