@@ -45,7 +45,7 @@ public class LoginController {
     		//取身份信息
     		Merchant merchant = (Merchant) subject.getPrincipal();
     		//将用户信息存到redis中
-    		redisClinet.set("merchant".getBytes(), SerializeUtil.serialize(merchant));
+    		//redisClinet.set("merchant".getBytes(), SerializeUtil.serialize(merchant));
     		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
     		model.addAttribute("mlist",menuList);
     		model.addAttribute("merchantName",merchant.getMerchantName());

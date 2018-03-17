@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,6 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	MenuMapper menuMapper;
-	@Autowired
-	private RedisClient redisClinet;
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -75,13 +75,41 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public void saveMenu(Menu menu) {
-		//从redis取出登陆用户的信息
-		byte[] bs = redisClinet.get("merchant".getBytes());
-		Merchant merchant = (Merchant) SerializeUtil.unserialize(bs );
+		//从shiro中获取商户信息
+		Subject subject = SecurityUtils.getSubject();
+		Merchant merchant = (Merchant) subject.getPrincipal();
 		menu.setCreatorId(merchant.getId());
 		menu.setUpdateTime(new Date());
 		menu.setCreateTime(new Date());
 		menuMapper.insert(menu);
+	}
+
+	@Override
+	public Menu quertMenuById(int mid) {
+		return menuMapper.selectByPrimaryKey(mid);
+	}
+
+	@Override
+	public void updateMenu(Menu menu) {
+		//从shiro中获取商户信息
+		Subject subject = SecurityUtils.getSubject();
+		Merchant merchant = (Merchant) subject.getPrincipal();
+		menu.setCreatorId(merchant.getId());
+		menu.setUpdateTime(new Date());
+		menu.setCreateTime(new Date());	
+		menuMapper.updateByPrimaryKey(menu);
+	}
+
+	@Override
+	public void deleteMenu(Menu menu) {
+		//从shiro中获取商户信息
+		Subject subject = SecurityUtils.getSubject();
+		Merchant merchant = (Merchant) subject.getPrincipal();
+		menu.setCreatorId(merchant.getId());
+		menu.setUpdateTime(new Date());
+		menu.setCreateTime(new Date());
+		menu.setMenuStatus("3");
+		menuMapper.updateByPrimaryKey(menu);
 	}
 
 	

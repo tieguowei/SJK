@@ -10,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.resale.background.pojo.Menu;
@@ -96,5 +97,67 @@ public class MenuController {
 		}
 		
 	}
+	
+	/**
+	 * 修改回显
+	 */
+	
+	@ResponseBody
+	@RequestMapping("/getMenuById")
+	public Map<String,Object> getMenuById(@RequestParam("mid")int mid){
+		try {
+			Map<String,Object>map=new HashMap<String, Object>();
+			List<Map<String,Object>> list=menuService.getParentMenuList();
+			Menu menu=menuService.quertMenuById(mid);
+			map.put("list", list);
+			map.put("menu", menu);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * 修改菜单
+	 * @param menu
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateMenu")
+	public String updateMenu(Menu menu){
+		try {
+			//根据菜单名称校验是否有重复
+			menuService.updateMenu(menu);
+			return "1";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "2";
+		}
+		
+	}
+	
+
+	/**
+	 * 删除菜单
+	 * @param menu
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/deleteMenu")
+	public boolean deleteMenu(Menu menu){
+		try {
+			//根据菜单名称校验是否有重复
+			menuService.deleteMenu(menu);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	
 	
 }

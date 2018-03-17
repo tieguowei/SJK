@@ -365,8 +365,9 @@
 		JOIN t_role_menu_relation rmr ON mrr.role_id = rmr.role_id
 		JOIN t_menu m ON rmr.menu_id = m.menu_id
 		where mrr.role_id = #{id}
-    and m.parent_id =#{pid}
-		and m.menu_status=1
+    	and m.parent_id =#{pid}
+		and m.menu_status != '3'
+		and m.menu_type = 'menu'
   </select>
   
   
@@ -385,13 +386,13 @@
 		menu_url
 	FROM
 		t_menu
-	where menu_status = '1'
+	where menu_status != '3'
 	limit #{startIndex},#{pageSize}
   </select>
   
    <!--查询列表 分页总数 -->
   <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
-  	SELECT COUNT(*) FROM t_menu where menu_status = '1'
+  	SELECT COUNT(*) FROM t_menu where menu_status != '3'
   </select>
   
   <!-- 根据商户角色id 查询权限 -->
@@ -409,7 +410,7 @@
 	LEFT JOIN t_role_menu_relation mr ON m.menu_id = mr.menu_id
 	WHERE
 		mr.role_id =#{id}
-		and m.menu_status = '1'
+		and m.menu_status != '3'
   </select>
   
   <!-- 查询所有pid为0的菜单 -->

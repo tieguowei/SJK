@@ -18,19 +18,12 @@
 </style>
 <script type="text/javascript">
 $(function (){
+	
 	formValidator();
-	//select2 多选
-    $("#rid").select2({
-    	//minimumInputLength: 1, 
-        language: "zh-CN", //设置 提示语言
-        maximumSelectionLength: 3,  //设置最多可以选择多少项
-         //width: "100%", //设置下拉框的宽度
-         placeholder: "请选择",
-         tags: true,
-         
-    });
-	$("#test-table").bootstrapTable('destroy');
-	$('#test-table').bootstrapTable({
+	
+	
+	$("#menu-table").bootstrapTable('destroy');
+	$('#menu-table').bootstrapTable({
 		method : 'GET', //默认是post,不允许对静态文件访问
 		url: "${path }/menu/getMenuList",
 		cache : false,
@@ -106,7 +99,6 @@ $(function (){
             var param = {
                 pageNumber: params.pageNumber,
                 pageSize: params.pageSize,
-                // searchText: params.searchText
             };
             return param;
         },
@@ -128,128 +120,88 @@ function operateFormatter(value, row, index) {
 
 //删除
 function delMenu(id){
-	if(confirm('您确定要删除这条数据吗？')){
-		$.ajax({
-			url:'menu/delMenu.action',
-			dataType:'json',
-			type:'post',
-			data:{
-				mid:id
-			},
-			success:function(data){
-				if(data){
-					alert('删除成功！');
-				}else{
-					alert('删除失败！');
-				}
-				$("#test-table").bootstrapTable('refresh');
-			},
-			error:function(){
-				alert("请求失败！");
-			}
-		});
-	}else{
-		return false;
-	}
+	
+    $.confirm({
+        title: '提示信息!',
+        content: '您确定要删除这条数据吗？',
+        type: 'blue',
+        typeAnimated: true,
+        buttons: {
+            	确定: {
+                action: function(){
+                	$.ajax({
+            			url:'menu/deleteMenu',
+            			dataType:'json',
+            			type:'post',
+            			data:{
+            				menuId:id
+            			},
+            			success:function(data){
+            				if(data){
+            					 $.alert({
+         					        title: '提示信息！',
+         					        content: '删除成功!',
+         					        type: 'blue'
+         					    });
+            				}else{
+            					 $.alert({
+          					        title: '提示信息！',
+          					        content: '删除失败!',
+          					        type: 'red'
+          					    });
+            				} 
+            				$("#menu-table").bootstrapTable('refresh');
+            			},
+            			error:function(){
+            				alert("请求失败！");
+            			}
+            		});
+                }
+            },
+          	  取消: function () {
+            }
+        }
+    });
 }
 
-//修改
-function upMenu(){
-
-		if($("#addForm").data('bootstrapValidator').validate().isValid()){
-			$.ajax({
-				url:'menu/upMenu.action',
-				dataType:'json',
-				type:'post',
-				data:$("#myform").serialize(),
-				success:function(data){
-					if(data){
-						alert('修改成功！');
-					}else{
-						alert('修改失败！');
-					}
-					$("#test-table").bootstrapTable('refresh');
-					closeDlg();
-				},
-				error:function(){
-					alert("请求失败！");
-				}
-			});
-		}
-}
-//修改  打开
-function getValue(id){
-
-	$.ajax({
-		url:'menu/getMenu.action',
-		dataType:'json',
-		type:'post',
-		data:{
-			mid:id
-		}, 	 	
-		success:function(data){
-			$("#menu_id1").val(id);
-			$("#menu_name1").val(data.menu.menu_name);
-			$("#url1").val(data.menu.url);
-			$("#icon1").val(data.menu.icon);
-			if(data.menu.statu=='0'){
-				$("#qid1").prop('checked',true);
-			}else{
-				$("#jid1").prop('checked',true);
-			}
-			
-			$("#parentId1").empty();
-			$("#parentId1").append("<option value='0'>请选择</option>");
-			$.each(data.list,function(index,items){
-				if(data.menu.parentId==items.menu_id){
-					$("#parentId1").append("<option selected value="+items.menu_id+">"+items.menu_name+"</option>");
-				}else{
-					$("#parentId1").append("<option value="+items.menu_id+">"+items.menu_name+"</option>");
-				}
-				
-				
-			});
-		},
-		error:function(){
-			alert("请求失败！");
-		}
-	});
-	$("#mydlg").modal('show');
-
-}
 
 //添加
 function saveMenu(){
+	
 		if($("#addForm").data('bootstrapValidator').validate().isValid()){
 			$.ajax({
-				url:'menu/saveMenu.action',
+				url:'menu/saveMenu',
 				dataType:'json',
 				type:'post',
 				data:$("#addForm").serialize(),
 				success:function(data){
 					if(data == '0'){
 					    $.alert({
-					        title: 'Info',
+					        title: '提示信息！',
 					        content: '菜单名称已存在!',
+					        type: 'blue'
 					    });
 					}else if(data == '1'){
 						$.alert({
-					        title: 'Info',
+					        title: '提示信息！',
 					        content: '添加成功!',
+					        type: 'blue'
 					    });
 					}else{
 						$.alert({
-					        title: 'Error',
+					        title: '提示信息！',
 					        content: '添加失败！',
+					        type: 'red'
 					    });
 					}
-				$("#test-table").bootstrapTable('refresh');
+				$("#menu-table").bootstrapTable('refresh');
 				closeDlg();
 				},
 				error:function(){
 					$.alert({
-				        title: 'Error',
+				        title: '提示信息！',
 				        content: '请求失败！',
+				        type: 'red'
 				    });
 				}
 			});
@@ -257,6 +209,7 @@ function saveMenu(){
 }
 //打开  添加 加载pid为0的菜单
 function addMenu(){
+	
 	$.ajax({
 		url:'menu/getParentMenuList',
 		dataType:'json',
@@ -275,17 +228,7 @@ function addMenu(){
 	$("#addDlg").modal('show');
 }
 
-//关闭
-function closeDlg(){
-	$("#addDlg").modal('hide');
-	$("#mydlg").modal('hide');
-	$("#info").text(null);
-	$("#info1").text(null);
-	$("input[type=reset]").trigger("click");
-	$('#myform').data('bootstrapValidator', null);
-	$('#addForm').data('bootstrapValidator', null);
-	formValidator();
-}
+
 
 function formValidator(){
 
@@ -299,17 +242,6 @@ function formValidator(){
 					stringLength:{
 						max:20,
 						message:"字符长度不能超过20个字符"
-					}
-				}
-			},
-			menuUrl:{
-				validators:{
-					notEmpty:{
-						message:'请求地址不能为空'
-					},
-					stringLength:{
-						max:200,
-						message:'字符长度不能超过200个字符'
 					}
 				}
 			},
@@ -338,9 +270,9 @@ function formValidator(){
 	});
 	
 
-	$("#myform").bootstrapValidator({
+	$("#updateForm").bootstrapValidator({
 		fields:{
-			menu_name:{
+			nameZh:{
 				validators:{
 					notEmpty:{
 						message:"菜单名称不能为空"
@@ -351,48 +283,127 @@ function formValidator(){
 					}
 				}
 			},
-			url:{
-				validators:{
-					notEmpty:{
-						message:'请求地址不能为空'
-					},
-					stringLength:{
-						max:200,
-						message:'字符长度不能超过200个字符'
-					}
-				}
-			},
-			icon:{
+			menuIcon:{
 				validators:{
 					notEmpty:{
 						message:'图标样式不能为空'
 					}
 				}
 			},
-			statu:{
+			menuType:{
 				validators:{
 					notEmpty:{
-						message:"状态不能为空"
+						message:'菜单类型不能为空'
 					}
 				}
 			},
-			parentId:{
+			permission:{
 				validators:{
 					notEmpty:{
-						message:'父级ID不能为空'
-					},
-					digits:{
-						message: '该值只能包含数字'
+						message:'权限标识不能为空'
 					}
 				}
-			},
+			}
+		}
+	}); 
+}
+
+
+//修改 回显
+function getValue(id){
+
+	$.ajax({
+		url:'menu/getMenuById',
+		dataType:'json',
+		type:'post',
+		data:{
+			mid:id
+		}, 	 	
+		success:function(data){
+			$("#update_menu_id").val(id);
+			$("#update_menu_name").val(data.menu.nameZh);
+			$("#update_menu_url").val(data.menu.menuUrl);
+			$("#update_menu_icon").val(data.menu.menuIcon);
+			$("#update_menu_type").val(data.menu.menuType);
+			$("#update_menu_permission").val(data.menu.permission);
+			if(data.menu.menuStatus=='2'){
+				$("#close").prop('checked',true);
+			}else{
+				$("#open").prop('checked',true);
+			}
+			
+			$("#update_menu_parentId").empty();
+			$("#update_menu_parentId").append("<option value='0'>请选择</option>");
+			$.each(data.list,function(index,items){
+				if(data.menu.parentId==items.menuId){
+					$("#update_menu_parentId").append("<option selected value="+items.menuId+">"+items.menuName+"</option>");
+				}else{
+					$("#update_menu_parentId").append("<option value="+items.menuId+">"+items.menuName+"</option>");
+				}
+				
+				
+			});
+		},
+		error:function(){
+			alert("请求失败！");
 		}
 	});
+	$("#updateDlg").modal('show');
+
+}
+
+
+
+//修改
+function updateMenu(){
+
+		if($("#updateForm").data('bootstrapValidator').validate().isValid()){
+			$.ajax({
+				url:'menu/updateMenu',
+				dataType:'json',
+				type:'post',
+				data:$("#updateForm").serialize(),
+				success:function(data){
+					if(data == '1'){
+						$.alert({
+					        title: '提示信息！',
+					        content: '修改成功!',
+					        type: 'blue'
+					    });
+					}else{
+						$.alert({
+					        title: '提示信息！',
+					        content: '修改失败！',
+					        type: 'red'
+					    });
+					}
+					$("#menu-table").bootstrapTable('refresh');
+					closeDlg();
+				},
+				error:function(){
+					  $.alert({
+					        title: '提示信息！',
+					        content: '修改失败!',
+					        type: 'red'
+					    });
+				}
+			}); 
+		}
+}
+
+//关闭
+function closeDlg(){
+	$("#addDlg").modal('hide');
+	$("#updateDlg").modal('hide');
+	$("input[type=reset]").trigger("click");
+	$('#updateForm').data('bootstrapValidator', null);
+	$('#addForm').data('bootstrapValidator', null);
+	formValidator();
 }
 </script>
 </head>
 <body>
-<table id="test-table" class="table table-hover table-striped table-condensed table-bordered"></table>
+<table id="menu-table" class="table table-hover table-striped table-condensed table-bordered"></table>
 
 <!--toolbar  -->
 <div id="toolbar" class="btn-toolbar">
@@ -462,7 +473,7 @@ function formValidator(){
 			<label class="col-md-2 control-label">状态：</label>
 			<div class="col-md-3" class="form-control form-control-static">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input   type="radio" checked name="menuStatus" value="1">启用&nbsp;&nbsp;&nbsp;&nbsp;
-			<input  type="radio" name="menuStatus" value="0">禁用
+			<input  type="radio" name="menuStatus" value="2">禁用
 			</div>
 			</div>
             <div class="modal-footer col-md-6">
@@ -478,9 +489,8 @@ function formValidator(){
 </div>
 
 
-<!-- 模态框（Modal） -->
 <!-- 修改 -->
-<div id="mydlg" class="modal fade"  tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="updateDlg" class="modal fade"  tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -488,12 +498,12 @@ function formValidator(){
                 <h4 class="modal-title" id="myModalLabel">修改菜单</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="myform"  method="post">
+			<form class="form-horizontal" id="updateForm"  method="post">
 			<div class="form-group">
 			<label class="col-md-2 control-label">菜单名称：</label>
 			<div class="col-md-3 ">
-			<input type="hidden" id="menu_id1" name="menu_id">
-			<input type="text" id="menu_name1" onblur="checkMenu1()" name="menu_name" class="form-control form-control-static" placeholder="请输入菜单名称">
+			<input type="hidden" id="update_menu_id" name="menuId">
+			<input type="text" id="update_menu_name" name="nameZh" class="form-control form-control-static" placeholder="请输入菜单名称">
 			</div>
 			<label class="control-label"><span id="info1" style="color:red"></span></label>
 			</div>
@@ -501,36 +511,54 @@ function formValidator(){
 			<div class="form-group">
 			<label class="col-md-2 control-label">请求地址：</label>
 			<div class="col-md-3">
-			<input type="text" id="url1" name="url" class="form-control form-control-static" placeholder="请输入请求地址" >
+			<input type="text" id="update_menu_url" name="menuUrl" class="form-control form-control-static" placeholder="请输入请求地址" >
 			</div>
 			</div>
+			
+			
+			<div class="form-group">
+			<label class="col-md-2 control-label">菜单类型：</label>
+			<div class="col-md-3">
+			<input type="text"  id="update_menu_type" name="menuType" class="form-control form-control-static" placeholder="请输入菜单类型" >
+			</div>
+			</div>
+			
+			
+			<div class="form-group">
+			<label class="col-md-2 control-label">权限标识：</label>
+			<div class="col-md-3">
+			<input type="text"id="update_menu_permission"  name="permission" class="form-control form-control-static" placeholder="请输入权限标识" >
+			</div>
+			</div>
+			
+			
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">父级菜单ID：</label>
 			<div class="col-md-3">
-			<select  id="parentId1" name="parentId" class="form-control form-control-static"></select>
+			<select  id="update_menu_parentId" name="parentId" class="form-control form-control-static"></select>
 			</div>
 			</div>
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">图标样式：</label>
 			<div class="col-md-3">
-			<input type="text" id="icon1" name="icon" class="form-control form-control-static" placeholder="请输入图标样式" >
+			<input type="text" id="update_menu_icon" name="menuIcon" class="form-control form-control-static" placeholder="请输入图标样式" >
 			</div>
 			</div>
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">状态：</label>
 			<div class="col-md-3" class="form-control form-control-static">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input id="qid1"  type="radio" checked name="statu" value="0">启用&nbsp;&nbsp;&nbsp;&nbsp;
-			<input id="jid1" type="radio" name="statu" value="1">禁用
+			<input id="open"  type="radio" checked name="menuStatus" value="1">启用&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="close" type="radio" name="menuStatus" value="2">禁用
 			</div>
 			</div>
             <div class="modal-footer col-md-6">
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />
                 <button type="button" class="btn btn-default" onclick="closeDlg()">关闭</button>
-               <button type="button" onclick="upMenu()" class="btn btn-primary">保存</button>
+               <button type="button" onclick="updateMenu()" class="btn btn-primary">保存</button>
             </div>
             </form>
             </div>

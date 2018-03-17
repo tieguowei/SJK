@@ -36,4 +36,20 @@ public interface MenuService {
 	 * @param menu
 	 */
 	public void saveMenu(Menu menu);
+	/**
+	 * 根据id 查询菜单 修改回显
+	 * @param mid
+	 * @return
+	 */
+	public Menu quertMenuById(int mid);
+	/**
+	 * 修改菜单
+	 * @param menu
+	 */
+	public void updateMenu(Menu menu);
+	/**
+	 * 删除菜单
+	 * @param menu
+	 */
+	public void deleteMenu(Menu menu);
 }
