@@ -445,9 +445,17 @@ function empty(){
 
 <!--toolbar  -->
 <div id="toolbar" class="btn-toolbar">
-    <button onclick="addMenu()" type="button" class="btn btn-success" style="margin-left: 956px;">
-      <span class="glyphicon  con-plus" aria-hidden="true" >添加</span>
-    </button>
+
+<shiro:hasPermission name="menuManager:add"> 
+ 
+  		 <button onclick="addMenu()" type="button" class="btn btn-success" style="margin-left: 956px;">
+		     	 <span class="glyphicon  con-plus" aria-hidden="true" >添加</span>
+		    </button>
+ 
+</shiro:hasPermission>
+
+        
+   
 </div>
 
 

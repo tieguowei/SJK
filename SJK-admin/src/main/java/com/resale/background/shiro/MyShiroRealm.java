@@ -40,6 +40,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             //根据商户角色id 查询权限
             List<Menu> permissionList = loginService.permissionListRoleId(role.getId());
             for(Menu p:permissionList){
+            	System.out.println("权限："+p.getPermission());
                 authorizationInfo.addStringPermission(p.getPermission());
             }
         }
