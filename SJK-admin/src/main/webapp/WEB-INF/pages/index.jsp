@@ -25,6 +25,9 @@
 	<script type="text/javascript" src="${path}/static/js/plugins/bootstrap-validator/bootstrapValidator.js"></script>
 	<script type="text/javascript" src="${path}/static/js/plugins/bootstrap-validator/zh_CN.js"></script>
 	<link href="${path}/static/css/plugins/bootstrap-validator/bootstrapValidator.css" rel="stylesheet" type="text/css">
+	<!-- info -->
+	<link href="${path }/static/css/info.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${path }/js/info.js"></script>
 </head>
 <style type="text/css">
  .modal {
@@ -37,6 +40,7 @@
 } 
 </style>
 <script type="text/javascript">
+
 function getPage(url,name) {
     if(url != ""){
     	url="${path}/"+url;
@@ -53,11 +57,21 @@ function getPage(url,name) {
 
 //退出登陆
 function quit(){
-	if(confirm('您确定要退出登陆吗？')){
-		location.href="${path}/login/quit.action";
-	}else{
-		return false;
-	}
+	 $.confirm({
+	        title: '提示信息!',
+	        content: '您确定要退出登陆吗？',
+	        type: 'blue',
+	        typeAnimated: true,
+	        buttons: {
+	            	确定: {
+	                action: function(){
+	                	location.href="${path}/logout";
+	                }
+	            },
+	          	  取消: function () {
+	            }
+	        }
+	 })
 }
 //open
 function openPassDlg(){
@@ -66,48 +80,92 @@ function openPassDlg(){
 //关闭模态框
 function closeDlgs(){
 	$("#passDlg").modal('hide');
-	$('#oldPass').val("");
-	$('#newPass').val("");
-	$('#againPass').val("");
+	$('#oldPwd').val("");
+	$('#newPwd').val("");
+	$('#againPwd').val("");
 	// Modal验证销毁重构，防止第二次打开modal时显示上一次的验证痕迹
 	$('#myform').data('bootstrapValidator', null);
 	formValidator();
 }
+
+
+
 //修改密码
-function upPass(){
-	var p=$("#oldPass").val();
-	var n=$("#newPass").val();
-	var ids=$("#uid").val();
-	if(p!=n){
+function updatePwd(){
+	var id =$("#id").val();
+	var oldPwd =$("#oldPwd").val();
+	var newPwd =$("#newPwd").val();
+	if(oldPwd != newPwd){
 		if($("#myform").data('bootstrapValidator').validate().isValid()){
-    		$.ajax({
-    			url:'user/upPass.action',
-    			dataType:'json',
-    			type:'post',
-    			data:{
-    				id:ids,
-    				pass:n
-    			},
-    			success:function(data){
-    				if(data>0){
-    					alert("密码修改成功，请退出重新登陆！");
-    					location.href="login/quit.action";
-    				}else{
-    					alert("密码修改失败");
-    				}
-    			},
-    			error:function(){ 
-    				alert("请求失败");
-    			}
-    		});
+			//校验商户原始密码是否正确
+			$.ajax({
+				url:'${path}/merchant/checkOldPwd',
+				dataType:'json',
+				type:'post',
+				data:{
+					id:id,
+					oldPwd:oldPwd
+				},
+				success:function(data){
+					if(data){
+						$.ajax({
+			    			url:'${path}/merchant/updatePwd',
+			    			dataType:'json',
+			    			type:'post',
+			    			data:{
+			    				id:id,
+			    				newPwd:newPwd
+			    			},
+			    			success:function(data){
+			    				if(data){
+			    					$.alert({
+			        			        title: '提示信息！',
+			        			        content: '密码修改成功，请退出重新登陆！',
+			        			        type: 'blue'
+			        			    });
+			    					setTimeout('jumpurl()',2000); 
+			    				}else{
+			    					$.alert({
+			        			        title: '提示信息！',
+			        			        content: '密码修改失败!',
+			        			        type: 'red'
+			        			    });
+			    				}
+			    			},
+			    			error:function(){
+			    				$.alert({
+			    			        title: '提示信息！',
+			    			        content: '请求失败!',
+			    			        type: 'red'
+			    			    });
+			    			}
+		    		})
+						
+					}else{
+						$.alert({
+					        title: '提示信息！',
+					        content: '原始密码有误，请重新输入!',
+					        type: 'red'
+					    });
+					}
+				}
+			});
     	}else{
     		return false;
     	}
-	}else if(p==""||n==""){
-		alert("请输入密码");
+	}else if(oldPwd ==""||newPwd==""){
+		 $.alert({
+		        title: '提示信息！',
+		        content: '请输入密码!',
+		        type: 'red'
+		    });
 	}
 	else{
-		alert("新密码不能与原密码一样");
+		 $.alert({
+		        title: '提示信息！',
+		        content: '新密码不能与原密码一样!',
+		        type: 'red'
+		    });
 	}
 }
 
@@ -117,17 +175,7 @@ $(function(){
 function formValidator(){
 	$("#myform").bootstrapValidator({
 		fields:{
-			id:{
-				notEmpty:{
-					message:'不能为空'
-				}
-			},
-			password:{
-				notEmpty:{
-					message:'不能为空'
-				}
-			},
-			oldPass:{
+			oldPwd:{
 				validators:{
 					notEmpty:{
 						message:'密码不能为空'
@@ -143,7 +191,7 @@ function formValidator(){
 					}
 				}
 			},
-			newPass:{
+			newPwd:{
 				validators:{
 					notEmpty:{
 						messgae:'密码不能为空',
@@ -155,13 +203,13 @@ function formValidator(){
 					},
 				}
 			},
-			againPass:{
+			againPwd:{
 				validators:{
 					notEmpty:{
 						message:'密码不能为空'
 					},
 					identical:{
-						field:"newPass",
+						field:"newPwd",
 						message:'两次输入密码不一致'
 					}
 				}
@@ -169,6 +217,10 @@ function formValidator(){
 		}
 	});
 }
+
+function jumpurl(){  
+	location.href="${path}/logout";
+}  
 </script>
 <body class="">
 <div id="wrapper">
@@ -180,7 +232,7 @@ function formValidator(){
                    		 <span>
 	                            <img alt="image" class="img-circle" src="${path}/static/img/profile_small.jpg" />
                        &nbsp; &nbsp; &nbsp; &nbsp;
-                         		<font color="white">${merchantName}</font>
+                         		<font color="white">${merchant.merchantName}</font>
                        </span>
                     </div>
                 </li>
@@ -203,6 +255,14 @@ function formValidator(){
                     </c:if>
                 </li>
                 </c:forEach>
+                
+                  <!--下面两个菜单是固定死的  -->
+                <li> <a onclick="openPassDlg()"><i class="fa fa-key"></i>
+                 <span class="nav-label">修改密码</span>
+                </a></li>
+                <li> <a onclick="quit()"><i class="fa fa-sign-out"></i>
+                 <span class="nav-label">退出登陆</span>
+                </a></li>
             </ul>
         </div>
     </nav>
@@ -240,15 +300,14 @@ function formValidator(){
                 10GB of <strong>250GB</strong> Free.
             </div>
             <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2017
+                <strong>Copyright</strong> Example Company &copy; 2018-2028
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- 模态框（Modal） -->
-<!-- 修改 -->
+<!-- 修改密码modal -->
 <div id="passDlg" class="modal fade"  tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -261,30 +320,29 @@ function formValidator(){
 			<div class="form-group">
 			<label class="col-md-2 control-label">旧密码：</label>
 			<div class="col-md-3 ">
-			<input type="password" id="oldPass" name="oldPass" class="form-control form-control-static"  placeholder="请输入原始密码">
-			<input  type="hidden" id="pass" value="${PASS }" name="password">
-			<input  type="hidden" id="uid" value="${ID }" name="id">
+				<input type="password" id="oldPwd" name="oldPwd" class="form-control form-control-static"  placeholder="请输入原始密码">
+				<input  type="hidden" id="id" value="${merchant.id}" name="id">
 			</div>
 			</div>
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">新密码：</label>
 			<div class="col-md-3 ">
-			<input type="password" id="newPass"  name="newPass" class="form-control form-control-static" placeholder="请输入新密码">
+				<input type="password" id="newPwd"  name="newPwd" class="form-control form-control-static" placeholder="请输入新密码">
 			</div>
 			</div>
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">确认密码：</label>
 			<div class="col-md-3">
-			<input type="password" id="againPass"  name="againPass" class="form-control form-control-static" placeholder="请输入新密码">
+				<input type="password" id="againPwd"  name="againPwd" class="form-control form-control-static" placeholder="请输入新密码">
 			</div>
 			</div>
             <div class="modal-footer col-md-6">
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />
                 <button type="button" class="btn btn-default" onclick="closeDlgs()">关闭</button>
-               <button type="button" onclick="upPass()" class="btn btn-primary">修改</button>
+               <button type="button" onclick="updatePwd()" class="btn btn-primary">修改</button>
             </div>
             </form>
             </div>

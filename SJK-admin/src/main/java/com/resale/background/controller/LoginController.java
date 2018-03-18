@@ -1,9 +1,12 @@
 package com.resale.background.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,11 +43,9 @@ public class LoginController {
     		Subject subject = SecurityUtils.getSubject();
     		//取身份信息
     		Merchant merchant = (Merchant) subject.getPrincipal();
-    		//将用户信息存到redis中
-    		//redisClinet.set("merchant".getBytes(), SerializeUtil.serialize(merchant));
     		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
     		model.addAttribute("mlist",menuList);
-    		model.addAttribute("merchantName",merchant.getMerchantName());
+    		model.addAttribute("merchant",merchant);
             return "index";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,12 +101,4 @@ public class LoginController {
 	        return "403";
 	  }
 	 
-	 /**
-	  * 退出登陆
-	  * @return
-	  */
-	 @RequestMapping("/logout")
-	 public String logout(){
-		 return "index";
-	 }
 }

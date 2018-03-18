@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8" />
 </head>
- <script type="text/javascript">
- $(function (){
- 	location.href="${path}/indexPage";
- })
- </script>
+<body>
+<%
+response.sendRedirect("indexPage");
+%>
+</body>

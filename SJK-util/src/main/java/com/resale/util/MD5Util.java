@@ -39,7 +39,7 @@ public class MD5Util {
     }
     
   public static void main(String[] args) {
-      String newPs = new SimpleHash("MD5", "123456", "admin"+"8d78869f470951332959580424d4bf4f", 2).toHex();
+      String newPs = new SimpleHash("MD5", "111111", "admin"+"8d78869f470951332959580424d4bf4f", 2).toHex();
       System.out.println(newPs);
 }
 }
