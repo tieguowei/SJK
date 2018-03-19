@@ -3,6 +3,7 @@ package com.resale.background.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -132,30 +133,35 @@ public class RoleServiceImpl implements RoleService {
 			
 			//根据父id查询子菜单
 			List<ViewTree>childList=new ArrayList<ViewTree>();
-			List<Menu>clist=menuMapper.queryChildMenuByPid(String.valueOf(map.get("menuId")));//子菜单
-			for (Menu c : clist) {
-				ViewTree child=new ViewTree();
-				child.setId(c.getMenuId());
-				child.setPid(c.getParentId());
-				child.setText(c.getNameZh());
-				child.setIcon(c.getMenuIcon());
-				
-				for(Integer k:list){
-					if(c.getMenuId().equals(k)){
-						Trees tt=new Trees();
-						tt.setChecked(true);
-						child.setState(tt);
-						}
-				}
-				
-				childList.add(child);
-			}
-			if(childList.size()>=1){
-				parent.setNodes(childList);
-			}
+		    digui(childList,list, String.valueOf(map.get("menuId")));
+			parent.setNodes(childList);
 			tree.add(parent);
 		}
 		return tree;
+	}
+
+
+	private List<ViewTree> digui(List<ViewTree>childList ,List<Integer> list, String menuId) {
+		List<Menu>clist=menuMapper.queryChildMenuByPid(menuId);//子菜单
+		   if (null != clist && clist.size()>0) {  
+				   for (Menu c : clist) {
+						ViewTree child=new ViewTree();
+						child.setId(c.getMenuId());
+						child.setPid(c.getParentId());
+						child.setText(c.getNameZh());
+						child.setIcon(c.getMenuIcon());
+						for(Integer k:list){
+							if(c.getMenuId().equals(k)){
+								Trees tt=new Trees();
+								tt.setChecked(true);
+								child.setState(tt);
+							}
+						}
+						childList.add(child);
+						digui(childList,list,String.valueOf(c.getMenuId()));
+				   }
+		}
+		return childList;
 	}
 
 	

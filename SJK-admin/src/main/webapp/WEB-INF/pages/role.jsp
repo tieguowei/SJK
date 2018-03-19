@@ -9,7 +9,7 @@
 <style type="text/css">
  #authDlg {
      position: fixed;  
-    top: -10%;
+    top: -20%;
     left: 30%;
     width: 800px;
     height: 800px;
@@ -285,7 +285,7 @@ function getAuth(id){
                  highlightSelected: false,    //是否高亮选中
                  //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
                     //expandIcon: 'glyphicon glyphicon-chevron-right',//展开图标 
-                   collapseIcon: 'glyphicon glyphicon-chevron-down',//合并图标 
+                   //collapseIcon: 'glyphicon glyphicon-chevron-down',//合并图标 
                    //  nodeIcon: 'glyphicon glyphicon-bookmark',//无节点图标 
                   backColor: "purple",//背景色 
                      onhoverColor: "#F5F5DC",//鼠标悬浮颜色 
