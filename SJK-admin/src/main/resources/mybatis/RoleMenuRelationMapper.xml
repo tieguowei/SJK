@@ -225,4 +225,14 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据角色id 查询所拥有的权限id -->
+  <select id="queryMenuIdListByRoleId" parameterType="int" resultType="int">
+  	SELECT
+		menu_id
+	FROM
+		t_role_menu_relation
+	WHERE
+		role_id = 1
+  </select>
 </mapper>

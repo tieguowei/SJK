@@ -27,4 +27,11 @@ public interface RoleMenuRelationMapper {
     int updateByPrimaryKeySelective(RoleMenuRelation record);
 
     int updateByPrimaryKey(RoleMenuRelation record);
+
+    /**
+     * 通过角色id 查询出所拥有的权限id
+     * @param rid
+     * @return
+     */
+	List<Integer> queryMenuIdListByRoleId(int rid);
 }

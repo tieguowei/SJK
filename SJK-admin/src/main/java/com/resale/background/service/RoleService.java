@@ -1,10 +1,12 @@
 package com.resale.background.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Role;
 import com.resale.background.util.PageModel;
+import com.resale.background.util.ViewTree;
 
 public interface RoleService {
 	/**
@@ -39,5 +41,10 @@ public interface RoleService {
 	 * @param role
 	 */
 	void deleteRole(Role role);
-
+	/**
+	 * 加载权限菜单
+	 * @param rid
+	 * @return
+	 */
+	List<ViewTree> getViewTree(int rid);
 }

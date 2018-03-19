@@ -426,7 +426,9 @@
   <select id="getParentMenuList" resultType="hashmap">
 	  SELECT
 		menu_id menuId,
-		name_zh menuName
+		name_zh menuName,
+		parent_id,
+    	menu_icon
 	FROM
 		t_menu
 	where parent_id = 0
@@ -452,6 +454,18 @@
 	 update_time = #{updateTime}
 	WHERE
 		menu_id = #{menuId};
+  </select>
   
+  <select id="queryChildMenuByPid" parameterType="String" resultMap="BaseResultMap">
+	  SELECT
+		menu_id,
+		menu_icon,
+		parent_id,
+		name_zh
+	FROM
+		t_menu
+	WHERE
+		parent_id =#{pid}
+	AND menu_status = '1'
   </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.resale.background.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,18 +13,27 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.resale.background.mapper.MenuMapper;
 import com.resale.background.mapper.RoleMapper;
+import com.resale.background.mapper.RoleMenuRelationMapper;
+import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Role;
+import com.resale.background.pojo.RoleMenuRelation;
 import com.resale.background.service.RoleService;
 import com.resale.background.util.PageModel;
+import com.resale.background.util.Trees;
+import com.resale.background.util.ViewTree;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleMapper roleMapper;
-	
+	@Autowired
+	private RoleMenuRelationMapper  roleMenuRelationMapper;
+	@Autowired
+	private MenuMapper menuMapper;
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	
@@ -95,6 +105,60 @@ public class RoleServiceImpl implements RoleService {
 		map.put("roleStatus", "2");
 		roleMapper.deleteRoleById(map);
 	}
+
+
+	@Override
+	public List<ViewTree> getViewTree(int rid) {
+		List<ViewTree>tree=new ArrayList<ViewTree>();
+		//根据角色 查询出所拥有的菜单用于回显
+		List<Integer>list=roleMenuRelationMapper.queryMenuIdListByRoleId(rid);
+		//查询出所有的父级菜单
+		List<Map<String, Object>> plist = menuMapper.getParentMenuList();//父菜单
+		for (Map<String, Object> map : plist) {
+			ViewTree parent=new ViewTree();
+			parent.setId(Integer.valueOf(String.valueOf(map.get("menuId"))));
+			parent.setPid(Integer.valueOf(String.valueOf(map.get("parent_id"))));
+			parent.setText(String.valueOf(map.get("menuName")));
+			parent.setIcon(String.valueOf(map.get("menu_icon")));
+			
+			//回显 父节点
+			for(Integer k:list){
+				if(map.get("menuId").equals(k)){
+					Trees t=new Trees();
+					t.setChecked(true);
+					parent.setState(t);
+					}
+			}
+			
+			//根据父id查询子菜单
+			List<ViewTree>childList=new ArrayList<ViewTree>();
+			List<Menu>clist=menuMapper.queryChildMenuByPid(String.valueOf(map.get("menuId")));//子菜单
+			for (Menu c : clist) {
+				ViewTree child=new ViewTree();
+				child.setId(c.getMenuId());
+				child.setPid(c.getParentId());
+				child.setText(c.getNameZh());
+				child.setIcon(c.getMenuIcon());
+				
+				for(Integer k:list){
+					if(c.getMenuId().equals(k)){
+						Trees tt=new Trees();
+						tt.setChecked(true);
+						child.setState(tt);
+						}
+				}
+				
+				childList.add(child);
+			}
+			if(childList.size()>=1){
+				parent.setNodes(childList);
+			}
+			tree.add(parent);
+		}
+		return tree;
+	}
+
+	
 
 
 }

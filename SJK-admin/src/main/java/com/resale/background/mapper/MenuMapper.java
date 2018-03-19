@@ -73,4 +73,11 @@ public interface MenuMapper {
 	 */
 	void deleteMenuByMenuId(Map<String, Object> map);
 
+	/**
+	 * 根据父id查询子菜单
+	 * @param object
+	 * @return
+	 */
+	List<Menu> queryChildMenuByPid(String pid);
+
 }

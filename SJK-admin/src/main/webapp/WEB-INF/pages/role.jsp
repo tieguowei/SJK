@@ -6,6 +6,16 @@
 <html>
 <head>
 <title>角色管理</title>
+<style type="text/css">
+ #authDlg {
+     position: fixed;  
+    top: -10%;
+    left: 30%;
+    width: 800px;
+    height: 800px;
+     margin: 100px 100 0 0px;/* margin 负值为宽高的一半 */ */
+} 
+</style>
 <script type="text/javascript">
  $(function(){
 	formValidator();
@@ -257,6 +267,105 @@ function deleteRole(id){
 	            }
 	        }
 	    });
+}
+
+
+//加载权限
+function getAuth(id){
+	$("#rid").val(id);
+	$.ajax({
+		url:'${path}/role/viewTree',
+		dataType:'json',
+		type:'post',
+		data:{rid:id},
+		success:function(data){
+			 $('#tree').treeview({
+                 data: data,         // 数据源
+                 showCheckbox: true,   //是否显示复选框
+                 highlightSelected: false,    //是否高亮选中
+                 //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                    //expandIcon: 'glyphicon glyphicon-chevron-right',//展开图标 
+                   collapseIcon: 'glyphicon glyphicon-chevron-down',//合并图标 
+                   //  nodeIcon: 'glyphicon glyphicon-bookmark',//无节点图标 
+                  backColor: "purple",//背景色 
+                     onhoverColor: "#F5F5DC",//鼠标悬浮颜色 
+                     borderColor: "red",//边框颜色 
+                     highlightSelected: true,//高亮选中 
+                     selectedColor: "red",//选中颜色 
+                     selectedBackColor: "#D3D3D3",//选中背景色 
+                  color: "#00BFFF", 
+                  selectable: false,
+                 multiSelect: false,    //多选
+                  state: {
+                	     checked: true,
+                	     disabled: true,
+                	     expanded: true,
+                	     selected: true
+                	   },
+                 onNodeChecked: function (event,node) {
+                	// 父级节点被选中，那么子级节点都要选中
+                	  if (node.nodes != null) {
+                	   $.each(node.nodes, function(index, value) {
+                	     $('#tree').treeview('checkNode', value.nodeId, {
+                	     silent : true
+                	    });
+                	   });
+                	  } else {
+
+                    	   // 子级节点选中的时候，要根据情况判断父节点是否要全部选中
+                    	   // 父节点
+                    	   var parentNode =  $('#tree').treeview('getParent', node.nodeId);
+                    	   var isAllchecked =  $('#tree'); // 是否全部选中
+                    	   // 当前子级节点的所有兄弟节点，也就是获取父下面的所有子
+                    	   var siblings =  $('#tree').treeview('getSiblings', node.nodeId);
+                    	   for ( var i in siblings) {
+                    	    // 有一个没选中，则不是全选
+                    	    if (!siblings[i].state.checked) {
+                    	     isAllchecked = false;
+                    	     break;
+                    	    }
+                    	   }
+                    	   // 全选，则打钩
+                    	   if (isAllchecked) {
+                    	     $('#tree').treeview('checkNode', parentNode.nodeId, {
+                    	     silent : true
+                    	    });
+                    	   } else {// 非全选，则变红
+                    	     $('#tree').treeview('checkNode', node.nodeId, {
+                    	     silent : true
+                    	    });
+                    	   }
+                    	  
+                	 }
+                 },
+                 onNodeUnchecked : function(event, node) {
+                	 silentByChild = true;
+                	  // 选中的是父级节点
+                	  if (node.nodes != null) {
+                	   // 这里需要控制，判断是否是因为子级节点引起的父节点被取消选中
+                	   // 如果是，则只管取消父节点就行了
+                	   // 如果不是，则子节点需要被取消选中
+                	// var silentByChild=false;
+                	   if (silentByChild) {
+                	    $.each(node.nodes, function(index, value) {
+                	     $('#tree').treeview('uncheckNode', value.nodeId, {
+                	      silent : true
+                	     });
+                	    });
+                	   }
+                	  } 
+                	 },
+                 onNodeSelected: function (event, data) {
+                	
+                 }
+             });
+
+		},
+		error:function(){
+			alert("请求失败！");
+		}
+	});
+	$("#authDlg").modal('show');
 }
 //关闭模态框
 function closeDlg(){

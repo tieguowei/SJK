@@ -1,6 +1,7 @@
 package com.resale.background.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.resale.background.pojo.Role;
 import com.resale.background.service.RoleService;
 import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
+import com.resale.background.util.ViewTree;
 import com.resale.util.StringUtil;
 
 @Controller
@@ -152,5 +154,16 @@ public class RoleController {
 		
 	}
 	
+	
+	/**
+	 * 加载权限菜单
+	 * @param rid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/viewTree")
+	public List<ViewTree> getRoleTree(@RequestParam("rid")int rid){
+		return roleService.getViewTree(rid);
+	}
 	
 }
