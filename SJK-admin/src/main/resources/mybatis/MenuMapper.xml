@@ -389,7 +389,8 @@
 			WHEN menu_status = '1' THEN '启用' 
 			WHEN menu_status = '2' THEN '禁用' 
 		end as  menu_status,
-		menu_url
+		menu_url,
+		remark
 	FROM
 		t_menu
 	where menu_status != '3'
@@ -440,5 +441,17 @@
 	FROM
 		t_menu
 	where name_zh =#{nameZh}
+  </select>
+  
+  
+  <!-- 删除菜单 -->
+  <select id="deleteMenuByMenuId" parameterType="hashmap">
+  		UPDATE  t_menu
+	SET menu_status = #{menuStatus},
+	 creator_id = #{creatorId},
+	 update_time = #{updateTime}
+	WHERE
+		menu_id = #{menuId};
+  
   </select>
 </mapper>

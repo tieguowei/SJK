@@ -108,7 +108,7 @@ public class RoleController {
 	
 	
 	/**
-	 * 添加角色
+	 * 修改角色
 	 * @param role
 	 * @return
 	 */

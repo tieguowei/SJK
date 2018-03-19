@@ -134,7 +134,6 @@ public class MenuController {
 	@RequestMapping("/updateMenu")
 	public String updateMenu(Menu menu){
 		try {
-			//根据菜单名称校验是否有重复
 			menuService.updateMenu(menu);
 			return "1";
 		} catch (Exception e) {

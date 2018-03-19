@@ -9,7 +9,7 @@
 <style type="text/css">
  .modal {
     position: fixed;  
-    top: 4%;
+    top: -12%;
     left: 30%;
     width: 800px;
     height: 800px;
@@ -46,14 +46,7 @@ $(function(){
 	      uniqueId: "id", //每一行的唯一标识，一般为主键列
 	      queryParamsType:'',
 	      queryParams: queryParams,//传递参数（*）
-	      columns : [ {
-				field : "menu_id",
-				title : "菜单编号",
-				class : 'col-md-1',
-				align : "center",
-				valign : "middle",
-				sortable : "true"
-			}, {
+	      columns : [{
 				field : "name_zh",
 				title : "菜单名称",
 				align : "center",
@@ -86,6 +79,12 @@ $(function(){
 			}, {
 				field : "menu_status",
 				title : "状态",
+				align : "center",
+				valign : "middle",
+				sortable : "true"
+			},{
+				field : "remark",
+				title : "菜单描述",
 				align : "center",
 				valign : "middle",
 				sortable : "true"
@@ -232,7 +231,11 @@ function addMenu(){
 			});
 		},
 		error:function(){
-			alert("请求失败！");
+			$.alert({
+			        title: '提示信息！',
+			        content: '请求失败！',
+			        type: 'red'
+			    });
 		}
 	});
 	$("#addDlg").modal('show');
@@ -258,6 +261,7 @@ function getValue(id){
 			$("#update_menu_icon").val(data.menu.menuIcon);
 			$("#update_menu_type").val(data.menu.menuType);
 			$("#update_menu_permission").val(data.menu.permission);
+			$("#menu_update_remark").val(data.menu.remark); 
 			if(data.menu.menuStatus=='2'){
 				$("#close").prop('checked',true);
 			}else{
@@ -522,6 +526,16 @@ function empty(){
 			<input  type="radio" name="menuStatus" value="2">禁用
 			</div>
 			</div>
+			
+			
+			<div class="form-group">
+			<label class="col-md-2 control-label">菜单描述：</label>
+			<div class="col-md-3">
+			<textarea rows="2" id="remark" name="remark" cols="20" class="form-control form-control-static" placeholder="请输入角色 描述"></textarea>
+			</div>
+			</div>
+			
+			
             <div class="modal-footer col-md-6">
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />
@@ -599,6 +613,15 @@ function empty(){
 			<input id="close" type="radio" name="menuStatus" value="2">禁用
 			</div>
 			</div>
+			
+			<div class="form-group">
+			<label class="col-md-2 control-label">菜单描述：</label>
+			<div class="col-md-3">
+			<textarea rows="2" id="menu_update_remark" name="remark" cols="20" class="form-control form-control-static" placeholder="请输入角色 描述"></textarea>
+			</div>
+			</div>
+			
+			
             <div class="modal-footer col-md-6">
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />

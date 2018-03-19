@@ -68,13 +68,19 @@ public class RoleServiceImpl implements RoleService {
 
 
 	@Override
-	public void updateRole(Role role) {
+	public void updateRole(Role updateRole) {
+		//查询出要修改的角色
+		Role role = roleMapper.selectByPrimaryKey(updateRole.getId());
+		
 		Subject subject = SecurityUtils.getSubject();
 		Merchant merchant = (Merchant) subject.getPrincipal();
-		role.setCreatorId(merchant.getId());
-		role.setUpdateTime(new Date());
-		role.setRoleStatus("1");	
-		roleMapper.updateByPrimaryKey(role);
+		updateRole.setCreatorId(merchant.getId());
+		updateRole.setUpdateTime(new Date());
+		updateRole.setRoleStatus("1");
+		
+		//以下是未修改的字段
+		updateRole.setCreateTime(role.getCreateTime());
+		roleMapper.updateByPrimaryKey(updateRole);
 	}
 
 

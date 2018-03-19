@@ -67,4 +67,10 @@ public interface MenuMapper {
 	 */
 	Menu checkMenuNameIsRepeat(String nameZh);
 
+	/**
+	 * 删除菜单
+	 * @param map
+	 */
+	void deleteMenuByMenuId(Map<String, Object> map);
+
 }

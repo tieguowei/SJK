@@ -88,26 +88,36 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public void updateMenu(Menu menu) {
+	public void updateMenu(Menu updateMenu) {
 		//从shiro中获取商户信息
 		Subject subject = SecurityUtils.getSubject();
 		Merchant merchant = (Merchant) subject.getPrincipal();
-		menu.setCreatorId(merchant.getId());
-		menu.setUpdateTime(new Date());
-		menu.setCreateTime(new Date());	
-		menuMapper.updateByPrimaryKey(menu);
+		//查询出要修改的记录
+		Menu menu = menuMapper.selectByPrimaryKey(updateMenu.getMenuId());
+		
+		updateMenu.setCreatorId(merchant.getId());
+		updateMenu.setUpdateTime(new Date());
+		updateMenu.setCreateTime(new Date());
+		
+		//以下字段无需修改
+		updateMenu.setCreateTime(menu.getCreateTime());
+		updateMenu.setNameEn(menu.getNameEn());
+		updateMenu.setMenuSort(menu.getMenuSort());
+		menuMapper.updateByPrimaryKey(updateMenu);
 	}
 
 	@Override
 	public void deleteMenu(Menu menu) {
+		
 		//从shiro中获取商户信息
 		Subject subject = SecurityUtils.getSubject();
 		Merchant merchant = (Merchant) subject.getPrincipal();
-		menu.setCreatorId(merchant.getId());
-		menu.setUpdateTime(new Date());
-		menu.setCreateTime(new Date());
-		menu.setMenuStatus("3");
-		menuMapper.updateByPrimaryKey(menu);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("menuId", menu.getMenuId());
+		map.put("creatorId", merchant.getId());
+		map.put("updateTime", new Date());
+		map.put("menuStatus", "3");
+		menuMapper.deleteMenuByMenuId(map);
 	}
 
 	
