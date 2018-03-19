@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50513
 File Encoding         : 65001
 
-Date: 2018-03-15 17:46:01
+Date: 2018-03-19 10:05:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -184,9 +184,9 @@ CREATE TABLE `t_menu` (
   `name_zh` varchar(50) DEFAULT NULL COMMENT '菜单中文名称',
   `menu_url` varchar(100) DEFAULT NULL COMMENT '菜单路径',
   `menu_icon` varchar(50) DEFAULT NULL COMMENT '菜单图标',
-  `permission` varchar(50) DEFAULT NULL COMMENT '权限标识',
-  `menu_type` varchar(20) DEFAULT NULL COMMENT '菜单类型 (button:menu)',
-  `menu_status` char(1) DEFAULT NULL COMMENT '菜单状态（1：正常 2：禁用 3：删除）',
+  `permission` varchar(50) NOT NULL COMMENT '权限标识',
+  `menu_type` varchar(20) NOT NULL COMMENT '菜单类型 (button:menu)',
+  `menu_status` char(1) NOT NULL COMMENT '菜单状态（1：正常 2：禁用 3：删除）',
   `parent_id` int(11) DEFAULT NULL COMMENT '上一级id',
   `menu_sort` int(11) DEFAULT NULL COMMENT '排序方式',
   `remark` varchar(50) DEFAULT NULL COMMENT '菜单描述',
@@ -194,13 +194,13 @@ CREATE TABLE `t_menu` (
   `creator_id` int(11) NOT NULL COMMENT '创建人id',
   `update_time` datetime NOT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of t_menu
 -- ----------------------------
 INSERT INTO `t_menu` VALUES ('1', '', '系统管理', null, 'fa fa-cog', 'userInfo:view', 'menu', '1', '0', '1', null, '2018-03-11 08:50:17', '1', '2018-03-11 08:50:21');
-INSERT INTO `t_menu` VALUES ('2', '', '菜单管理', 'menu/goMenuPage', 'fa fa-th-large', 'userInfo:Add', 'menu', '1', '1', '2', null, '2018-03-11 08:52:04', '1', '2018-03-11 08:52:08');
+INSERT INTO `t_menu` VALUES ('2', '', '菜单管理', 'menu/goMenuPage', 'fa fa-th-large', 'menuManager:list', 'menu', '1', '1', '2', null, '2018-03-11 08:52:04', '1', '2018-03-11 08:52:08');
 INSERT INTO `t_menu` VALUES ('3', null, '角色管理', null, 'fa fa-th-large', 'userInfo:view', 'menu', '1', '1', '3', null, '2018-03-11 08:52:25', '1', '2018-03-11 08:52:29');
 INSERT INTO `t_menu` VALUES ('4', null, '用户管理', null, 'fa fa-user', 'userInfo:view', 'menu', '1', '1', '4', null, '2018-03-11 08:54:31', '1', '2018-03-11 08:54:35');
 INSERT INTO `t_menu` VALUES ('5', null, '商户管理', null, 'fa fa-user', 'userInfo:view', 'menu', '1', '1', '5', null, '2018-03-11 08:56:58', '1', '2018-03-11 08:57:05');
@@ -209,11 +209,11 @@ INSERT INTO `t_menu` VALUES ('7', null, '品类管理', null, 'fa fa-th-large', 
 INSERT INTO `t_menu` VALUES ('8', null, '商品管理', null, 'fa fa-th-large', 'userInfo:view', 'menu', '1', '6', '10', null, '2018-03-11 08:59:10', '1', '2018-03-11 08:59:14');
 INSERT INTO `t_menu` VALUES ('9', null, '订单管理', null, 'fa fa-globe', 'userInfo:view', 'menu', '1', '6', '11', null, '2018-03-11 09:08:29', '1', '2018-03-11 09:08:42');
 INSERT INTO `t_menu` VALUES ('10', null, '经营分析', null, 'fa fa-home', 'userInfo:view', 'menu', '1', '6', '12', null, '2018-03-11 09:10:19', '1', '2018-03-11 09:10:22');
-INSERT INTO `t_menu` VALUES ('11', null, '其他功能', null, 'fa fa-cog', 'userInfo:view', 'menu', '1', '0', null, null, '2018-03-11 09:13:46', '1', '2018-03-11 09:13:51');
-INSERT INTO `t_menu` VALUES ('12', null, '修改密码', null, 'fa fa-key', 'userInfo:view', 'menu', '1', '11', '13', null, '2018-03-11 09:14:10', '1', '2018-03-11 09:14:15');
-INSERT INTO `t_menu` VALUES ('13', null, '退出登录', null, 'fa fa-sign-out', 'userInfo:view', 'menu', '1', '11', '14', null, '2018-03-11 09:14:36', '1', '2018-03-11 09:14:41');
-INSERT INTO `t_menu` VALUES ('14', null, '佣金设置', null, 'fa fa-th-large', 'userInfo:view', 'menu', '1', '1', '6', null, '2018-03-11 09:14:59', '1', '2018-03-11 09:15:01');
-INSERT INTO `t_menu` VALUES ('15', null, '头条管理', null, 'fa fa-globe', 'userInfo:view', 'menu', '1', '1', '7', null, '2018-03-11 09:15:17', '1', '2018-03-11 09:15:20');
+INSERT INTO `t_menu` VALUES ('11', null, '佣金设置', null, 'fa fa-th-large', 'userInfo:view', 'menu', '1', '1', '6', null, '2018-03-11 09:14:59', '1', '2018-03-11 09:15:01');
+INSERT INTO `t_menu` VALUES ('12', null, '头条管理', null, 'fa fa-globe', 'userInfo:view', 'menu', '1', '1', '7', null, '2018-03-11 09:15:17', '1', '2018-03-11 09:15:20');
+INSERT INTO `t_menu` VALUES ('13', null, '菜单添加', null, null, 'menuManager:add', 'button', '1', '2', null, '菜单管理 - 添加菜单 - 保存按钮', '2018-03-19 09:11:19', '1', '2018-03-19 09:11:27');
+INSERT INTO `t_menu` VALUES ('14', null, '菜单修改', null, null, 'menuManager:update', 'button', '1', '2', null, '菜单管理 - 修改菜单 - 修改按钮', '2018-03-19 09:33:10', '1', '2018-03-19 09:33:16');
+INSERT INTO `t_menu` VALUES ('15', null, '菜单删除', null, null, 'menuManager:delate', 'button', '1', '2', null, '菜单管理 - 删除按钮', '2018-03-19 09:34:33', '1', '2018-03-19 09:34:36');
 
 -- ----------------------------
 -- Table structure for t_merchant
@@ -228,12 +228,13 @@ CREATE TABLE `t_merchant` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='商户表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='商户表';
 
 -- ----------------------------
 -- Records of t_merchant
 -- ----------------------------
-INSERT INTO `t_merchant` VALUES ('1', '管理员', 'admin', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '2018-03-11 08:00:31', '2018-03-11 08:00:36');
+INSERT INTO `t_merchant` VALUES ('1', '管理员', 'admin', 'd3c59d25033dbf980d29554025c23a75', '8d78869f470951332959580424d4bf4f', '2018-03-11 08:00:31', '2018-03-19 09:16:48');
+INSERT INTO `t_merchant` VALUES ('2', '商户', 'merchant', '5a89872623d7b339603790201e3673c3', '8d78869f470951332959580424d4bf4f', '2018-03-19 09:18:43', '2018-03-19 09:18:46');
 
 -- ----------------------------
 -- Table structure for t_merchant_detail
@@ -279,12 +280,13 @@ CREATE TABLE `t_merchant_role_relation` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='商户角色中间表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='商户角色中间表';
 
 -- ----------------------------
 -- Records of t_merchant_role_relation
 -- ----------------------------
 INSERT INTO `t_merchant_role_relation` VALUES ('1', '1', '1', '2018-03-11 09:20:56', '2018-03-11 09:20:59');
+INSERT INTO `t_merchant_role_relation` VALUES ('2', '2', '2', '2018-03-19 09:24:27', '2018-03-19 09:24:29');
 
 -- ----------------------------
 -- Table structure for t_order
@@ -371,12 +373,13 @@ CREATE TABLE `t_role` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
 INSERT INTO `t_role` VALUES ('1', '管理员', 'ROLE_ADMIN', '1', '拥有管理员权限', '1', '2018-03-11 08:31:35', '2018-03-11 08:31:38');
+INSERT INTO `t_role` VALUES ('2', '商户', 'ROLE_MERCHANT', '1', '拥有商户权限', '1', '2018-03-19 09:21:18', '2018-03-19 09:21:21');
 
 -- ----------------------------
 -- Table structure for t_role_menu_relation
@@ -390,7 +393,7 @@ CREATE TABLE `t_role_menu_relation` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '最后一次修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='角色菜单中间表';
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='角色菜单中间表';
 
 -- ----------------------------
 -- Records of t_role_menu_relation
@@ -408,5 +411,19 @@ INSERT INTO `t_role_menu_relation` VALUES ('10', '1', '10', '1', '2018-03-11 09:
 INSERT INTO `t_role_menu_relation` VALUES ('11', '1', '11', '1', '2018-03-11 09:21:49', '2018-03-11 09:21:49');
 INSERT INTO `t_role_menu_relation` VALUES ('12', '1', '12', '1', '2018-03-11 09:21:49', '2018-03-11 09:21:49');
 INSERT INTO `t_role_menu_relation` VALUES ('13', '1', '13', '1', '2018-03-11 09:21:49', '2018-03-11 09:21:49');
-INSERT INTO `t_role_menu_relation` VALUES ('14', '1', '14', '1', '2018-03-11 09:21:49', '2018-03-11 09:21:49');
-INSERT INTO `t_role_menu_relation` VALUES ('15', '1', '15', '1', '2018-03-11 09:21:49', '2018-03-11 09:21:49');
+INSERT INTO `t_role_menu_relation` VALUES ('16', '2', '1', '1', '2018-03-19 09:21:52', '2018-03-19 09:21:54');
+INSERT INTO `t_role_menu_relation` VALUES ('17', '2', '2', '1', '2018-03-19 09:22:01', '2018-03-19 09:22:04');
+INSERT INTO `t_role_menu_relation` VALUES ('18', '2', '3', '1', '2018-03-19 09:22:11', '2018-03-19 09:22:13');
+INSERT INTO `t_role_menu_relation` VALUES ('19', '2', '4', '1', '2018-03-19 09:22:20', '2018-03-19 09:22:22');
+INSERT INTO `t_role_menu_relation` VALUES ('20', '2', '5', '1', '2018-03-19 09:22:29', '2018-03-19 09:22:31');
+INSERT INTO `t_role_menu_relation` VALUES ('21', '2', '6', '1', '2018-03-19 09:22:39', '2018-03-19 09:22:41');
+INSERT INTO `t_role_menu_relation` VALUES ('22', '2', '7', '1', '2018-03-19 09:22:48', '2018-03-19 09:22:50');
+INSERT INTO `t_role_menu_relation` VALUES ('23', '2', '8', '1', '2018-03-19 09:22:58', '2018-03-19 09:23:01');
+INSERT INTO `t_role_menu_relation` VALUES ('24', '2', '9', '1', '2018-03-19 09:23:09', '2018-03-19 09:23:11');
+INSERT INTO `t_role_menu_relation` VALUES ('25', '2', '10', '1', '2018-03-19 09:23:17', '2018-03-19 09:23:19');
+INSERT INTO `t_role_menu_relation` VALUES ('26', '2', '11', '1', '2018-03-19 09:23:28', '2018-03-19 09:23:32');
+INSERT INTO `t_role_menu_relation` VALUES ('27', '2', '12', '1', '2018-03-19 09:23:39', '2018-03-19 09:23:41');
+INSERT INTO `t_role_menu_relation` VALUES ('28', '2', '13', '1', '2018-03-19 09:53:15', '2018-03-19 09:53:17');
+INSERT INTO `t_role_menu_relation` VALUES ('29', '1', '14', '1', '2018-03-19 09:53:24', '2018-03-19 09:53:27');
+INSERT INTO `t_role_menu_relation` VALUES ('30', '1', '15', '1', '2018-03-19 09:54:35', '2018-03-19 09:54:37');
+INSERT INTO `t_role_menu_relation` VALUES ('31', '1', '16', '1', '2018-03-19 09:54:43', '2018-03-19 09:54:45');

@@ -83,6 +83,7 @@ public class MenuController {
 	 * @param menu
 	 * @return
 	 */
+	@RequiresPermissions("menuManager:add")
 	@ResponseBody
 	@RequestMapping("/saveMenu")
 	public String saveMenu(Menu menu){
@@ -128,6 +129,7 @@ public class MenuController {
 	 * @param menu
 	 * @return
 	 */
+	@RequiresPermissions("menuManager:update")
 	@ResponseBody
 	@RequestMapping("/updateMenu")
 	public String updateMenu(Menu menu){
@@ -148,6 +150,7 @@ public class MenuController {
 	 * @param menu
 	 * @return
 	 */
+	@RequiresPermissions("menuManager:delete")
 	@ResponseBody
 	@RequestMapping("/deleteMenu")
 	public boolean deleteMenu(Menu menu){

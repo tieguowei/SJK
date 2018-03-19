@@ -119,8 +119,8 @@ $(function(){
 
 
 function operateFormatter(value, row, index) {
-    return ['<button type="button" class=" btn btn-info" onclick="getValue('+row.menu_id+')">修改</button>',
-        '&nbsp;&nbsp;&nbsp;<button class=" btn btn-danger" type="button" onclick="delMenu('+row.menu_id+')">删除</button>'
+    return ['<shiro:hasPermission name="menuManager:update"><button type="button" class=" btn btn-info" onclick="getValue('+row.menu_id+')">修改</button></shiro:hasPermission>',
+        '&nbsp;&nbsp;&nbsp;<shiro:hasPermission name="menuManager:delete"><button class=" btn btn-danger" type="button" onclick="delMenu('+row.menu_id+')">删除</button></shiro:hasPermission>'
         ].join('');
 }
 
@@ -447,11 +447,9 @@ function empty(){
 <div id="toolbar" class="btn-toolbar">
 
 <shiro:hasPermission name="menuManager:add"> 
- 
   		 <button onclick="addMenu()" type="button" class="btn btn-success" style="margin-left: 956px;">
 		     	 <span class="glyphicon  con-plus" aria-hidden="true" >添加</span>
 		    </button>
- 
 </shiro:hasPermission>
 
         
