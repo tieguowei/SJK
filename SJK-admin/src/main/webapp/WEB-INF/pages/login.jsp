@@ -60,7 +60,7 @@
 		         </label> 
             </li>
             <li>
-                <input type="submit" value="登录" class="loginBtn"  onclick="doLogin()"  />
+                <input type="submit" value="登录" class="loginBtn" />
             </li>
         </ul>
     </form>

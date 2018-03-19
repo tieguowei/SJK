@@ -269,4 +269,46 @@
 	where mrr.merchant_id = #{id}
 	and r.role_status = 1
   </select>
+  
+  
+   <!-- 查询角色列表分页 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+  	SELECT
+		id,
+		role_name,
+		role_code,
+		remark
+	FROM
+		t_role
+	where role_status =1
+	limit #{startIndex},#{pageSize}
+  </select>
+  
+   <!--查询列表 分页总数 -->
+  <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
+  	SELECT COUNT(*) FROM t_role where role_status =1
+  </select>
+  
+  <select id="checkRoleCodeIsRepeat" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		id,
+		role_name,
+		role_code,
+		remark
+	FROM
+		t_role
+	where role_status =1
+	and role_code = #{roleCode}
+  
+  </select>
+  
+  <!-- 删除角色 -->
+  <update id="deleteRoleById" parameterType="hashmap">
+  	UPDATE  t_role
+	SET role_status = #{roleStatus},
+	 creator_id = #{creatorId},
+	 update_time = #{updateTime}
+	WHERE
+		id = #{id};
+  </update>
 </mapper>

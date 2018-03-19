@@ -155,7 +155,6 @@ public class MenuController {
 	@RequestMapping("/deleteMenu")
 	public boolean deleteMenu(Menu menu){
 		try {
-			//根据菜单名称校验是否有重复
 			menuService.deleteMenu(menu);
 			return true;
 		} catch (Exception e) {

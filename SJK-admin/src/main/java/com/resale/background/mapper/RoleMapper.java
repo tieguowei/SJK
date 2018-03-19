@@ -1,8 +1,11 @@
 package com.resale.background.mapper;
 
+import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Role;
 import com.resale.background.pojo.RoleExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleMapper {
@@ -31,4 +34,20 @@ public interface RoleMapper {
 	 * 根据用户ID查询角色信息
 	 */
 	List<Role> findRoleByMerchantId(Integer id);
+
+	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
+
+	Long findAllByPageCount(Map<String, Object> paramsCondition);
+	/**
+	 * 根据角色编码校验是否有重复
+	 * @param roleCode
+	 * @return
+	 */
+	Role checkRoleCodeIsRepeat(String roleCode);
+
+	/**
+	 * 删除角色
+	 * @param map
+	 */
+	void deleteRoleById(Map<String, Object> map);
 }

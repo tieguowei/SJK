@@ -42,7 +42,7 @@ $(function(){
 		  pageNumber : 1, //默认分页
 		  pageList : [ 10, 20, 50, 100, 200, 500 ],//分页数
 	      toolbar:"#toolbar",
-	      showColumns : true, //显示隐藏列
+	      showColumns : false, //显示隐藏列
 	      uniqueId: "id", //每一行的唯一标识，一般为主键列
 	      queryParamsType:'',
 	      queryParams: queryParams,//传递参数（*）
@@ -128,7 +128,7 @@ function operateFormatter(value, row, index) {
 function delMenu(id){
     $.confirm({
         title: '提示信息!',
-        content: '您确定要删除这条数据吗？',
+        content: '您确定要删除这个菜单吗？',
         type: 'blue',
         typeAnimated: true,
         buttons: {
@@ -158,7 +158,11 @@ function delMenu(id){
             				$("#menu-table").bootstrapTable('refresh');
             			},
             			error:function(){
-            				alert("请求失败！");
+            				$.alert({
+      					        title: '提示信息！',
+      					        content: '请求失败！',
+      					        type: 'red'
+      					    });
             			}
             		});
                 }
@@ -184,7 +188,7 @@ function saveMenu(){
 					    $.alert({
 					        title: '提示信息！',
 					        content: '菜单名称已存在!',
-					        type: 'blue'
+					        type: 'red'
 					    });
 					}else if(data == '1'){
 						$.alert({
@@ -192,6 +196,8 @@ function saveMenu(){
 					        content: '添加成功!',
 					        type: 'blue'
 					    });
+						$("#menu-table").bootstrapTable('refresh');
+						closeDlg();
 					}else{
 						$.alert({
 					        title: '提示信息！',
@@ -199,8 +205,6 @@ function saveMenu(){
 					        type: 'red'
 					    });
 					}
-				$("#menu-table").bootstrapTable('refresh');
-				closeDlg();
 				},
 				error:function(){
 					$.alert({
@@ -296,6 +300,8 @@ function updateMenu(){
 					        content: '修改成功!',
 					        type: 'blue'
 					    });
+						$("#menu-table").bootstrapTable('refresh');
+						closeDlg();
 					}else{
 						$.alert({
 					        title: '提示信息！',
@@ -303,8 +309,6 @@ function updateMenu(){
 					        type: 'red'
 					    });
 					}
-					$("#menu-table").bootstrapTable('refresh');
-					closeDlg();
 				},
 				error:function(){
 					  $.alert({
@@ -446,13 +450,12 @@ function empty(){
 <!--toolbar  -->
 <div id="toolbar" class="btn-toolbar">
 
-<shiro:hasPermission name="menuManager:add"> 
-  		 <button onclick="addMenu()" type="button" class="btn btn-success" style="margin-left: 956px;">
-		     	 <span class="glyphicon  con-plus" aria-hidden="true" >添加</span>
-		    </button>
-</shiro:hasPermission>
-
-        
+<shiro:hasPermission name="menuManager:add">
+		
+  <button onclick="addMenu()" type="button" class="btn btn-success" style="margin-left: 1015px;">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true">添加</span>
+    </button>
+ </shiro:hasPermission>
    
 </div>
 
@@ -474,7 +477,6 @@ function empty(){
 			<div class="col-md-3 ">
 			<input type="text"  name="nameZh" class="form-control form-control-static" placeholder="请输入菜单名称">
 			</div>
-			<label class="control-label"><span id="info" style="color:red"></span></label>
 			</div>
 			
 			<div class="form-group">
@@ -549,7 +551,6 @@ function empty(){
 			<input type="hidden" id="update_menu_id" name="menuId">
 			<input type="text" id="update_menu_name" name="nameZh" class="form-control form-control-static" placeholder="请输入菜单名称">
 			</div>
-			<label class="control-label"><span id="info1" style="color:red"></span></label>
 			</div>
 			
 			<div class="form-group">

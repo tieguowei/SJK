@@ -15,10 +15,8 @@ import org.springframework.stereotype.Service;
 import com.resale.background.mapper.MenuMapper;
 import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
-import com.resale.background.redis.RedisClient;
 import com.resale.background.service.MenuService;
 import com.resale.background.util.PageModel;
-import com.resale.util.SerializeUtil;
 
 @Service
 public class MenuServiceImpl implements MenuService {
