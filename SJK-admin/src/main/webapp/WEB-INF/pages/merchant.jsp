@@ -471,7 +471,7 @@ function empty(){
 				<div class="form-group">
 					<label class="col-md-2 control-label">默认密码：</label>
 					<div class="col-md-3 ">
-						<input type="text"  id="password" name="password" class="form-control form-control-static" placeholder="123456" readonly="readonly">
+						<input type="text"  id="password" name="password" value="123456" class="form-control form-control-static" placeholder="123456" readonly="readonly">
 					</div>
 				</div>
             <div class="modal-footer col-md-6">
