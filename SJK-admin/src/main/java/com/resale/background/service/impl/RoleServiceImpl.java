@@ -167,7 +167,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	@Transactional
-	public void saveRoleAuth(int rid, String menuIds) {
+	public void updateRoleAuth(int rid, String menuIds) {
 		//根据角色id删除原有的菜单id
 		roleMenuRelationMapper.deleteMenuIdByRoleId(rid);
 		//添加新的菜单id

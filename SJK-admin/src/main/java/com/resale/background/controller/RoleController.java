@@ -176,10 +176,11 @@ public class RoleController {
 	 */
 	
 	@ResponseBody
-	@RequestMapping("/saveRoleAuth")
-	public boolean saveRoleAuth(@RequestParam("rid")int rid,@RequestParam("menuIds")String menuIds){
+	@RequiresPermissions("roleManager:updateRoleAuth")
+	@RequestMapping("/updateRoleAuth")
+	public boolean updateRoleAuth(@RequestParam("rid")int rid,@RequestParam("menuIds")String menuIds){
 			try {
-				roleService.saveRoleAuth(rid, menuIds);
+				roleService.updateRoleAuth(rid, menuIds);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

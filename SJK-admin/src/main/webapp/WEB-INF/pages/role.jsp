@@ -100,9 +100,9 @@ function init() {
 
 
 function operateFormatter(value, row, index) {
-    return ['<button type="button" class=" btn btn-warning" onclick="getAuth('+row.id+')">权限</button>',
-        '<button type="button" class=" btn btn-info" onclick="openUpdateModal('+row.id+')">修改</button>',
-        '<button class=" btn btn-danger" type="button" onclick="deleteRole('+row.id+')">删除</button>'
+    return ['<shiro:hasPermission name="roleManager:updateRoleAuth"><button type="button" class=" btn btn-warning" onclick="getAuth('+row.id+')">权限</button></shiro:hasPermission>',
+        '<shiro:hasPermission name="roleManager:update"><button type="button" class=" btn btn-info" onclick="openUpdateModal('+row.id+')">修改</button></shiro:hasPermission>',
+        '<shiro:hasPermission name="roleManager:delete"><button class=" btn btn-danger" type="button" onclick="deleteRole('+row.id+')">删除</button></shiro:hasPermission>'
         ].join('');
 }
 
@@ -379,7 +379,7 @@ function saveAuth(){
 		ids.push(items.id);
 	});
 	 $.ajax({
-		url:'${path}/role/saveRoleAuth',
+		url:'${path}/role/updateRoleAuth',
 		dataType:'json',
 		type:'post',
 		traditional:true,
@@ -511,9 +511,11 @@ function formValidator(){
 
 <!--toolbar  -->
 <div id="toolbar" class="btn-toolbar">
+<shiro:hasPermission name="roleManager:add">
     <button onclick="openAddModal()" type="button" class="btn btn-success" style="margin-left: 1030px;">
       <span class="glyphicon glyphicon-plus" aria-hidden="true">添加</span>
     </button>
+    </shiro:hasPermission>
 </div>
 
 <!-- 模态框（Modal） -->

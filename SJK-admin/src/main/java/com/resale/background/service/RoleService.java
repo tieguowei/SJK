@@ -53,5 +53,5 @@ public interface RoleService {
 	 * @param menuIds
 	 * @return
 	 */
-	void saveRoleAuth(int rid, String menuIds);
+	void updateRoleAuth(int rid, String menuIds);
 }
