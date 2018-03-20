@@ -37,4 +37,9 @@ public interface MerchantMapper {
 	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
 
 	Long findAllByPageCount(Map<String, Object> paramsCondition);
+	/**
+	 * 删除商户
+	 * @param map
+	 */
+	void deleteMerchant(Map<String, Object> map);
 }

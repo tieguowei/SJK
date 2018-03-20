@@ -299,4 +299,14 @@
   	SELECT COUNT(*) FROM t_merchant m where m.merchant_status = '1'
   	 <include refid="dynamicPageWhere"/> 
   </select>
+  
+  <!-- 删除商户 -->
+  <update id="deleteMerchant" parameterType="hashmap">
+  	update 
+  		t_merchant
+    set 
+      merchant_status = #{merchantStatus,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

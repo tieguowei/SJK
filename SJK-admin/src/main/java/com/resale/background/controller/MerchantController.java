@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Role;
 import com.resale.background.service.MerchantService;
@@ -141,6 +142,7 @@ public class  MerchantController {
 	 * 添加管理员
 	 * @return
 	 */
+	@RequiresPermissions("merchantManager:add")//权限管理;
 	@RequestMapping("/saveMerchant")
 	@ResponseBody
 	public boolean saveMerchant(Merchant merchant){
@@ -153,4 +155,60 @@ public class  MerchantController {
 		}
 	}
 	
+	/**
+	 * 修改商户 回显
+	 * @return
+	 */
+	@RequestMapping("/getMerchantById")
+	@ResponseBody
+	public Map<String,Object> getMerchantById(@RequestParam("id")int id){
+		try {
+			Map<String,Object>map=new HashMap<String, Object>();
+			 Merchant merchant = merchantService.getMerchantById(id);
+			 map.put("merchant", merchant);
+			 return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+
+	/**
+	 * 修改管理员
+	 * @return
+	 */
+	@RequiresPermissions("merchantManager:update")//权限管理;
+	@RequestMapping("/updateMerchant")
+	@ResponseBody
+	public boolean updateMerchant(Merchant merchant){
+		try {
+			 merchantService.updateMerchant(merchant);
+			 return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * 删除商户
+	 * @param menu
+	 * @return
+	 */
+	@RequiresPermissions("merchantManager:delete")//权限管理;
+	@ResponseBody
+	@RequestMapping("/deleteMerchant")
+	public boolean deleteMerchant(Merchant merchant){
+		try {
+			merchantService.deleteMerchant(merchant);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 }

@@ -2,6 +2,7 @@ package com.resale.background.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.resale.background.mapper.MerchantMapper;
 import com.resale.background.mapper.MerchantRoleRelationMapper;
 import com.resale.background.mapper.RoleMapper;
+import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
+import com.resale.background.pojo.MerchantExample;
 import com.resale.background.pojo.MerchantRoleRelation;
 import com.resale.background.pojo.Role;
 import com.resale.background.pojo.RoleMenuRelation;
@@ -97,7 +100,6 @@ public class MerchantServiceImpl implements MerchantService {
 	@Override
 	public void saveMerchant(Merchant merchant) {
 		String uuid = UUIDUtil.getUUID();
-		//从shiro中获取商户信息
 		merchant.setCreateTime(new Date());
 		merchant.setUpdateTime(new Date());
 		merchant.setSalt(uuid);
@@ -106,6 +108,41 @@ public class MerchantServiceImpl implements MerchantService {
 	    merchant.setPassword(newPs);
 	    merchant.setMerchantStatus("1");
 	    merchantMapper.insert(merchant);
+	}
+
+	@Override
+	public Merchant getMerchantById(int id) {
+		return merchantMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateMerchant(Merchant merchant) {
+		Merchant result = merchantMapper.selectByPrimaryKey(merchant.getId());
+
+		//密码还原
+		if("1".equals(merchant.getMerchantStatus())){
+		    String newPs = new SimpleHash("MD5", "123456", result.getMerchantCode()+result.getSalt(), 2).toHex();
+		    merchant.setPassword(newPs);
+		}else{
+			merchant.setPassword(result.getPassword());
+		}
+		
+		merchant.setUpdateTime(new Date());
+		//以下字段不修改
+		merchant.setMerchantCode(result.getMerchantCode());
+		merchant.setCreateTime(result.getCreateTime());
+		merchant.setSalt(result.getSalt());
+		merchant.setMerchantStatus(result.getMerchantStatus());
+		merchantMapper.updateByPrimaryKey(merchant);
+	}
+
+	@Override
+	public void deleteMerchant(Merchant merchant) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", merchant.getId());
+		map.put("updateTime", new Date());
+		map.put("merchantStatus", "2");
+		merchantMapper.deleteMerchant(map);
 	}
 
 }

@@ -115,7 +115,7 @@ function init () {
 function operateFormatter(value, row, index) {
     return ['<shiro:hasPermission name="merchantManager:add"><button type="button" class=" btn btn-warning" onclick="getRole('+row.id+')">角色</button></shiro:hasPermission>',
         '<shiro:hasPermission name="merchantManager:update"><button type="button" class=" btn btn-info" onclick="openUpdateModal('+row.id+')">修改</button></shiro:hasPermission>',
-        '<shiro:hasPermission name="merchantManager:delete"><button class=" btn btn-danger" type="button" onclick="deleteRole('+row.id+')">删除</button></shiro:hasPermission>'
+        '<shiro:hasPermission name="merchantManager:delete"><button class=" btn btn-danger" type="button" onclick="deleteMerchant('+row.id+')">删除</button></shiro:hasPermission>'
         ].join('');
 }
 
@@ -191,92 +191,107 @@ function saveRole(){
 };
 
 //修改前，打开模态框
-function getValue(id){
+function openUpdateModal(id){
 	$.ajax({
-		url:'user/getUserById.action',
+		url:'${path}/merchant/getMerchantById',
 		dataType:'json',
 		type:'post',
 		data:{
-			uid:id
+			id:id
 		},
 		success:function(data){
-			$("#user_id1").val(data.user.user_id);
-			$("#user_account1").val(data.user.user_account);
-			$("#user_password1").val(data.user.user_password);
-			$("#user_name1").val(data.user.user_name);
-			$("#user_age1").val(data.user.user_age);
-			$("#user_address1").val(data.user.user_address);
-			$("#user_birth1").val(data.user.birthStr);
-			$("#email1").val(data.user.email);
-			$("#user_phone1").val(data.user.user_phone);
-			
-			if("男"==data.user.user_sex){
-				$("#nan1").prop('checked',true);
-			}else{
-				$("#nv1").prop('checked',true);
-			}
-			
-			$("#sid1").empty();
-			$("#sid1").append("<option value='0'>请选择</option>");
-			$.each(data.dept,function(){
-				if(data.user.dept_id==this.dept_id){
-					$("#sid1").append("<option selected value='"+this.dept_id+"'>"+this.dept_name+"</option>");
-				}else{
-					$("#sid1").append("<option value='"+this.dept_id+"'>"+this.dept_name+"</option>");
-				}
-			});
+			$("#update_id").val(data.merchant.id);
+			$("#update_merchant_name").val(data.merchant.merchantName);
+			$("#update_merchant_code").val(data.merchant.merchantCode);
 			$("#updateDlg").modal('show');
 		},
 		error:function(){
-			alert('请求失败！');
+			$.alert({
+		        title: '提示信息！',
+		        content: '请求失败！',
+		        type: 'red'
+		    });
 		}
 	});
 }
 //修改用户
-function upUser(){
-		if($("#myform1").data("bootstrapValidator").validate().isValid()){
+function updateMerchant(){
+		if($("#updateForm").data("bootstrapValidator").validate().isValid()){
 			$.ajax({
-				url:'user/upUser.action',
+				url:'${path}/merchant/updateMerchant',
 				dataType:'json',
 				type:'post',
-				data:$("#myform1").serialize(),
+				data:$("#updateForm").serialize(),
 				success:function(data){
-					if(data>0){
-						alert("修改成功！");
+					if(data){
+						 $.alert({
+	  					        title: '提示信息！',
+	  					        content: '修改成功！',
+	  					        type: 'blue'
+	  					    });
 					}else{
-						alert("修改失败！");
+						$.alert({
+  					        title: '提示信息！',
+  					        content: '修改失败！',
+  					        type: 'red'
+  					    });
 					}
 					closeDlg();
 					$("#merchant-table").bootstrapTable('refresh');
 				}
 			});
-		}else{
-			alert("请按规则填写信息");
 		}
 }
-
-//删除员工
-function delUser(id){
-	if(confirm("您确定要删除这条数据吗?")){
-		$.ajax({
-			url:'user/delUser.action',
-			dataType:'json',
-			type:'post',
-			data:{uid:id},
-			success:function(data){
-				if(data>0){
-					alert("删除成功！");
-				}else{
-					alert("删除失败！");
-				}
-				$("#merchant-table").bootstrapTable('refresh');
-			},
-			error:function(){
-				alert("请求失败！");
-			}
-		});
-	}
+//删除
+function deleteMerchant(id){
+    $.confirm({
+        title: '提示信息!',
+        content: '您确定要删除这个商户吗？',
+        type: 'blue',
+        typeAnimated: true,
+        buttons: {
+            	确定: {
+                action: function(){
+                	$.ajax({
+            			url:'${path}/merchant/deleteMerchant',
+            			dataType:'json',
+            			type:'post',
+            			data:{
+            				id:id
+            			},
+            			success:function(data){
+            				if(data){
+            					 $.alert({
+         					        title: '提示信息！',
+         					        content: '删除成功!',
+         					        type: 'blue'
+         					    });
+            				}else{
+            					 $.alert({
+          					        title: '提示信息！',
+          					        content: '删除失败!',
+          					        type: 'red'
+          					    });
+            				} 
+            				$("#merchant-table").bootstrapTable('refresh');
+            			},
+            			error:function(){
+            				$.alert({
+      					        title: '提示信息！',
+      					        content: '请求失败！',
+      					        type: 'red'
+      					    });
+            			}
+            		});
+                }
+            },
+          	  取消: function () {
+            }
+        }
+    });
 }
+
+
 //添加，打开模态框
 function openDlg(){
 	$("#addDlg").modal('show');
@@ -363,17 +378,6 @@ function formValidator(){
 				validators:{
 					notEmpty:{
 						message:"管理员名称不能为空"
-					},
-					stringLength:{
-						max:20,
-						message:"字符长度不能超过20个字符"
-					}
-				}
-			},
-			merchantCode:{
-				validators:{
-					notEmpty:{
-						message:"管理员账号不能为空"
 					},
 					stringLength:{
 						max:20,
@@ -492,25 +496,32 @@ function empty(){
 <div id="updateDlg" class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-        
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">添加管理员</h4>
+                <h4 class="modal-title" id="myModalLabel">修改管理员</h4>
             </div>
             <div class="container">
 			<form class="form-horizontal" id="updateForm"  method="post">
+			
 			<div class="form-group">
-			<label class="col-md-2 control-label">登录账号：</label>
-			<div class="col-md-3 ">
-			<input type="text"  id="user_account" name="user_account" class="form-control form-control-static" placeholder="请输入登陆账号">
+					<label class="col-md-2 control-label">管理员名称：</label>
+					<div class="col-md-3 ">
+						<input type="hidden"  id="update_id" name="id">
+						<input type="text"  id="update_merchant_name" name="merchantName" class="form-control form-control-static" placeholder="请输入管理员名称">
+					</div>
 			</div>
-			<label class="control-label"><span id="mid" style="color:red"></span></label>
-			</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">密码还原：</label>
+					<div class="col-md-3" class="form-control form-control-static">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input   type="radio" name="merchantStatus" value="1">是&nbsp;&nbsp;&nbsp;&nbsp;
+					<input  type="radio" checked="checked"  name="merchantStatus" value="2">否
+					</div>
+				</div>
             <div class="modal-footer col-md-6">
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />
                 <button type="button" class="btn btn-default" onclick="closeDlg()">关闭</button>
-               <button type="button" onclick="saveUser()" class="btn btn-primary">提交</button>
+               <button type="button" onclick="updateMerchant()" class="btn btn-primary">提交</button>
             </div>
             </form>
             </div>

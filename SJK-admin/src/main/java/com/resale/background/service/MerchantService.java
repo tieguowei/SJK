@@ -3,6 +3,7 @@ package com.resale.background.service;
 import java.util.List;
 import java.util.Map;
 
+import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.MerchantRoleRelation;
 import com.resale.background.pojo.Role;
@@ -45,5 +46,20 @@ public interface MerchantService {
 	 * @param merchant
 	 */
 	void saveMerchant(Merchant merchant);
+	/**
+	 * 修改回显
+	 * @param id
+	 * @return
+	 */
+	Merchant getMerchantById(int id);
+	/**
+	 * 修改管理员
+	 */
+	void updateMerchant(Merchant merchant);
+	/**
+	 * 删除商户
+	 * @param merchant
+	 */
+	void deleteMerchant(Merchant merchant);
 
 }
