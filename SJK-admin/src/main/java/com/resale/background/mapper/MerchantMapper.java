@@ -33,4 +33,8 @@ public interface MerchantMapper {
 	 * 根据用户登陆账号查询用户信息
 	 */
 	Merchant getInfoByMerchantCode(Map<String, Object> map);
+
+	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
+
+	Long findAllByPageCount(Map<String, Object> paramsCondition);
 }

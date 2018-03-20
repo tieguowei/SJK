@@ -445,6 +445,76 @@ public class MerchantExample {
             return (Criteria) this;
         }
 
+        public Criteria andMerchantStatusIsNull() {
+            addCriterion("merchant_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusIsNotNull() {
+            addCriterion("merchant_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusEqualTo(String value) {
+            addCriterion("merchant_status =", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusNotEqualTo(String value) {
+            addCriterion("merchant_status <>", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusGreaterThan(String value) {
+            addCriterion("merchant_status >", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("merchant_status >=", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusLessThan(String value) {
+            addCriterion("merchant_status <", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusLessThanOrEqualTo(String value) {
+            addCriterion("merchant_status <=", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusLike(String value) {
+            addCriterion("merchant_status like", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusNotLike(String value) {
+            addCriterion("merchant_status not like", value, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusIn(List<String> values) {
+            addCriterion("merchant_status in", values, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusNotIn(List<String> values) {
+            addCriterion("merchant_status not in", values, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusBetween(String value1, String value2) {
+            addCriterion("merchant_status between", value1, value2, "merchantStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantStatusNotBetween(String value1, String value2) {
+            addCriterion("merchant_status not between", value1, value2, "merchantStatus");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

@@ -14,6 +14,8 @@ public class Merchant implements Serializable {
     private String password;
 
     private String salt;
+    
+    private String merchantStatus;
 
     private Date createTime;
 
@@ -74,6 +76,13 @@ public class Merchant implements Serializable {
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-    
+
+	public String getMerchantStatus() {
+		return merchantStatus;
+	}
+
+	public void setMerchantStatus(String merchantStatus) {
+		this.merchantStatus = merchantStatus;
+	}
     
 }

@@ -299,7 +299,6 @@
 		t_role
 	where role_status =1
 	and role_code = #{roleCode}
-  
   </select>
   
   <!-- 删除角色 -->
@@ -311,4 +310,16 @@
 	WHERE
 		id = #{id};
   </update>
+  
+  <!-- 查询所有角色 -->
+  <select id="getRoleList" resultMap="BaseResultMap">
+  		SELECT
+		id,
+		role_name,
+		role_code,
+		remark
+	FROM
+		t_role
+	where role_status =1
+  </select>
 </mapper>

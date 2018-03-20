@@ -208,4 +208,35 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 根据商户id 查询所属角色 -->
+  <select id="getMerchantRoleById" parameterType="int" resultType="int">
+  	SELECT
+		role_id
+	FROM
+	t_merchant_role_relation 
+	where merchant_id =#{id}
+  </select>
+  
+  <!--根据商户id删除原有的角色id  -->
+  <delete id="deleteRoleIdByMerchantId" parameterType="int">
+  	delete from  t_merchant_role_relation 
+	where merchant_id =#{id}
+  </delete>
+  
+  <!-- 批量添加新的角色id -->
+   <insert id="insertRoleIds" parameterType="java.util.List">
+   
+   insert into t_merchant_role_relation (merchant_id, role_id, 
+      create_time, update_time
+      )values
+	<foreach collection="list" item="item" index="index" separator=",">
+	 (
+		 #{item.merchantId,jdbcType=BIGINT},  
+		 #{item.roleId,jdbcType=BIGINT}, 
+		 #{item.createTime,jdbcType=TIMESTAMP},
+		 #{item.updateTime,jdbcType=BIGINT}
+      )
+	</foreach>
+</insert>
 </mapper>

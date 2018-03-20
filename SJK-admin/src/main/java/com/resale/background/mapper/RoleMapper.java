@@ -50,4 +50,10 @@ public interface RoleMapper {
 	 * @param map
 	 */
 	void deleteRoleById(Map<String, Object> map);
+
+	/**
+	 * 查询所有角色
+	 * @return
+	 */
+	List<Role> getRoleList();
 }
