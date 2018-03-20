@@ -457,14 +457,14 @@ function empty(){
 			<div class="form-group">
 					<label class="col-md-2 control-label">管理员名称：</label>
 					<div class="col-md-3 ">
-						<input type="text"  id="merchant_name" name="merchantName" class="form-control form-control-static" placeholder="请输入登陆账号">
+						<input type="text"  id="merchant_name" name="merchantName" class="form-control form-control-static" placeholder="请输入管理员名称">
 					</div>
 			</div>
 				
 				<div class="form-group">
 					<label class="col-md-2 control-label">管理员账号：</label>
 					<div class="col-md-3 ">
-						<input type="text"  id="merchant_code" name="merchantCode" class="form-control form-control-static" placeholder="请输入登陆账号">
+						<input type="text"  id="merchant_code" name="merchantCode" class="form-control form-control-static" placeholder="请输入管理员账号">
 					</div>
 				</div>
 				

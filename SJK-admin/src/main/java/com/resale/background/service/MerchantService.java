@@ -3,6 +3,7 @@ package com.resale.background.service;
 import java.util.List;
 import java.util.Map;
 
+import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.MerchantRoleRelation;
 import com.resale.background.pojo.Role;
 import com.resale.background.util.PageModel;
@@ -39,5 +40,10 @@ public interface MerchantService {
 	 * @param rids
 	 */
 	void updateMerchantRole(int merchantId, String rids);
+	/**
+	 * 添加商户管理员
+	 * @param merchant
+	 */
+	void saveMerchant(Merchant merchant);
 
 }

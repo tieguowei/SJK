@@ -21,6 +21,7 @@ import com.resale.background.pojo.Role;
 import com.resale.background.pojo.RoleMenuRelation;
 import com.resale.background.service.MerchantService;
 import com.resale.background.util.PageModel;
+import com.resale.util.UUIDUtil;
 @Service
 public class MerchantServiceImpl implements MerchantService {
 
@@ -91,6 +92,20 @@ public class MerchantServiceImpl implements MerchantService {
 			list.add(relation);
 		}
 		merchantRoleRelationMapper.insertRoleIds(list);
+	}
+
+	@Override
+	public void saveMerchant(Merchant merchant) {
+		String uuid = UUIDUtil.getUUID();
+		//从shiro中获取商户信息
+		merchant.setCreateTime(new Date());
+		merchant.setUpdateTime(new Date());
+		merchant.setSalt(uuid);
+		//密码加密
+	    String newPs = new SimpleHash("MD5", merchant.getPassword(), merchant.getMerchantCode()+uuid, 2).toHex();
+	    merchant.setPassword(newPs);
+	    merchant.setMerchantStatus("1");
+	    merchantMapper.insert(merchant);
 	}
 
 }

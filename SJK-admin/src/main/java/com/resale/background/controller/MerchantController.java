@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Role;
 import com.resale.background.service.MerchantService;
 import com.resale.background.util.DataMsg;
@@ -129,6 +130,23 @@ public class  MerchantController {
 			
 			merchantService.updateMerchantRole(merchantId, rids);
 			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * 添加管理员
+	 * @return
+	 */
+	@RequestMapping("/saveMerchant")
+	@ResponseBody
+	public boolean saveMerchant(Merchant merchant){
+		try {
+			 merchantService.saveMerchant(merchant);
+			 return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
