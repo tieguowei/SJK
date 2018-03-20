@@ -47,4 +47,11 @@ public interface RoleService {
 	 * @return
 	 */
 	List<ViewTree> getViewTree(int rid);
+	/**
+	 * 修改角色权限
+	 * @param rid
+	 * @param menuIds
+	 * @return
+	 */
+	void saveRoleAuth(int rid, String menuIds);
 }

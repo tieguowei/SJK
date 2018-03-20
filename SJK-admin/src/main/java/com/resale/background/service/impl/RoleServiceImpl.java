@@ -3,7 +3,6 @@ package com.resale.background.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.resale.background.mapper.MenuMapper;
 import com.resale.background.mapper.RoleMapper;
@@ -162,6 +162,29 @@ public class RoleServiceImpl implements RoleService {
 				   }
 		}
 		return childList;
+	}
+
+
+	@Override
+	@Transactional
+	public void saveRoleAuth(int rid, String menuIds) {
+		//根据角色id删除原有的菜单id
+		roleMenuRelationMapper.deleteMenuIdByRoleId(rid);
+		//添加新的菜单id
+		Subject subject = SecurityUtils.getSubject();
+		Merchant merchant = (Merchant) subject.getPrincipal();
+		List<RoleMenuRelation>  list = new ArrayList<RoleMenuRelation> ();
+		String[] split = menuIds.split(",");
+		for (int i = 0; i < split.length; i++) {
+			RoleMenuRelation relation = new RoleMenuRelation();
+			relation.setUpdateTime(new Date());
+			relation.setCreatorId(merchant.getId());
+			relation.setMenuId(Integer.valueOf(split[i]));
+			relation.setCreateTime(new Date());
+			relation.setRoleId(rid);
+			list.add(relation);
+		}
+		roleMenuRelationMapper.insertMenuIds(list);
 	}
 
 	

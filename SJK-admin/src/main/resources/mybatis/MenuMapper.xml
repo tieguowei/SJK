@@ -374,6 +374,7 @@
     	and m.parent_id =#{pid}
 		and m.menu_status != '3'
 		and m.menu_type = 'menu'
+		order by menu_sort
   </select>
   
   

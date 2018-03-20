@@ -9,7 +9,7 @@
 <style type="text/css">
  #authDlg {
      position: fixed;  
-    top: -20%;
+    top: 4%;
     left: 30%;
     width: 800px;
     height: 800px;
@@ -283,19 +283,16 @@ function getAuth(id){
                  data: data,         // 数据源
                  showCheckbox: true,   //是否显示复选框
                  highlightSelected: false,    //是否高亮选中
-                 //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
-                    //expandIcon: 'glyphicon glyphicon-chevron-right',//展开图标 
-                   //collapseIcon: 'glyphicon glyphicon-chevron-down',//合并图标 
-                   //  nodeIcon: 'glyphicon glyphicon-bookmark',//无节点图标 
-                  backColor: "purple",//背景色 
-                     onhoverColor: "#F5F5DC",//鼠标悬浮颜色 
-                     borderColor: "red",//边框颜色 
-                     highlightSelected: true,//高亮选中 
-                     selectedColor: "red",//选中颜色 
-                     selectedBackColor: "#D3D3D3",//选中背景色 
-                  color: "#00BFFF", 
-                  selectable: false,
-                 multiSelect: false,    //多选
+                //collapseIcon: 'glyphicon glyphicon-chevron-down',//合并图标显示或者不显示 
+               	backColor: "purple",//背景色 
+                onhoverColor: "#F5F5DC",//鼠标悬浮颜色 
+                borderColor: "red",//边框颜色 
+                highlightSelected: true,//高亮选中 
+                selectedColor: "red",//选中颜色 
+                selectedBackColor: "#D3D3D3",//选中背景色 
+                color: "#00BFFF", 
+                selectable: false,
+                multiSelect: false,    //多选
                   state: {
                 	     checked: true,
                 	     disabled: true,
@@ -362,11 +359,62 @@ function getAuth(id){
 
 		},
 		error:function(){
-			alert("请求失败！");
+			$.alert({
+			        title: '提示信息！',
+			        content: '请求失败！',
+			        type: 'red'
+			    });
 		}
 	});
 	$("#authDlg").modal('show');
 }
+
+
+//保存权限
+function saveAuth(){
+	var id=$("#rid").val();
+	var ids=[];
+	var obj=$('#tree').treeview('getChecked');
+	$.each(obj,function(index,items){
+		ids.push(items.id);
+	});
+	 $.ajax({
+		url:'${path}/role/saveRoleAuth',
+		dataType:'json',
+		type:'post',
+		traditional:true,
+		data:{
+			rid:id,
+			menuIds:ids
+			},
+		success:function(data){
+			if(data){
+				$.alert({
+				        title: '提示信息！',
+				        content: '保存成功！',
+				        type: 'blue'
+				    });
+			}else{
+				$.alert({
+				        title: '提示信息！',
+				        content: '保存失败！',
+				        type: 'red'
+				    });
+			}
+			$("#role-table").bootstrapTable("refresh");
+			closeDlg();
+		},
+		error:function(){
+			$.alert({
+			        title: '提示信息！',
+			        content: '请求失败！',
+			        type: 'red'
+			    });
+		}
+	}); 
+	
+}
+
 //关闭模态框
 function closeDlg(){
 	$("#authDlg").modal('hide');

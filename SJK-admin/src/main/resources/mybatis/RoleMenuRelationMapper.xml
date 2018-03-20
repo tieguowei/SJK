@@ -233,6 +233,31 @@
 	FROM
 		t_role_menu_relation
 	WHERE
-		role_id = 1
+		role_id =#{roleId}
   </select>
+  
+  <!-- 根据角色id删除原有的菜单id -->
+  <delete id="deleteMenuIdByRoleId" parameterType="int">
+  
+  	delete  from 
+  	t_role_menu_relation
+	WHERE
+		role_id = #{roleId}
+  </delete>
+  
+  <!-- 批量添加新的菜单id -->
+   <insert id="insertMenuIds" parameterType="java.util.List">
+	   insert into t_role_menu_relation ( role_id, menu_id, 
+       creator_id,  update_time,create_time 
+      )values
+	<foreach collection="list" item="item" index="index" separator=",">
+	 (
+		 #{item.roleId,jdbcType=BIGINT},  
+		 #{item.menuId,jdbcType=BIGINT}, 
+		 #{item.creatorId,jdbcType=BIGINT}, 
+		 #{item.updateTime,jdbcType=BIGINT},
+		 #{item.createTime,jdbcType=TIMESTAMP}
+      )
+	</foreach>
+</insert>
 </mapper>

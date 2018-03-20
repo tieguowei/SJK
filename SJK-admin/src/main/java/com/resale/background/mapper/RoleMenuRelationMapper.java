@@ -34,4 +34,16 @@ public interface RoleMenuRelationMapper {
      * @return
      */
 	List<Integer> queryMenuIdListByRoleId(int rid);
+
+	/**
+	 * 根据角色id删除原有的菜单id
+	 * @param rid
+	 */
+	void deleteMenuIdByRoleId(int rid);
+
+	/**
+	 * 添加新的菜单id
+	 * @param list
+	 */
+	void insertMenuIds(List<RoleMenuRelation> list);
 }

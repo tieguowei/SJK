@@ -163,7 +163,28 @@ public class RoleController {
 	@ResponseBody
 	@RequestMapping("/viewTree")
 	public List<ViewTree> getRoleTree(@RequestParam("rid")int rid){
-		return roleService.getViewTree(rid);
+		try {
+			return roleService.getViewTree(rid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 修改角色权限
+	 */
+	
+	@ResponseBody
+	@RequestMapping("/saveRoleAuth")
+	public boolean saveRoleAuth(@RequestParam("rid")int rid,@RequestParam("menuIds")String menuIds){
+			try {
+				roleService.saveRoleAuth(rid, menuIds);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 	}
 	
 }

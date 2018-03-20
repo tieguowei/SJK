@@ -3,7 +3,6 @@
 
 <html >
 <head>
-    <meta charset="utf-8">
     <title>登录页面</title>
     <link rel="stylesheet" href="${path}/css/common/base.css">
     <link rel="stylesheet" href="${path}/css/login.css">
