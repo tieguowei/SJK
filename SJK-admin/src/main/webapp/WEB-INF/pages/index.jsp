@@ -3,7 +3,7 @@
 <c:set value="${pageContext.request.contextPath }" var="path"></c:set>
 <html>
 <head>
-      <title>后台管理系统</title>
+      <title>后台管==========理系统</title>
     <link href="${path}/static/css/bootstrap.css" rel="stylesheet">
     <link href="${path}/static/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${path}/static/css/animate.css" rel="stylesheet">
