@@ -176,42 +176,61 @@ function delMenu(id){
 function saveMenu(){
 	
 		if($("#addForm").data('bootstrapValidator').validate().isValid()){
+			flag = true;
+			
+			//校验名称菜单名称是否存在
+			var nameZh = $("#nameZh").val();
 			$.ajax({
-				url:'menu/saveMenu',
+				url:'${path}/menu/checkMenuName',
 				dataType:'json',
+				data:{nameZh:nameZh},
 				type:'post',
-				data:$("#addForm").serialize(),
+				async:false, //同步 验证后再执行
 				success:function(data){
-					if(data == '0'){
-					    $.alert({
-					        title: '提示信息！',
-					        content: '菜单名称已存在!',
-					        type: 'red'
-					    });
-					}else if(data == '1'){
+					if(!data){
+						flag = false;
 						$.alert({
 					        title: '提示信息！',
-					        content: '添加成功!',
-					        type: 'blue'
-					    });
-						$("#menu-table").bootstrapTable('refresh');
-						closeDlg();
-					}else{
-						$.alert({
-					        title: '提示信息！',
-					        content: '添加失败！',
+					        content: '菜单名称已存在！',
 					        type: 'red'
 					    });
 					}
-				},
-				error:function(){
-					$.alert({
-				        title: '提示信息！',
-				        content: '请求失败！',
-				        type: 'red'
-				    });
 				}
-			});
+			})
+			
+			if(flag){
+				 $.ajax({
+					url:'menu/saveMenu',
+					dataType:'json',
+					type:'post',
+					data:$("#addForm").serialize(),
+					success:function(data){
+						if(data){
+						    $.alert({
+						    	 title: '提示信息！',
+							     content: '添加成功!',
+							     type: 'blue'
+						    });
+						    $("#menu-table").bootstrapTable('refresh');
+							closeDlg();
+						}else{
+							$.alert({
+						        title: '提示信息！',
+						        content: '添加失败！',
+						        type: 'red'
+						    });
+						}
+					},
+					error:function(){
+						$.alert({
+					        title: '提示信息！',
+					        content: '请求失败！',
+					        type: 'red'
+					    });
+					}
+				}); 
+			}
+			
 		}
 }
 
@@ -478,7 +497,7 @@ function empty(){
 			<div class="form-group">
 			<label class="col-md-2 control-label">菜单名称：</label>
 			<div class="col-md-3 ">
-			<input type="text"  name="nameZh" class="form-control form-control-static" placeholder="请输入菜单名称">
+			<input type="text" id="nameZh" name="nameZh" class="form-control form-control-static" placeholder="请输入菜单名称">
 			</div>
 			</div>
 			

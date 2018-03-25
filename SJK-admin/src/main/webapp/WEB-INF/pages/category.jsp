@@ -6,14 +6,6 @@
 <head>
 <title>品类管理</title>
 <style type="text/css">
- #roleDlg {
-     position: fixed;  
-    top: 15%;
-    left: 30%;
-    width: 800px;
-    height: 800px;
-     margin: 100px 100 0 0px;/* margin 负值为宽高的一半 */ 
-}
 #addDlg,#updateDlg{
     position: fixed;  
     top: 0%;
@@ -29,21 +21,13 @@
  * 用户
  */
 $(function (){
-	//select2 多选
-    $("#rid").select2({
-        language: "zh-CN", //设置 提示语言
-        maximumSelectionLength: 3,  //设置最多可以选择多少项
-         //width: "100%", //设置下拉框的宽度
-         placeholder: "请选择",
-         tags: true,
-    });
     formValidator();
 	init();
 }); 
     
 function init () {
 	   $('#merchant-table').bootstrapTable({
-		      url: "${path }/merchant/getMerchantList",
+		      url: "${path }/category/getCategoryList",
 		      method:"post",
 		      dataType: "json",
 		      contentType: "application/x-www-form-urlencoded",
@@ -67,31 +51,18 @@ function init () {
 		      queryParamsType:'',
 		      queryParams: queryParams,//传递参数（*）
 		      columns : [{
-					field : "id",
-					title : "商户编号",
-					align : "center",
-					valign : "middle",
-					sortable : "true"
-				}, {
-					field : "merchant_name",
-					title : "商户名称",
-					align : "center",
-					valign : "middle",
-					sortable : "true"
-				}, {
-					field : "merchant_code",
-					title : "商户编码",
+					field : "name",
+					title : "品类名称",
 					align : "center",
 					valign : "middle",
 					sortable : "true"
 				},{
-		            field: 'operate',
-		            title: '操作',
-		           class : 'col-md-2',
-		            align: 'center',
-		            valign: 'middle',
-		           formatter: operateFormatter,
-		        }],
+					field : "merchant_code",
+					title : "所属商户",
+					align : "center",
+					valign : "middle",
+					sortable : "true"
+				}],
 				formatLoadingMessage : function() {
 					return "请稍等，正在加载中...";
 				},
@@ -409,25 +380,8 @@ function empty(){
 
 <div class="panel panel-default">
 	<div class="panel-body">
-		<form id="conForm" class=" form-inline">
-		  <div class="form-group">
-		    <div class="col-md-2 ">
-		    <input type="text" class="form-control" id="merchant_code" placeholder="请输入商户编码">
-		    </div>
-		  </div>
-		  
-		   <div class="form-group">
-		    <div class="col-md-2 ">
-		    <input type="text" class="form-control" id="merchant_name" placeholder="请输入商户名称">
-		    </div>
-		  </div>
-  		<button type="button" onclick="searchMerchant()" class="btn btn-info ">
-   			<span class="glyphicon glyphicon-search" aria-hidden="true" >  搜索</span>
-   		</button>
-   		<button type="button" onclick="empty()" class="btn btn-danger ">
-   			<span class="glyphicon glyphicon-remove" aria-hidden="true" > 清空</span>
-   		</button>
-</form>
+		<font color="red" size="2" >品类参考：</font>
+		香烟	零食	饮料/水	酒类	坚果炒货	纸制品 	袜子	个人洗护 	女性护理 
 	</div>
 </div>
 

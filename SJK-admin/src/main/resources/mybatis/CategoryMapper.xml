@@ -255,4 +255,24 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 查询品类列表分页 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+  	SELECT
+		id,
+		parent_id,
+		name,
+		merchant_code
+	FROM
+		t_category
+	WHERE
+		status= 1
+	and merchant_code = #{merchantCode}
+	limit #{startIndex},#{pageSize}
+  </select>
+  
+   <!--查询列表 分页总数 -->
+  <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
+  	SELECT COUNT(*) FROM t_category where status = '1'
+  </select>
 </mapper>
