@@ -129,7 +129,6 @@ var Merchant = function (){
         //保存修改角色
         saveRole:function(){
             var merchantId=$("#merchantId").val();
-
             var rids=$("#rid").val();//select2 获取多选值
             $.ajax({
                 url:'merchant/updateMerchantRole',
@@ -147,6 +146,8 @@ var Merchant = function (){
                             content: '保存成功！',
                             type: 'blue'
                         });
+                        Merchant.closeDlg();
+                        $("#merchant-table").bootstrapTable('refresh');
                     }else{
                         $.alert({
                             title: '提示信息！',
@@ -154,8 +155,6 @@ var Merchant = function (){
                             type: 'red'
                         });
                     }
-                    closeDlg();
-                    $('#merchant-table').bootstrapTable('refresh');
                 }
             })
         },
@@ -198,6 +197,8 @@ var Merchant = function (){
                                 content: '修改成功！',
                                 type: 'blue'
                             });
+                            Merchant.closeDlg();
+                            $("#merchant-table").bootstrapTable('refresh');
                         }else{
                             $.alert({
                                 title: '提示信息！',
@@ -205,8 +206,7 @@ var Merchant = function (){
                                 type: 'red'
                             });
                         }
-                        Merchant.closeDlg();
-                        $("#merchant-table").bootstrapTable('refresh');
+                       
                     }
                 });
             }
