@@ -40,10 +40,10 @@ public interface RoleMapper {
 	Long findAllByPageCount(Map<String, Object> paramsCondition);
 	/**
 	 * 根据角色编码校验是否有重复
-	 * @param roleCode
+	 * @param map
 	 * @return
 	 */
-	Role checkRoleCodeIsRepeat(String roleCode);
+	Role checkRoleCodeIsRepeat(Map<String, Object> map);
 
 	/**
 	 * 删除角色

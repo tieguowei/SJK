@@ -33,4 +33,20 @@ public interface CategoryMapper {
 	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
 
 	Long findAllByPageCount(Map<String, Object> paramsCondition);
+	/**
+	 * 校验品类名称是否存在
+	 * @param map
+	 * @return
+	 */
+	Category checkCategoryNameIsRepeat(Map<String, Object> map);
+	/**
+	 * 修改
+	 * @param category
+	 */
+	void updateCategory(Category category);
+	/**
+	 * 删除
+	 * @param category
+	 */
+	void deleteCategory(Category category);
 }

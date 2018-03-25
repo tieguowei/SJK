@@ -87,24 +87,39 @@ var Role = function () {
         //添加
         addRole:function () {
             if($("#addForm").data('bootstrapValidator').validate().isValid()){
-                $.ajax({
+            	flag = true;
+    			//校验角色编码是否存在
+    			var roleCode = $("#role_code").val();
+    			$.ajax({
+    				url:'role/checkRoleCode',
+    				dataType:'json',
+    				data:{roleCode:roleCode},
+    				type:'post',
+    				async:false, //同步 验证后再执行
+    				success:function(data){
+    					if(!data){
+    						flag = false;
+    						$.alert({
+    					        title: '提示信息！',
+    					        content: '角色编码已存在！',
+    					        type: 'red'
+    					    });
+    					}
+    				}
+    			})
+    			if(flag){
+            	$.ajax({
                     url:'role/saveRole',
                     dataType:'json',
                     type:'post',
                     data:$("#addForm").serialize(),
                     success:function(data){
-                        if(data == '0'){
-                            $.alert({
-                                title: '提示信息！',
-                                content: '角色编码已存在!',
-                                type: 'red'
-                            });
-                        }else if(data == '1'){
-                            $.alert({
-                                title: '提示信息！',
-                                content: '添加成功!',
-                                type: 'blue'
-                            });
+                        if(data){
+                        	 $.alert({
+                                 title: '提示信息！',
+                                 content: '添加成功!',
+                                 type: 'blue'
+                             });
                             $("#role-table").bootstrapTable("refresh");
                             Role.closeDlg();
                         }else{
@@ -123,6 +138,7 @@ var Role = function () {
                         });
                     }
                 });
+            }
             }
         },
         //打开修改模态框
@@ -151,19 +167,36 @@ var Role = function () {
         //修改角色
         updateRole:function () {
             if($("#updateForm").data('bootstrapValidator').validate().isValid()){
-                $.ajax({
+                
+            	flag = true;
+    			//校验角色编码是否存在
+    			var roleCode = $("#role_update_roleCode").val();
+    			var id = $("#role_update_id").val();
+    			$.ajax({
+    				url:'role/checkRoleCode',
+    				dataType:'json',
+    				data:{roleCode:roleCode,id:id},
+    				type:'post',
+    				async:false, //同步 验证后再执行
+    				success:function(data){
+    					if(!data){
+    						flag = false;
+    						$.alert({
+    					        title: '提示信息！',
+    					        content: '角色编码已存在！',
+    					        type: 'red'
+    					    });
+    					}
+    				}
+    			})
+    			if(flag){
+            	$.ajax({
                     url:'role/updateRole',
                     dataType:'json',
                     type:'post',
                     data:$("#updateForm").serialize(),
                     success:function(data){
-                        if(data == '0'){
-                            $.alert({
-                                title: '提示信息！',
-                                content: '角色编码已存在!',
-                                type: 'red'
-                            });
-                        }else if(data == '1'){
+                        if(data){
                             $.alert({
                                 title: '提示信息！',
                                 content: '修改成功!',
@@ -187,6 +220,7 @@ var Role = function () {
                         });
                     }
                 });
+            }
             }
         },
         //删除角色

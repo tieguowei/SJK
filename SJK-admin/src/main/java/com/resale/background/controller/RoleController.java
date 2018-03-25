@@ -75,24 +75,47 @@ public class RoleController {
 	@RequiresPermissions("roleManager:add")
 	@ResponseBody
 	@RequestMapping("/saveRole")
-	public String saveRole(Role role){
+	public boolean saveRole(Role role){
 		try {
-			//根据角色编码校验是否有重复
-			Role result = roleService.checkRoleCodeIsRepeat(StringUtil.trim(role.getRoleCode()));
-			if(result != null){
-				return "0";
-			}else{
-				roleService.saveRole(role);
-				return "1";
-			}
+			roleService.saveRole(role);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "2";
+			return false;
 		}
 		
 	}
 	
-	
+	/**
+	 * 校验角色编码是否存在
+	 * @param menu
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/checkRoleCode")
+	public boolean checkRoleCode(HttpServletRequest request){
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			String roleCode = StringUtil.trim(request.getParameter("roleCode"));
+			if (StringUtil.isNotBlank(roleCode)) {
+				map.put("roleCode", roleCode);
+			}
+			String id = StringUtil.trim(request.getParameter("id"));
+			if (StringUtil.isNotBlank(id)) {
+				map.put("id", id);
+			}
+			Role result = roleService.checkRoleCodeIsRepeat(map);
+			if(result == null){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	
 	/**
 	 * 修改回显
@@ -122,19 +145,13 @@ public class RoleController {
 	@RequiresPermissions("roleManager:update")
 	@ResponseBody
 	@RequestMapping("/updateRole")
-	public String updateRole(Role role){
+	public boolean updateRole(Role role){
 		try {
-			//根据角色编码校验是否有重复
-			Role result = roleService.checkRoleCodeIsRepeat(StringUtil.trim(role.getRoleCode()));
-			if(result != null){
-				return "0";
-			}else{
-				roleService.updateRole(role);
-				return "1";
-			}
+			roleService.updateRole(role);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "2";
+			return false;
 		}
 		
 	}

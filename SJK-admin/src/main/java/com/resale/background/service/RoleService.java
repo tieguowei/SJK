@@ -3,7 +3,6 @@ package com.resale.background.service;
 import java.util.List;
 import java.util.Map;
 
-import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Role;
 import com.resale.background.util.PageModel;
 import com.resale.background.util.ViewTree;
@@ -20,7 +19,7 @@ public interface RoleService {
 	 * @param trim
 	 * @return
 	 */
-	Role checkRoleCodeIsRepeat(String roleCode);
+	Role checkRoleCodeIsRepeat(Map<String, Object> map);
 	/**
 	 * 添加角色
 	 */

@@ -111,7 +111,6 @@ public class MenuController {
 	@RequestMapping("/checkMenuName")
 	public boolean checkMenuName(HttpServletRequest request){
 		try {
-			//根据菜单名称校验是否有重复
 			Map<String, Object> map = new HashMap<String, Object>();
 			String nameZh = StringUtil.trim(request.getParameter("nameZh"));
 			if (StringUtil.isNotBlank(nameZh)) {
