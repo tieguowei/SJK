@@ -13,7 +13,7 @@ public class Category {
 
     private Integer sort;
 
-    private Integer creatorId;
+    private String merchantCode;
 
     private Date createTime;
 
@@ -59,12 +59,12 @@ public class Category {
         this.sort = sort;
     }
 
-    public Integer getCreatorId() {
-        return creatorId;
+    public String getMerchantCode() {
+        return merchantCode;
     }
 
-    public void setCreatorId(Integer creatorId) {
-        this.creatorId = creatorId;
+    public void setMerchantCode(String merchantCode) {
+        this.merchantCode = merchantCode == null ? null : merchantCode.trim();
     }
 
     public Date getCreateTime() {

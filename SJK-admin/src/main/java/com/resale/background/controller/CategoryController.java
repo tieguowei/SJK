@@ -21,13 +21,13 @@ import com.resale.background.util.PageModel;
 import com.resale.util.StringUtil;
 
 /**
- * 商户管理
+ *	品类管理
  * @author tie
  *
  */
 @Controller
-@RequestMapping("/merchant")
-public class  MerchantController {
+@RequestMapping("/category")
+public class  CategoryController {
 
 	@Autowired
 	private MerchantService merchantService;
@@ -36,10 +36,10 @@ public class  MerchantController {
 	 * 跳转到商户列表页面
 	 * @return
 	 */
-	@RequiresPermissions("merchantManager:list")//权限管理;
-	@RequestMapping("/goMerchantPage")
-	public String goMerchantPage(){
-		return "merchant";
+	@RequiresPermissions("categorytManager:list")//权限管理;
+	@RequestMapping("/goCategoryPage")
+	public String goCategoryPage(){
+		return "category";
 	}
 	
 	

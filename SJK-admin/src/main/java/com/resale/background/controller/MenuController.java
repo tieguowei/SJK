@@ -19,6 +19,11 @@ import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
 import com.resale.util.StringUtil;
 
+/**
+ *	菜单管理
+ * @author tie
+ *
+ */
 @Controller
 @RequestMapping("/menu")
 public class MenuController {

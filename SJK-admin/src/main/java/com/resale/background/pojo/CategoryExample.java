@@ -425,63 +425,73 @@ public class CategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdIsNull() {
-            addCriterion("creator_id is null");
+        public Criteria andMerchantCodeIsNull() {
+            addCriterion("merchant_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdIsNotNull() {
-            addCriterion("creator_id is not null");
+        public Criteria andMerchantCodeIsNotNull() {
+            addCriterion("merchant_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdEqualTo(Integer value) {
-            addCriterion("creator_id =", value, "creatorId");
+        public Criteria andMerchantCodeEqualTo(String value) {
+            addCriterion("merchant_code =", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdNotEqualTo(Integer value) {
-            addCriterion("creator_id <>", value, "creatorId");
+        public Criteria andMerchantCodeNotEqualTo(String value) {
+            addCriterion("merchant_code <>", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdGreaterThan(Integer value) {
-            addCriterion("creator_id >", value, "creatorId");
+        public Criteria andMerchantCodeGreaterThan(String value) {
+            addCriterion("merchant_code >", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("creator_id >=", value, "creatorId");
+        public Criteria andMerchantCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("merchant_code >=", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdLessThan(Integer value) {
-            addCriterion("creator_id <", value, "creatorId");
+        public Criteria andMerchantCodeLessThan(String value) {
+            addCriterion("merchant_code <", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdLessThanOrEqualTo(Integer value) {
-            addCriterion("creator_id <=", value, "creatorId");
+        public Criteria andMerchantCodeLessThanOrEqualTo(String value) {
+            addCriterion("merchant_code <=", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdIn(List<Integer> values) {
-            addCriterion("creator_id in", values, "creatorId");
+        public Criteria andMerchantCodeLike(String value) {
+            addCriterion("merchant_code like", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdNotIn(List<Integer> values) {
-            addCriterion("creator_id not in", values, "creatorId");
+        public Criteria andMerchantCodeNotLike(String value) {
+            addCriterion("merchant_code not like", value, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdBetween(Integer value1, Integer value2) {
-            addCriterion("creator_id between", value1, value2, "creatorId");
+        public Criteria andMerchantCodeIn(List<String> values) {
+            addCriterion("merchant_code in", values, "merchantCode");
             return (Criteria) this;
         }
 
-        public Criteria andCreatorIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("creator_id not between", value1, value2, "creatorId");
+        public Criteria andMerchantCodeNotIn(List<String> values) {
+            addCriterion("merchant_code not in", values, "merchantCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantCodeBetween(String value1, String value2) {
+            addCriterion("merchant_code between", value1, value2, "merchantCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchantCodeNotBetween(String value1, String value2) {
+            addCriterion("merchant_code not between", value1, value2, "merchantCode");
             return (Criteria) this;
         }
 

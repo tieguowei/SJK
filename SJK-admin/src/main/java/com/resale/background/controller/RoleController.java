@@ -21,6 +21,11 @@ import com.resale.background.util.PageModel;
 import com.resale.background.util.ViewTree;
 import com.resale.util.StringUtil;
 
+/**
+ *	角色管理
+ * @author tie
+ *
+ */
 @Controller
 @RequestMapping("/role")
 public class RoleController {
