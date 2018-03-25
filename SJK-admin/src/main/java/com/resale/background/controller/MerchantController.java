@@ -6,7 +6,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +47,8 @@ public class  MerchantController {
 	
 	/**
 	 * 分页查询所有商户
-	 * @param pageNumber
-	 * @param pageSize
+	 * @param request
+	 * @param dataMsg
 	 * @return
 	 */
 	@ResponseBody
@@ -54,9 +56,13 @@ public class  MerchantController {
 	public DataMsg getMerchantList(HttpServletRequest request,DataMsg dataMsg){
 		try {
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
+			Subject subject = SecurityUtils.getSubject();
+			Merchant merchant = (Merchant) subject.getPrincipal();
 			String merchantCode = request.getParameter("merchantCode");
 			if (StringUtil.isNotBlank(merchantCode)) {
 				paramsCondition.put("merchantCode", merchantCode);
+			}else if(!"admin".equals(merchant.getMerchantCode())){
+				paramsCondition.put("merchantCode", merchant.getMerchantCode());
 			}
 			String merchantName = request.getParameter("merchantName");
 			if (StringUtil.isNotBlank(merchantName)) {
@@ -76,7 +82,7 @@ public class  MerchantController {
 	
 	/**
 	 * 查询商户拥有的角色
-	 * @param uid
+	 * @param id
 	 * @return
 	 */
 	@ResponseBody
@@ -123,8 +129,8 @@ public class  MerchantController {
 
 	/**
 	 * 修改商户角色
-	 * @param uid
-	 * @param rid
+	 * @param merchantId
+	 * @param rids
 	 * @return
 	 */
 	@RequiresPermissions("merchantManager:updateRole")//权限管理;
@@ -199,7 +205,7 @@ public class  MerchantController {
 	
 	/**
 	 * 删除商户
-	 * @param menu
+	 * @param merchant
 	 * @return
 	 */
 	@RequiresPermissions("merchantManager:delete")//权限管理;
@@ -215,4 +221,16 @@ public class  MerchantController {
 		}
 		
 	}
+
+
+    /**
+     *我得地盘>商户信息
+     * @return
+     */
+    @RequestMapping("/goMerchantListPage")
+    public String goMerchantListPage(){
+        return "merchantList";
+    }
+
+
 }

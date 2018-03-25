@@ -65,7 +65,7 @@ public interface MenuMapper {
 	/*
 	 * 校验菜单名称是否重复
 	 */
-	Menu checkMenuNameIsRepeat(String nameZh);
+	Menu checkMenuNameIsRepeat(Map<String, Object> map);
 
 	/**
 	 * 删除菜单

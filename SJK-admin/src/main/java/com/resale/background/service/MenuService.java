@@ -27,10 +27,10 @@ public interface MenuService {
 	public List<Map<String, Object>> getParentMenuList();
 	/**
 	 * 校验菜单名称是否重复
-	 * @param nameZh
+	 * @param map
 	 * @return
 	 */
-	public Menu checkMenuNameIsRepeat(String nameZh);
+	public Menu checkMenuNameIsRepeat(Map<String, Object> map);
 	/**
 	 * 添加菜单
 	 * @param menu

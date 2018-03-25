@@ -54,7 +54,7 @@ public class MenuController {
 	public DataMsg getMenuList(HttpServletRequest request,DataMsg dataMsg){
 		try {
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
-			String nameZh = request.getParameter("nameZh");
+			String nameZh =StringUtil.trim(request.getParameter("nameZh"));
 			if (StringUtil.isNotBlank(nameZh)) {
 				paramsCondition.put("nameZh", nameZh);
 			}
@@ -112,8 +112,16 @@ public class MenuController {
 	public boolean checkMenuName(HttpServletRequest request){
 		try {
 			//根据菜单名称校验是否有重复
-			String nameZh = request.getParameter("nameZh");
-			Menu result = menuService.checkMenuNameIsRepeat(StringUtil.trim(nameZh));
+			Map<String, Object> map = new HashMap<String, Object>();
+			String nameZh = StringUtil.trim(request.getParameter("nameZh"));
+			if (StringUtil.isNotBlank(nameZh)) {
+				map.put("nameZh", nameZh);
+			}
+			String menuId = StringUtil.trim(request.getParameter("menuId"));
+			if (StringUtil.isNotBlank(menuId)) {
+				map.put("menuId", menuId);
+			}
+			Menu result = menuService.checkMenuNameIsRepeat(map);
 			if(result == null){
 				return true;
 			}else{
