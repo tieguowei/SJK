@@ -106,7 +106,7 @@ var Role = function () {
                                 type: 'blue'
                             });
                             $("#role-table").bootstrapTable("refresh");
-                            closeDlg();
+                            Role.closeDlg();
                         }else{
                             $.alert({
                                 title: '提示信息！',
@@ -170,7 +170,7 @@ var Role = function () {
                                 type: 'blue'
                             });
                             $("#role-table").bootstrapTable("refresh");
-                            closeDlg();
+                            Role.closeDlg();
                         }else{
                             $.alert({
                                 title: '提示信息！',

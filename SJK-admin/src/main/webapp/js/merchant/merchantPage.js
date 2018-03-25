@@ -205,7 +205,7 @@ var Merchant = function (){
                                 type: 'red'
                             });
                         }
-                        closeDlg();
+                        Merchant.closeDlg();
                         $("#merchant-table").bootstrapTable('refresh');
                     }
                 });
@@ -286,7 +286,7 @@ var Merchant = function (){
                             });
                         }
                         $("#merchant-table").bootstrapTable('refresh');
-                        closeDlg();
+                        Merchant.closeDlg();
                     },
                     error:function(){
                         $.alert({
