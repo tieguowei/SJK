@@ -8,24 +8,6 @@
     <link rel="stylesheet" href="${path}/css/product/product.css">
     <script src="${path}/js/product/product.js" charset="UTF-8" type="text/javascript"></script>
 </head>
-<script type="text/javascript">
-$("#uploadfile").fileinput({
-    language: 'zh', //设置语言
-    uploadUrl: "", //上传的地址
-    allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-    uploadAsync: true, //默认异步上传
-    showUpload: false, //是否显示上传按钮
-    
-    showRemove : true, //显示移除按钮
-    showPreview : true, //是否显示预览
-    showCaption: false,//是否显示标题
-    browseClass: "btn btn-primary", //按钮样式     
-    dropZoneEnabled: false,//是否显示拖拽区域
-    maxFileCount: 1, //表示允许同时上传的最大文件个数
-    enctype: 'multipart/form-data',
-    validateInitialCount:true
-});
-</script>
 <body>
 
 
@@ -85,7 +67,7 @@ $("#uploadfile").fileinput({
 					<label class="col-md-2 control-label">商品类别：</label>
 					<div class="col-md-3 ">
 					<input type="hidden" id="cid" >
-					<select  style= "width:260px" id="category_id" name="category_id" multiple="false"  class="form-control form-control-static "></select>
+					<select  style= "width:260px;" id="category_id" name="categoryId" multiple="false"  class="form-control form-control-static"></select>
 					</div>
 				</div>
 				<div class="form-group">
@@ -104,7 +86,7 @@ $("#uploadfile").fileinput({
 				<div class="form-group">
 					<label class="col-md-2 control-label">原价：</label>
 					<div class="col-md-3 ">
-						<input type="text"  id="original_price" name="original_price"  class="form-control form-control-static" placeholder="请输入原价">
+						<input type="text"  id="original_price" name="originalPrice"  class="form-control form-control-static" placeholder="请输入原价">
 					</div>
 				</div>
             <div class="modal-footer col-md-6">

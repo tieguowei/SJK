@@ -8,10 +8,11 @@ $(function (){
         language: "zh-CN", //设置 提示语言
         maximumSelectionLength: 1,  //设置最多可以选择多少项
         placeholder: "请选择",
-        tags: true
+        tags: false  
     });
     Product.formValidator();
     Product.init();
+    Product.initFileInput();
 });
 
 
@@ -60,7 +61,11 @@ var Product = function (){
                     align : "center",
                     valign : "middle",
                     formatter: function(value,row,index){
-                        return '<img  src="'+value+'" class="img-rounded" style="height:40px;width:40px;" >';
+                    	if(value == null){
+                    		return '-'
+                    	}else{
+                    		return '<img  src="'+value+'" class="img-rounded" style="height:40px;width:40px;" >';
+                    	}
                     }
                 }, {
                     field : "categoryName",
@@ -115,6 +120,23 @@ var Product = function (){
                 '<shiro:hasPermission name="productManager:update"><button type="button" class=" btn btn-info" onclick="Product.openUpdateModal('+row.id+')">修改</button></shiro:hasPermission>',
                 '<shiro:hasPermission name="productManager:delete"><button class=" btn btn-danger" type="button" onclick="product.deleteproduct('+row.id+')">删除</button></shiro:hasPermission>'
             ].join('');
+        },
+        initFileInput:function(){
+        	$("#uploadfile").fileinput({
+                language: 'zh', //设置语言
+                allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+                uploadAsync: true, //默认异步上传
+                showUpload: false, //是否显示上传按钮
+                
+                showRemove : true, //显示移除按钮
+                showPreview : true, //是否显示预览
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式     
+                dropZoneEnabled: false,//是否显示拖拽区域
+                maxFileCount: 1, //表示允许同时上传的最大文件个数
+                enctype: 'multipart/form-data',
+                validateInitialCount:true
+            });
         },
         //修改前，打开模态框
         openUpdateModal:function(id){
@@ -244,19 +266,23 @@ var Product = function (){
         //添加商品
         saveProduct:function(){
             if($("#addForm").data('bootstrapValidator').validate().isValid()){
-               alert(true)
+            	var formData = new FormData(document.getElementById("addForm"));//表单id
             	$.ajax({
-                    url:'product/saveproduct',
+                    url:'product/saveProduct',
                     type:'post',
                     dataType:'json',
-                    data:$("#addForm").serialize(),
+                    data:formData,
+                    contentType: false,
+                    processData: false,
                     success:function(data){
-                        if(data>0){
+                        if(data){
                             $.alert({
                                 title: '提示信息！',
                                 content: '添加成功!',
                                 type: 'blue'
                             });
+                            $("#product-table").bootstrapTable('refresh');
+                            Product.closeDlg();
                         }else{
                             $.alert({
                                 title: '提示信息！',
@@ -264,8 +290,6 @@ var Product = function (){
                                 type: 'red'
                             });
                         }
-                        $("#product-table").bootstrapTable('refresh');
-                        product.closeDlg();
                     },
                     error:function(){
                         $.alert({
@@ -281,6 +305,7 @@ var Product = function (){
         closeDlg:function () {
         	  $("#addDlg").modal('hide');
               $("#updateDlg").modal('hide');
+              $("input[type=reset]").trigger("click");
               $('#addForm').data('bootstrapValidator', null);
               $('#updateForm').data('bootstrapValidator', null);
               Product.formValidator();

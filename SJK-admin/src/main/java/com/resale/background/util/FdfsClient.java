@@ -122,7 +122,7 @@ private FastFileStorageClient storageClient;
 		
 		
 		// 封装文件完整URL地址
-	   private String getResAccessUrl(StorePath storePath) {
+	   public String getResAccessUrl(StorePath storePath) {
 	       String fileUrl = "http://"+ip + "/" + storePath.getFullPath();
 	       return fileUrl;
 	   }

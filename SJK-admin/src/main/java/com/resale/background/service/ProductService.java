@@ -1,10 +1,13 @@
 package com.resale.background.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.resale.background.pojo.Category;
 import com.resale.background.pojo.Product;
@@ -30,6 +33,7 @@ public interface ProductService {
 	 * @param request
 	 * @param response 
 	 */
-	void saveProduct(Product product, HttpServletRequest request, HttpServletResponse response);
+
+	void saveProduct(Product product, MultipartFile fileField)  throws IOException;
 
 }

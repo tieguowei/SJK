@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -13,7 +12,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.resale.background.pojo.Category;
 import com.resale.background.pojo.Merchant;
@@ -98,9 +99,9 @@ public class  ProductController {
 	@RequiresPermissions("productManager:add")
 	@ResponseBody
 	@RequestMapping("/saveProduct")
-	public boolean saveMenu(Product product,HttpServletRequest request,HttpServletResponse response ){
+	public boolean saveMenu(Product product,@RequestParam(value = "uploadfile",required = false)MultipartFile fileField){
 		try {
-			productService.saveProduct(product,request,response);
+			productService.saveProduct(product,fileField);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

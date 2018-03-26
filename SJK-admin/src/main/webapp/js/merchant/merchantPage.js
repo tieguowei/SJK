@@ -272,7 +272,7 @@ var Merchant = function (){
                     dataType:'json',
                     data:$("#addForm").serialize(),
                     success:function(data){
-                        if(data>0){
+                        if(data){
                             $.alert({
                                 title: '提示信息！',
                                 content: '添加成功!',
@@ -303,6 +303,7 @@ var Merchant = function (){
             $("#roleDlg").modal('hide');
             $("#updateDlg").modal('hide');
             $("#addDlg").modal('hide');
+            $("input[type=reset]").trigger("click");
             $('#addForm').data('bootstrapValidator', null);
             $('#updateForm').data('bootstrapValidator', null);
             Merchant.formValidator();
