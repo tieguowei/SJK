@@ -306,4 +306,15 @@
   	where id = #{id}
   </update>
   
+  <select id="getCategoryList" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+		id,
+		name,
+		merchant_code
+	FROM
+		t_category
+	WHERE
+		merchant_code =#{merchantCode}
+	AND `status` = 1
+  </select>
 </mapper>

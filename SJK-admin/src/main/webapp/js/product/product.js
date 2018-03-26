@@ -1,26 +1,25 @@
 
 /**
- * 用户
+ * 商品
  */
 $(function (){
     //select2 多选
-    $("#rid").select2({
+    $("#category_id").select2({
         language: "zh-CN", //设置 提示语言
-        maximumSelectionLength: 3,  //设置最多可以选择多少项
-        //width: "100%", //设置下拉框的宽度
+        maximumSelectionLength: 1,  //设置最多可以选择多少项
         placeholder: "请选择",
-        tags: true,
+        tags: true
     });
-    Merchant.formValidator();
-    Merchant.init();
+    Product.formValidator();
+    Product.init();
 });
 
 
-var Merchant = function (){
+var Product = function (){
     return{
         init:function (){
-            $('#merchant-table').bootstrapTable({
-                url: "merchant/getMerchantList",
+            $('#product-table').bootstrapTable({
+                url: "product/getProductList",
                 method:"post",
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded",
@@ -42,22 +41,48 @@ var Merchant = function (){
                 showColumns : false, //显示隐藏列
                 uniqueId: "id", //每一行的唯一标识，一般为主键列
                 queryParamsType:'',
-                queryParams: Merchant.queryParams,//传递参数（*）
+                queryParams: Product.queryParams,//传递参数（*）
                 columns : [{
                     field : "id",
-                    title : "商户编号",
+                    title : "商品编号",
                     align : "center",
                     valign : "middle",
                     sortable : "true"
                 }, {
-                    field : "merchant_name",
-                    title : "商户名称",
+                    field : "name",
+                    title : "商品名称",
                     align : "center",
                     valign : "middle",
                     sortable : "true"
+                },{
+                    field : "product_image_url",
+                    title : "图片",
+                    align : "center",
+                    valign : "middle",
+                    formatter: function(value,row,index){
+                        return '<img  src="'+value+'" class="img-rounded" style="height:40px;width:40px;" >';
+                    }
                 }, {
-                    field : "merchant_code",
-                    title : "商户编码",
+                    field : "categoryName",
+                    title : "所属分类",
+                    align : "center",
+                    valign : "middle",
+                    sortable : "true"
+                },{
+                    field : "price",
+                    title : "现价",
+                    align : "center",
+                    valign : "middle",
+                    sortable : "true"
+                },{
+                    field : "original_price",
+                    title : "原价",
+                    align : "center",
+                    valign : "middle",
+                    sortable : "true"
+                },{
+                    field : "sold_num",
+                    title : "已售笔数",
                     align : "center",
                     valign : "middle",
                     sortable : "true"
@@ -67,7 +92,7 @@ var Merchant = function (){
                     class : 'col-md-2',
                     align: 'center',
                     valign: 'middle',
-                    formatter: Merchant.operateFormatter,
+                    formatter: Product.operateFormatter,
                 }],
                 formatLoadingMessage : function() {
                     return "请稍等，正在加载中...";
@@ -81,96 +106,29 @@ var Merchant = function (){
             var temp = {
                 pageSize: params.pageSize,  //页面大小
                 pageNumber: params.pageNumber, //页码
-                merchantCode: $("#search_merchant_code").val(),
-                merchantName:$("#search_merchant_name").val(),
+                name: $("#name").val(),//商品名称
             };
             return temp;
         },
         operateFormatter:function(value, row, index){
-            return ['<shiro:hasPermission name="merchantManager:add"><button type="button" class=" btn btn-warning" onclick="Merchant.getRole('+row.id+')">角色</button></shiro:hasPermission>',
-                '<shiro:hasPermission name="merchantManager:update"><button type="button" class=" btn btn-info" onclick="Merchant.openUpdateModal('+row.id+')">修改</button></shiro:hasPermission>',
-                '<shiro:hasPermission name="merchantManager:delete"><button class=" btn btn-danger" type="button" onclick="Merchant.deleteMerchant('+row.id+')">删除</button></shiro:hasPermission>'
+            return [
+                '<shiro:hasPermission name="productManager:update"><button type="button" class=" btn btn-info" onclick="Product.openUpdateModal('+row.id+')">修改</button></shiro:hasPermission>',
+                '<shiro:hasPermission name="productManager:delete"><button class=" btn btn-danger" type="button" onclick="product.deleteproduct('+row.id+')">删除</button></shiro:hasPermission>'
             ].join('');
-        },
-        //角色分配
-        getRole:function(id){
-            $("#merchantId").val(id);
-            $.ajax({
-                url:'merchant/getRole',
-                dataType:'json',
-                type:'post',
-                traditional:true,
-                data:{
-                    id:id
-                },
-                success:function(data){
-                    $("#rid").empty();
-                    $.each(data.role,function(index,items){
-                        $("#rid").append("<option value='"+items.id+"'>"+items.roleName+"</option>");
-                    });
-                    if((data.userRole!=null)){
-                        $.each(data.userRole,function(index,items){
-                            $("#rid").val(data.userRole).trigger("change");//select2 选中
-                        });
-                    }else{
-                        $("#rid").val(0).trigger("change");
-                    }
-                },
-                error:function(){
-                    $.alert({
-                        title: '提示信息！',
-                        content: '请求失败！',
-                        type: 'red'
-                    });
-                }
-            })
-            $("#roleDlg").modal('show');
-        },
-        //保存修改角色
-        saveRole:function(){
-            var merchantId=$("#merchantId").val();
-            var rids=$("#rid").val();//select2 获取多选值
-            $.ajax({
-                url:'merchant/updateMerchantRole',
-                dataType:'json',
-                type:'post',
-                traditional:true,
-                data:{
-                    merchantId:merchantId,
-                    rid:rids
-                },
-                success:function(data){
-                    if(data){
-                        $.alert({
-                            title: '提示信息！',
-                            content: '保存成功！',
-                            type: 'blue'
-                        });
-                        Merchant.closeDlg();
-                        $("#merchant-table").bootstrapTable('refresh');
-                    }else{
-                        $.alert({
-                            title: '提示信息！',
-                            content: '保存失败！',
-                            type: 'red'
-                        });
-                    }
-                }
-            })
         },
         //修改前，打开模态框
         openUpdateModal:function(id){
             $.ajax({
-                url:'merchant/getMerchantById',
+                url:'product/getproductById',
                 dataType:'json',
                 type:'post',
                 data:{
                     id:id
                 },
                 success:function(data){
-                    $("#update_id").val(data.merchant.id);
-                    $("#update_merchant_name").val(data.merchant.merchantName);
-                    $("#update_merchant_code").val(data.merchant.merchantCode);
+                    $("#update_id").val(data.product.id);
+                    $("#update_product_name").val(data.product.productName);
+                    $("#update_product_code").val(data.product.productCode);
                     $("#updateDlg").modal('show');
                 },
                 error:function(){
@@ -182,11 +140,11 @@ var Merchant = function (){
                 }
             });
         },
-        //修改用户
-        updateMerchant:function(){
+        //修改商品
+        updateproduct:function(){
             if($("#updateForm").data("bootstrapValidator").validate().isValid()){
                 $.ajax({
-                    url:'merchant/updateMerchant',
+                    url:'product/updateproduct',
                     dataType:'json',
                     type:'post',
                     data:$("#updateForm").serialize(),
@@ -197,8 +155,8 @@ var Merchant = function (){
                                 content: '修改成功！',
                                 type: 'blue'
                             });
-                            Merchant.closeDlg();
-                            $("#merchant-table").bootstrapTable('refresh');
+                            product.closeDlg();
+                            $("#product-table").bootstrapTable('refresh');
                         }else{
                             $.alert({
                                 title: '提示信息！',
@@ -212,7 +170,7 @@ var Merchant = function (){
             }
         },
         //删除
-        deleteMerchant:function(id){
+        deleteproduct:function(id){
             $.confirm({
                 title: '提示信息!',
                 content: '您确定要删除这个商户吗？',
@@ -222,7 +180,7 @@ var Merchant = function (){
                     确定: {
                         action: function(){
                             $.ajax({
-                                url:'merchant/deleteMerchant',
+                                url:'product/deleteproduct',
                                 dataType:'json',
                                 type:'post',
                                 data:{
@@ -242,7 +200,7 @@ var Merchant = function (){
                                             type: 'red'
                                         });
                                     }
-                                    $("#merchant-table").bootstrapTable('refresh');
+                                    $("#product-table").bootstrapTable('refresh');
                                 },
                                 error:function(){
                                     $.alert({
@@ -261,13 +219,34 @@ var Merchant = function (){
         },
         //添加，打开模态框
         openDlg:function(){
+        	//加载所有类别
+        	 $.ajax({
+                 url:'product/getCategory',
+                 dataType:'json',
+                 type:'post',
+                 traditional:true,
+                 success:function(data){
+                     $("#category_id").empty();
+                     $.each(data.category,function(index,items){
+                         $("#category_id").append("<option value='"+items.id+"'>"+items.name+"</option>");
+                     });
+                 },
+                 error:function(){
+                     $.alert({
+                         title: '提示信息！',
+                         content: '请求失败！',
+                         type: 'red'
+                     });
+                 }
+             })
             $("#addDlg").modal('show');
         },
-        //添加用户
-        saveMerchant:function(){
+        //添加商品
+        saveProduct:function(){
             if($("#addForm").data('bootstrapValidator').validate().isValid()){
-                $.ajax({
-                    url:'merchant/saveMerchant',
+               alert(true)
+            	$.ajax({
+                    url:'product/saveproduct',
                     type:'post',
                     dataType:'json',
                     data:$("#addForm").serialize(),
@@ -285,8 +264,8 @@ var Merchant = function (){
                                 type: 'red'
                             });
                         }
-                        $("#merchant-table").bootstrapTable('refresh');
-                        Merchant.closeDlg();
+                        $("#product-table").bootstrapTable('refresh');
+                        product.closeDlg();
                     },
                     error:function(){
                         $.alert({
@@ -300,45 +279,51 @@ var Merchant = function (){
         },
         //关闭模态框
         closeDlg:function () {
-            $("#roleDlg").modal('hide');
-            $("#updateDlg").modal('hide');
-            $("#addDlg").modal('hide');
-            $('#addForm').data('bootstrapValidator', null);
-            $('#updateForm').data('bootstrapValidator', null);
-            Merchant.formValidator();
+        	  $("#addDlg").modal('hide');
+              $("#updateDlg").modal('hide');
+              $('#addForm').data('bootstrapValidator', null);
+              $('#updateForm').data('bootstrapValidator', null);
+              Product.formValidator();
         },
         formValidator:function () {
             $("#addForm").bootstrapValidator({
                 fields:{
-                    merchantName:{
+                    name:{
                         validators:{
                             notEmpty:{
-                                message:"管理员名称不能为空"
+                                message:"商品名称不能为空"
                             },
                             stringLength:{
-                                max:20,
-                                message:"字符长度不能超过20个字符"
+                                max:10,
+                                message:"字符长度不能超过10个字符"
                             }
                         }
                     },
-                    merchantCode:{
+                    category_id:{
                         validators:{
                             notEmpty:{
-                                message:"管理员账号不能为空"
-                            },
-                            stringLength:{
-                                max:20,
-                                message:"字符长度不能超过20个字符"
+                                message:"商品类别不能为空"
                             }
+                        }
+                    },
+                    price:{
+                        validators:{
+                            notEmpty:{
+                                message:"商品价格不能为空"
+                            },
+                            numeric: {
+                            	message: '只能输入数字'
+                            }  
                         }
                     }
                 }
+            
             });
 
 
             $("#updateForm").bootstrapValidator({
                 fields:{
-                    merchantName:{
+                    productName:{
                         validators:{
                             notEmpty:{
                                 message:"管理员名称不能为空"
@@ -353,14 +338,13 @@ var Merchant = function (){
             });
         },
         //搜索
-        searchMerchant:function () {
-            $("#merchant-table").bootstrapTable('refresh');
+        searchProduct:function () {
+            $("#product-table").bootstrapTable('refresh');
         },
         //清空
         empty:function () {
-            $("#search_merchant_code").val('');
-            $("#search_merchant_name").val('');
-            $("#merchant-table").bootstrapTable('refresh');
+            $("#name").val('');
+            $("#product-table").bootstrapTable('refresh');
         }
     }
 }();
@@ -368,25 +352,17 @@ var Merchant = function (){
 
 
 
-//角色分配
-function getRole(id){
-
-}
-//保存修改角色
-function saveRole(){
-
-};
 
 //修改前，打开模态框
 function openUpdateModal(id){
 
 }
-//修改用户
-function updateMerchant(){
+//修改商品
+function updateproduct(){
 
 }
 //删除
-function deleteMerchant(id){
+function deleteproduct(id){
 
 }
 
@@ -395,8 +371,8 @@ function deleteMerchant(id){
 function openDlg(){
 };
 
-//添加用户
-function saveMerchant(){
+//添加商品
+function saveproduct(){
 }
 
 //关闭模态框
@@ -407,7 +383,7 @@ function formValidator(){
 }
 
 //搜索
-function searchMerchant() {
+function searchproduct() {
 }
 //清空
 function empty(){

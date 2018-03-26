@@ -17,13 +17,13 @@
 		<form id="conForm" class=" form-inline">
 		  <div class="form-group">
 		    <div class="col-md-2 ">
-		    <input type="text" class="form-control" id="merchant_code" placeholder="请输入商户编码">
+		    <input type="text" class="form-control" id="search_merchant_code" placeholder="请输入商户编码">
 		    </div>
 		  </div>
 		  
 		   <div class="form-group">
 		    <div class="col-md-2 ">
-		    <input type="text" class="form-control" id="merchant_name" placeholder="请输入商户名称">
+		    <input type="text" class="form-control" id="search_merchant_name" placeholder="请输入商户名称">
 		    </div>
 		  </div>
   		<button type="button" onclick="Merchant.searchMerchant()" class="btn btn-info ">

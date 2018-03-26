@@ -49,4 +49,11 @@ public interface CategoryMapper {
 	 * @param category
 	 */
 	void deleteCategory(Category category);
+	
+	/**
+	 * 根据code 查询所有分类
+	 * @param merchantCode
+	 * @return
+	 */
+	List<Category> getCategoryList(String merchantCode);
 }

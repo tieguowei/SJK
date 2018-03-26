@@ -320,4 +320,39 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+   <!-- 设置查询条件 -->
+   <sql id="dynamicPageWhere">
+  	<if test="merchantCode != null">
+  		and p.merchant_code = #{merchantCode}
+ 	</if>
+ 	<if test="name != null">
+ 	  	and p.name LIKE CONCAT('%',#{name},'%') 
+ 	</if>
+  </sql>
+   
+   <!-- 查询商品列表分页 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+		  SELECT
+			p.id,
+			p.name,
+			c.name categoryName,
+			p.merchant_code,
+			p.product_image_url,
+			p.price,
+			p.original_price,
+			p.sold_num
+		FROM
+			t_product p
+		left join t_category c on p.category_id = c.id
+		where p.status = 1
+		<include refid="dynamicPageWhere"/> 
+	limit #{startIndex},#{pageSize}
+  </select>
+  
+   <!--查询列表 分页总数 -->
+  <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
+  	SELECT COUNT(*) FROM t_product p   where p.status = 1
+  	<include refid="dynamicPageWhere"/> 
+  </select>
 </mapper>

@@ -58,13 +58,13 @@ public class  MerchantController {
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
 			Subject subject = SecurityUtils.getSubject();
 			Merchant merchant = (Merchant) subject.getPrincipal();
-			String merchantCode = request.getParameter("merchantCode");
+			String merchantCode = StringUtil.trim(request.getParameter("merchantCode"));
 			if (StringUtil.isNotBlank(merchantCode)) {
 				paramsCondition.put("merchantCode", merchantCode);
 			}else if(!"admin".equals(merchant.getMerchantCode())){
 				paramsCondition.put("merchantCode", merchant.getMerchantCode());
 			}
-			String merchantName = request.getParameter("merchantName");
+			String merchantName =  StringUtil.trim(request.getParameter("merchantName"));
 			if (StringUtil.isNotBlank(merchantName)) {
 				paramsCondition.put("merchantName", merchantName);
 			}

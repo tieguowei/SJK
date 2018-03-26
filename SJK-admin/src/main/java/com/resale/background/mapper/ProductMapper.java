@@ -1,8 +1,12 @@
 package com.resale.background.mapper;
 
+import com.resale.background.pojo.Category;
+import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Product;
 import com.resale.background.pojo.ProductExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ProductMapper {
@@ -27,4 +31,10 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
+
+	Long findAllByPageCount(Map<String, Object> paramsCondition);
+
+	List<Category> getCategoryList(Merchant merchant);
 }

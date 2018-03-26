@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${path }/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${path }/static/js/bootstrap.js"></script>
 <link href="${path }/static/css/style.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="${path}/static/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${path }/static/js/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script type="text/javascript" src="${path }/static/js/plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
@@ -31,6 +32,11 @@
 <link href="${path }/static/css/info.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${path }/js/info.js"></script>
 
+
+
+<!-- file input -->  
+<link href="${path }/fileinput/fileinput.min.css" rel="stylesheet">  
+<script src="${path }/fileinput/fileinput.min.js"></script>  
 
 </head>
 <body>
