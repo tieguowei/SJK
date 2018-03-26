@@ -3,12 +3,17 @@ package com.resale.background.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.resale.background.mapper.CategoryMapper;
 import com.resale.background.mapper.ProductMapper;
 import com.resale.background.pojo.Category;
+import com.resale.background.pojo.Product;
 import com.resale.background.service.ProductService;
 import com.resale.background.util.PageModel;
 @Service
@@ -37,6 +42,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Category> getCategoryList(String merchantCode) {
 		return categoryMapper.getCategoryList(merchantCode);
+	}
+
+
+	@Override
+	public void saveProduct(Product product, HttpServletRequest request,HttpServletResponse response) {
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 	}
 
 

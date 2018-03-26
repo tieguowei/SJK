@@ -91,7 +91,7 @@ $("#uploadfile").fileinput({
 				<div class="form-group">
 					<label class="col-md-2 control-label">上传图片：</label>
 					<div class="col-md-3 ">
-						   <input type="file" name="uploadfile" id="uploadfile" multiple="multiple" class="file-loading" />  
+						   <input type="file" name="uploadfile" id="uploadfile" multiple="multiple" class="file-loading" style="height:30px;width: 40px;" />  
 					</div>
 				</div>
 				<div class="form-group">

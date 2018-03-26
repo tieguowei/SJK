@@ -8,9 +8,9 @@
 }
 #addDlg,#updateDlg{
     position: fixed;
-    top: 0%;
+    top: -10%;
     left: 30%;
     width: 800px;
-    height: 800px;
+    height: 600px;
     margin: 100px 100 0 0px;/* margin 负值为宽高的一半 */
 }
