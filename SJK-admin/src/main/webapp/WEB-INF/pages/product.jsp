@@ -109,23 +109,42 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">修改管理员</h4>
+                <h4 class="modal-title" id="myModalLabel">修改商品</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="updateForm"  method="post">
-			
+			<form enctype="multipart/form-data" class="form-horizontal" id="addForm"  method="post">
 			<div class="form-group">
-					<label class="col-md-2 control-label">管理员名称：</label>
+					<label class="col-md-2 control-label">商品名称：</label>
 					<div class="col-md-3 ">
-						<input type="hidden"  id="update_id" name="id">
-						<input type="text"  id="update_Product_name" name="ProductName" class="form-control form-control-static" placeholder="请输入管理员名称">
+						<input type="hidden"  id="update_id" name="id" class="form-control form-control-static" placeholder="请输入商品名称">
+						<input type="text"  id="update_name" name="name" class="form-control form-control-static" placeholder="请输入商品名称">
 					</div>
 			</div>
+				
 				<div class="form-group">
-					<label class="col-md-2 control-label">密码还原：</label>
-					<div class="col-md-3" class="form-control form-control-static">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input   type="radio" name="ProductStatus" value="1">是&nbsp;&nbsp;&nbsp;&nbsp;
-					<input  type="radio" checked="checked"  name="ProductStatus" value="2">否
+					<label class="col-md-2 control-label">商品类别：</label>
+					<div class="col-md-3 ">
+					<input type="hidden" id="cid" >
+					<select  style= "width:260px;" id="update_category_id" name="categoryId" multiple="false"  class="form-control form-control-static"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">上传图片：</label>
+					<div class="col-md-3 ">
+						   <input type="file" name="uploadfile" id="updateUploadfile" multiple="multiple" class="file-loading" style="height:30px;width: 40px;" />  
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">价格：</label>
+					<div class="col-md-3 ">
+						<input type="text"  id="update_price" name="price"  class="form-control form-control-static" placeholder="请输入价格">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label">原价：</label>
+					<div class="col-md-3 ">
+						<input type="text"  id="update_original_price" name="originalPrice"  class="form-control form-control-static" placeholder="请输入原价">
 					</div>
 				</div>
             <div class="modal-footer col-md-6">

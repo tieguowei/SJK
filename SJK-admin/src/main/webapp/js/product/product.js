@@ -3,16 +3,29 @@
  * 商品
  */
 $(function (){
-    //select2 多选
+    //添加
     $("#category_id").select2({
+        language: "zh-CN", //设置 提示语言
+        maximumSelectionLength: 1,  //设置最多可以选择多少项
+        placeholder: "请选择",
+        tags: false  //输入无效
+    });
+    //修改
+    $("#update_category_id").select2({
         language: "zh-CN", //设置 提示语言
         maximumSelectionLength: 1,  //设置最多可以选择多少项
         placeholder: "请选择",
         tags: false  
     });
+    
+    
     Product.formValidator();
     Product.init();
-    Product.initFileInput();
+    //添加页面上传初始化
+    Product.initAddFileInput();
+    //修改页面上传初始化
+    Product.initUpdateFileInput();
+    
 });
 
 
@@ -121,8 +134,25 @@ var Product = function (){
                 '<shiro:hasPermission name="productManager:delete"><button class=" btn btn-danger" type="button" onclick="product.deleteproduct('+row.id+')">删除</button></shiro:hasPermission>'
             ].join('');
         },
-        initFileInput:function(){
+        initAddFileInput:function(){
         	$("#uploadfile").fileinput({
+                language: 'zh', //设置语言
+                allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+                uploadAsync: true, //默认异步上传
+                showUpload: false, //是否显示上传按钮
+                
+                showRemove : true, //显示移除按钮
+                showPreview : true, //是否显示预览
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式     
+                dropZoneEnabled: false,//是否显示拖拽区域
+                maxFileCount: 1, //表示允许同时上传的最大文件个数
+                enctype: 'multipart/form-data',
+                validateInitialCount:true
+            });
+        },
+        initUpdateFileInput:function(){
+        	$("#updateUploadfile").fileinput({
                 language: 'zh', //设置语言
                 allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
                 uploadAsync: true, //默认异步上传
@@ -141,16 +171,29 @@ var Product = function (){
         //修改前，打开模态框
         openUpdateModal:function(id){
             $.ajax({
-                url:'product/getproductById',
+                url:'product/getProductById',
                 dataType:'json',
                 type:'post',
                 data:{
                     id:id
                 },
                 success:function(data){
+                	$("#update_category_id").empty();
+                    $.each(data.category,function(index,items){
+                        $("#update_category_id").append("<option value='"+items.id+"'>"+items.name+"</option>");
+                    });
+                     if((data.product!=null)){
+                         $.each(data.product,function(index,items){
+                             $("#update_category_id").val(data.product.categoryId).trigger("change");//select2 选中
+                         });
+                     }else{
+                         $("#update_category_id").val(0).trigger("change");
+                     }
                     $("#update_id").val(data.product.id);
-                    $("#update_product_name").val(data.product.productName);
-                    $("#update_product_code").val(data.product.productCode);
+                    $("#update_name").val(data.product.name);
+                    $("#update_price").val(data.product.price);
+                    $("#update_price").val(data.product.price);
+                    $("#update_original_price").val(data.product.originalPrice);
                     $("#updateDlg").modal('show');
                 },
                 error:function(){

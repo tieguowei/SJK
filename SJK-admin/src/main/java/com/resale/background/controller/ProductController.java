@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resale.background.pojo.Category;
+import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Product;
+import com.resale.background.pojo.Role;
 import com.resale.background.service.ProductService;
 import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
@@ -109,5 +111,28 @@ public class  ProductController {
 		}
 		
 	}
+	
+	/**
+	 * 修改商户 回显
+	 * @return
+	 */
+	@RequestMapping("/getProductById")
+	@ResponseBody
+	public Map<String,Object> getProductById(@RequestParam("id")int id){
+		try {
+			Subject subject = SecurityUtils.getSubject();
+			Merchant merchant = (Merchant) subject.getPrincipal();
+			Map<String,Object>map=new HashMap<String, Object>();
+			List<Category> clist=productService.getCategoryList(merchant.getMerchantCode());
+			 Product product = productService.getProductById(id);
+			 map.put("category", clist);
+			 map.put("product", product);
+			 return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 }

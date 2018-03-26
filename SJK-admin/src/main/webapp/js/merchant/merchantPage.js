@@ -9,7 +9,7 @@ $(function (){
         maximumSelectionLength: 3,  //设置最多可以选择多少项
         //width: "100%", //设置下拉框的宽度
         placeholder: "请选择",
-        tags: true,
+        tags: false  //输入无效
     });
     Merchant.formValidator();
     Merchant.init();

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import com.resale.background.pojo.Category;
@@ -35,5 +32,12 @@ public interface ProductService {
 	 */
 
 	void saveProduct(Product product, MultipartFile fileField)  throws IOException;
+
+	/**
+	 * 回显
+	 * @param id
+	 * @return
+	 */
+	Product getProductById(int id);
 
 }
