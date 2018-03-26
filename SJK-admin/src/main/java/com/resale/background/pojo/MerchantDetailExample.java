@@ -446,6 +446,76 @@ public class MerchantDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andLogoUrlIsNull() {
+            addCriterion("logo_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlIsNotNull() {
+            addCriterion("logo_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlEqualTo(String value) {
+            addCriterion("logo_url =", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlNotEqualTo(String value) {
+            addCriterion("logo_url <>", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlGreaterThan(String value) {
+            addCriterion("logo_url >", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("logo_url >=", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlLessThan(String value) {
+            addCriterion("logo_url <", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlLessThanOrEqualTo(String value) {
+            addCriterion("logo_url <=", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlLike(String value) {
+            addCriterion("logo_url like", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlNotLike(String value) {
+            addCriterion("logo_url not like", value, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlIn(List<String> values) {
+            addCriterion("logo_url in", values, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlNotIn(List<String> values) {
+            addCriterion("logo_url not in", values, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlBetween(String value1, String value2) {
+            addCriterion("logo_url between", value1, value2, "logoUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogoUrlNotBetween(String value1, String value2) {
+            addCriterion("logo_url not between", value1, value2, "logoUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andTelephoneIsNull() {
             addCriterion("telephone is null");
             return (Criteria) this;
@@ -1373,6 +1443,146 @@ public class MerchantDetailExample {
 
         public Criteria andMarginStatusNotBetween(String value1, String value2) {
             addCriterion("margin_status not between", value1, value2, "marginStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityIsNull() {
+            addCriterion("dimensionality is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityIsNotNull() {
+            addCriterion("dimensionality is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityEqualTo(String value) {
+            addCriterion("dimensionality =", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityNotEqualTo(String value) {
+            addCriterion("dimensionality <>", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityGreaterThan(String value) {
+            addCriterion("dimensionality >", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityGreaterThanOrEqualTo(String value) {
+            addCriterion("dimensionality >=", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityLessThan(String value) {
+            addCriterion("dimensionality <", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityLessThanOrEqualTo(String value) {
+            addCriterion("dimensionality <=", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityLike(String value) {
+            addCriterion("dimensionality like", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityNotLike(String value) {
+            addCriterion("dimensionality not like", value, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityIn(List<String> values) {
+            addCriterion("dimensionality in", values, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityNotIn(List<String> values) {
+            addCriterion("dimensionality not in", values, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityBetween(String value1, String value2) {
+            addCriterion("dimensionality between", value1, value2, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andDimensionalityNotBetween(String value1, String value2) {
+            addCriterion("dimensionality not between", value1, value2, "dimensionality");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeIsNull() {
+            addCriterion("longitude is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeIsNotNull() {
+            addCriterion("longitude is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeEqualTo(String value) {
+            addCriterion("longitude =", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotEqualTo(String value) {
+            addCriterion("longitude <>", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeGreaterThan(String value) {
+            addCriterion("longitude >", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeGreaterThanOrEqualTo(String value) {
+            addCriterion("longitude >=", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeLessThan(String value) {
+            addCriterion("longitude <", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeLessThanOrEqualTo(String value) {
+            addCriterion("longitude <=", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeLike(String value) {
+            addCriterion("longitude like", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotLike(String value) {
+            addCriterion("longitude not like", value, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeIn(List<String> values) {
+            addCriterion("longitude in", values, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotIn(List<String> values) {
+            addCriterion("longitude not in", values, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeBetween(String value1, String value2) {
+            addCriterion("longitude between", value1, value2, "longitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andLongitudeNotBetween(String value1, String value2) {
+            addCriterion("longitude not between", value1, value2, "longitude");
             return (Criteria) this;
         }
 

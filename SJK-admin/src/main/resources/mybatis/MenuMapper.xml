@@ -370,7 +370,8 @@
 		FROM t_merchant_role_relation mrr
 		JOIN t_role_menu_relation rmr ON mrr.role_id = rmr.role_id
 		JOIN t_menu m ON rmr.menu_id = m.menu_id
-		where mrr.role_id = #{id}
+		JOIN t_merchant mer on mrr.merchant_id = mer.id 
+		where mer.id = #{id}
     	and m.parent_id =#{pid}
 		and m.menu_status != '3'
 		and m.menu_type = 'menu'
@@ -437,13 +438,16 @@
   </select>
   
   <!--  校验菜单名称是否重复-->
-  <select id="checkMenuNameIsRepeat" parameterType="String" resultMap="BaseResultMap">
+  <select id="checkMenuNameIsRepeat" parameterType="hashmap" resultMap="BaseResultMap">
   	SELECT
 		menu_id,
 		name_zh
 	FROM
 		t_menu
 	where name_zh =#{nameZh}
+	<if test="menuId != null">
+		and menu_id != #{menuId}
+	</if>
   </select>
   
   

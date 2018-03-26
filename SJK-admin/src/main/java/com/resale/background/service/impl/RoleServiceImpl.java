@@ -54,8 +54,8 @@ public class RoleServiceImpl implements RoleService {
 
 
 	@Override
-	public Role checkRoleCodeIsRepeat(String roleCode) {
-		return roleMapper.checkRoleCodeIsRepeat(roleCode);
+	public Role checkRoleCodeIsRepeat(Map<String, Object> map) {
+		return roleMapper.checkRoleCodeIsRepeat(map);
 	}
 
 

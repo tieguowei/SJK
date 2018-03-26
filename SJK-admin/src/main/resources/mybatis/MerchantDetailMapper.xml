@@ -7,6 +7,7 @@
     <result column="merchant_code" property="merchantCode" jdbcType="VARCHAR" />
     <result column="invitation_code" property="invitationCode" jdbcType="VARCHAR" />
     <result column="is_commission" property="isCommission" jdbcType="CHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="operating_status" property="operatingStatus" jdbcType="CHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -21,6 +22,8 @@
     <result column="business_license_url" property="businessLicenseUrl" jdbcType="VARCHAR" />
     <result column="margin" property="margin" jdbcType="DECIMAL" />
     <result column="margin_status" property="marginStatus" jdbcType="CHAR" />
+    <result column="dimensionality" property="dimensionality" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -83,9 +86,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, merchant_name, merchant_code, invitation_code, is_commission, telephone, operating_status, 
-    phone, opening_time, close_time, floor_price, shipping_fee, task_time, is_personage, 
-    id_card, id_card_url, business_license_url, margin, margin_status, create_time, update_time
+    id, merchant_name, merchant_code, invitation_code, is_commission, logo_url, telephone, 
+    operating_status, phone, opening_time, close_time, floor_price, shipping_fee, task_time, 
+    is_personage, id_card, id_card_url, business_license_url, margin, margin_status, 
+    dimensionality, longitude, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.resale.background.pojo.MerchantDetailExample" >
     select
@@ -119,20 +123,22 @@
   </delete>
   <insert id="insert" parameterType="com.resale.background.pojo.MerchantDetail" >
     insert into t_merchant_detail (id, merchant_name, merchant_code, 
-      invitation_code, is_commission, telephone, 
-      operating_status, phone, opening_time, 
-      close_time, floor_price, shipping_fee, 
-      task_time, is_personage, id_card, 
-      id_card_url, business_license_url, margin, 
-      margin_status, create_time, update_time
+      invitation_code, is_commission, logo_url, 
+      telephone, operating_status, phone, 
+      opening_time, close_time, floor_price, 
+      shipping_fee, task_time, is_personage, 
+      id_card, id_card_url, business_license_url, 
+      margin, margin_status, dimensionality, 
+      longitude, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{merchantName,jdbcType=VARCHAR}, #{merchantCode,jdbcType=VARCHAR}, 
-      #{invitationCode,jdbcType=VARCHAR}, #{isCommission,jdbcType=CHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{operatingStatus,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, #{openingTime,jdbcType=TIMESTAMP}, 
-      #{closeTime,jdbcType=TIMESTAMP}, #{floorPrice,jdbcType=DECIMAL}, #{shippingFee,jdbcType=DECIMAL}, 
-      #{taskTime,jdbcType=VARCHAR}, #{isPersonage,jdbcType=CHAR}, #{idCard,jdbcType=VARCHAR}, 
-      #{idCardUrl,jdbcType=VARCHAR}, #{businessLicenseUrl,jdbcType=VARCHAR}, #{margin,jdbcType=DECIMAL}, 
-      #{marginStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{invitationCode,jdbcType=VARCHAR}, #{isCommission,jdbcType=CHAR}, #{logoUrl,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{operatingStatus,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{openingTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{floorPrice,jdbcType=DECIMAL}, 
+      #{shippingFee,jdbcType=DECIMAL}, #{taskTime,jdbcType=VARCHAR}, #{isPersonage,jdbcType=CHAR}, 
+      #{idCard,jdbcType=VARCHAR}, #{idCardUrl,jdbcType=VARCHAR}, #{businessLicenseUrl,jdbcType=VARCHAR}, 
+      #{margin,jdbcType=DECIMAL}, #{marginStatus,jdbcType=CHAR}, #{dimensionality,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.resale.background.pojo.MerchantDetail" >
@@ -152,6 +158,9 @@
       </if>
       <if test="isCommission != null" >
         is_commission,
+      </if>
+      <if test="logoUrl != null" >
+        logo_url,
       </if>
       <if test="telephone != null" >
         telephone,
@@ -195,6 +204,12 @@
       <if test="marginStatus != null" >
         margin_status,
       </if>
+      <if test="dimensionality != null" >
+        dimensionality,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -217,6 +232,9 @@
       </if>
       <if test="isCommission != null" >
         #{isCommission,jdbcType=CHAR},
+      </if>
+      <if test="logoUrl != null" >
+        #{logoUrl,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null" >
         #{telephone,jdbcType=VARCHAR},
@@ -260,6 +278,12 @@
       <if test="marginStatus != null" >
         #{marginStatus,jdbcType=CHAR},
       </if>
+      <if test="dimensionality != null" >
+        #{dimensionality,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -291,6 +315,9 @@
       </if>
       <if test="record.isCommission != null" >
         is_commission = #{record.isCommission,jdbcType=CHAR},
+      </if>
+      <if test="record.logoUrl != null" >
+        logo_url = #{record.logoUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.telephone != null" >
         telephone = #{record.telephone,jdbcType=VARCHAR},
@@ -334,6 +361,12 @@
       <if test="record.marginStatus != null" >
         margin_status = #{record.marginStatus,jdbcType=CHAR},
       </if>
+      <if test="record.dimensionality != null" >
+        dimensionality = #{record.dimensionality,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -352,6 +385,7 @@
       merchant_code = #{record.merchantCode,jdbcType=VARCHAR},
       invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
       is_commission = #{record.isCommission,jdbcType=CHAR},
+      logo_url = #{record.logoUrl,jdbcType=VARCHAR},
       telephone = #{record.telephone,jdbcType=VARCHAR},
       operating_status = #{record.operatingStatus,jdbcType=CHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
@@ -366,6 +400,8 @@
       business_license_url = #{record.businessLicenseUrl,jdbcType=VARCHAR},
       margin = #{record.margin,jdbcType=DECIMAL},
       margin_status = #{record.marginStatus,jdbcType=CHAR},
+      dimensionality = #{record.dimensionality,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -386,6 +422,9 @@
       </if>
       <if test="isCommission != null" >
         is_commission = #{isCommission,jdbcType=CHAR},
+      </if>
+      <if test="logoUrl != null" >
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null" >
         telephone = #{telephone,jdbcType=VARCHAR},
@@ -429,6 +468,12 @@
       <if test="marginStatus != null" >
         margin_status = #{marginStatus,jdbcType=CHAR},
       </if>
+      <if test="dimensionality != null" >
+        dimensionality = #{dimensionality,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -444,6 +489,7 @@
       merchant_code = #{merchantCode,jdbcType=VARCHAR},
       invitation_code = #{invitationCode,jdbcType=VARCHAR},
       is_commission = #{isCommission,jdbcType=CHAR},
+      logo_url = #{logoUrl,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       operating_status = #{operatingStatus,jdbcType=CHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -458,6 +504,8 @@
       business_license_url = #{businessLicenseUrl,jdbcType=VARCHAR},
       margin = #{margin,jdbcType=DECIMAL},
       margin_status = #{marginStatus,jdbcType=CHAR},
+      dimensionality = #{dimensionality,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MerchantDetail {
-    private Integer id;
+	private Integer id;
 
     private String merchantName;
 
@@ -13,6 +13,8 @@ public class MerchantDetail {
     private String invitationCode;
 
     private String isCommission;
+
+    private String logoUrl;
 
     private String telephone;
 
@@ -42,9 +44,14 @@ public class MerchantDetail {
 
     private String marginStatus;
 
+    private String dimensionality;
+
+    private String longitude;
+
     private Date createTime;
 
     private Date updateTime;
+
 
     public Integer getId() {
         return id;
@@ -213,4 +220,29 @@ public class MerchantDetail {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getDimensionality() {
+		return dimensionality;
+	}
+
+	public void setDimensionality(String dimensionality) {
+		this.dimensionality = dimensionality;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+    
 }

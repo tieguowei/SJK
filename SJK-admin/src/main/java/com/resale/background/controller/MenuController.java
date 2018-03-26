@@ -19,6 +19,11 @@ import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
 import com.resale.util.StringUtil;
 
+/**
+ *	菜单管理
+ * @author tie
+ *
+ */
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
@@ -49,7 +54,7 @@ public class MenuController {
 	public DataMsg getMenuList(HttpServletRequest request,DataMsg dataMsg){
 		try {
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
-			String nameZh = request.getParameter("nameZh");
+			String nameZh =StringUtil.trim(request.getParameter("nameZh"));
 			if (StringUtil.isNotBlank(nameZh)) {
 				paramsCondition.put("nameZh", nameZh);
 			}
@@ -86,19 +91,44 @@ public class MenuController {
 	@RequiresPermissions("menuManager:add")
 	@ResponseBody
 	@RequestMapping("/saveMenu")
-	public String saveMenu(Menu menu){
+	public boolean saveMenu(Menu menu){
 		try {
-			//根据菜单名称校验是否有重复
-			Menu result = menuService.checkMenuNameIsRepeat(StringUtil.trim(menu.getNameZh()));
-			if(result != null){
-				return "0";
+			menuService.saveMenu(menu);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * 校验菜单名称是否存在
+	 * @param menu
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/checkMenuName")
+	public boolean checkMenuName(HttpServletRequest request){
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			String nameZh = StringUtil.trim(request.getParameter("nameZh"));
+			if (StringUtil.isNotBlank(nameZh)) {
+				map.put("nameZh", nameZh);
+			}
+			String menuId = StringUtil.trim(request.getParameter("menuId"));
+			if (StringUtil.isNotBlank(menuId)) {
+				map.put("menuId", menuId);
+			}
+			Menu result = menuService.checkMenuNameIsRepeat(map);
+			if(result == null){
+				return true;
 			}else{
-				menuService.saveMenu(menu);
-				return "1";
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "2";
+			return false;
 		}
 		
 	}

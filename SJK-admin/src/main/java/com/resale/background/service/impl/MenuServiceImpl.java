@@ -67,8 +67,8 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public Menu checkMenuNameIsRepeat(String nameZh) {
-		return menuMapper.checkMenuNameIsRepeat(nameZh);
+	public Menu checkMenuNameIsRepeat(Map<String, Object> map) {
+		return menuMapper.checkMenuNameIsRepeat(map);
 	}
 
 	@Override
