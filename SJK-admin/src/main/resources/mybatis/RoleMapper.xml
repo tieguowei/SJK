@@ -289,6 +289,7 @@
   	SELECT COUNT(*) FROM t_role where role_status =1
   </select>
   
+  <!-- 校验角色名称是否重复 -->
   <select id="checkRoleCodeIsRepeat" parameterType="hashmap" resultMap="BaseResultMap">
   	SELECT
 		id,
@@ -309,7 +310,7 @@
   	UPDATE  t_role
 	SET role_status = #{roleStatus},
 	 creator_id = #{creatorId},
-	 update_time = #{updateTime}
+	 update_time = now()
 	WHERE
 		id = #{id};
   </update>

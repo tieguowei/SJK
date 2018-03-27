@@ -20,7 +20,6 @@ import com.resale.background.pojo.Category;
 import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Product;
-import com.resale.background.pojo.Role;
 import com.resale.background.service.ProductService;
 import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
@@ -134,5 +133,71 @@ public class  ProductController {
 		}
 	}
 	
+	/**
+	 * 修改商品
+	 * @param menu
+	 * @return
+	 */
+	@RequiresPermissions("productManager:update")
+	@ResponseBody
+	@RequestMapping("/updateProduct")
+	public boolean updateProduct(Product product,@RequestParam(value = "updateUploadfile",required = false)MultipartFile fileField){
+		try {
+			productService.updateProduct(product,fileField);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * 校验商品名称是否存在
+	 */
+	@ResponseBody
+	@RequestMapping("/checkName")
+	public boolean checkName(HttpServletRequest request){
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			String name = StringUtil.trim(request.getParameter("name"));
+			if (StringUtil.isNotBlank(name)) {
+				map.put("name", name);
+			}
+			String id = StringUtil.trim(request.getParameter("id"));
+			if (StringUtil.isNotBlank(id)) {
+				map.put("id", id);
+			}
+			Product result = productService.checkNameIsRepeat(map);
+			if(result == null){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * 删除商品
+	 * @param menu
+	 * @return
+	 */
+	@RequiresPermissions("productManager:delete")
+	@ResponseBody
+	@RequestMapping("/deleteProduct")
+	public boolean deleteProduct(Product product){
+		try {
+			productService.deleteProduct(product);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 
 }

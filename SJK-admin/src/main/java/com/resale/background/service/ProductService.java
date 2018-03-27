@@ -39,5 +39,23 @@ public interface ProductService {
 	 * @return
 	 */
 	Product getProductById(int id);
+	/**
+	 * 修改
+	 * @param product
+	 * @param fileField
+	 */
+	void updateProduct(Product product, MultipartFile fileField) throws IOException;
+	/**
+	 * 校验商品名称是否重复
+	 * @param map
+	 * @return
+	 */
+	Product checkNameIsRepeat(Map<String, Object> map);
+
+	/**
+	 * 删除商品
+	 * @param product
+	 */
+	void deleteProduct(Product product);
 
 }

@@ -37,4 +37,17 @@ public interface ProductMapper {
 	Long findAllByPageCount(Map<String, Object> paramsCondition);
 
 	List<Category> getCategoryList(Merchant merchant);
+
+	/**
+	 * 校验商品名称是否重复
+	 * @param map
+	 * @return
+	 */
+	Product checkNameIsRepeat(Map<String, Object> map);
+
+	/**
+	 * 删除商品
+	 * @param map
+	 */
+	void deleteProductById(Map<String, Object> map);
 }

@@ -88,13 +88,13 @@ var Product = function (){
                     sortable : "true"
                 },{
                     field : "price",
-                    title : "现价",
+                    title : "现价(元)",
                     align : "center",
                     valign : "middle",
                     sortable : "true"
                 },{
                     field : "original_price",
-                    title : "原价",
+                    title : "原价(元)",
                     align : "center",
                     valign : "middle",
                     sortable : "true"
@@ -131,7 +131,7 @@ var Product = function (){
         operateFormatter:function(value, row, index){
             return [
                 '<shiro:hasPermission name="productManager:update"><button type="button" class=" btn btn-info" onclick="Product.openUpdateModal('+row.id+')">修改</button></shiro:hasPermission>',
-                '<shiro:hasPermission name="productManager:delete"><button class=" btn btn-danger" type="button" onclick="product.deleteproduct('+row.id+')">删除</button></shiro:hasPermission>'
+                '<shiro:hasPermission name="productManager:delete"><button class=" btn btn-danger" type="button" onclick="Product.deleteProduct('+row.id+')">删除</button></shiro:hasPermission>'
             ].join('');
         },
         initAddFileInput:function(){
@@ -206,13 +206,38 @@ var Product = function (){
             });
         },
         //修改商品
-        updateproduct:function(){
+        updateProduct:function(){
             if($("#updateForm").data("bootstrapValidator").validate().isValid()){
-                $.ajax({
-                    url:'product/updateproduct',
+            	var formData = new FormData(document.getElementById("updateForm"));//表单id
+            	flag = true;
+    			//校验商品名称是否存在
+    			var name = $("#update_name").val();
+    			var id = $("#update_id").val();
+    			$.ajax({
+    				url:'product/checkName',
+    				dataType:'json',
+    				data:{name:name,id:id},
+    				type:'post',
+    				async:false, //同步 验证后再执行
+    				success:function(data){
+    					if(!data){
+    						flag = false;
+    						$.alert({
+    					        title: '提示信息！',
+    					        content: '商品名称已存在！',
+    					        type: 'red'
+    					    });
+    					}
+    				}
+    			})
+    			if(flag){
+            	$.ajax({
+                    url:'product/updateProduct',
                     dataType:'json',
                     type:'post',
-                    data:$("#updateForm").serialize(),
+                    data:formData,
+                    contentType: false,
+                    processData: false,
                     success:function(data){
                         if(data){
                             $.alert({
@@ -220,7 +245,7 @@ var Product = function (){
                                 content: '修改成功！',
                                 type: 'blue'
                             });
-                            product.closeDlg();
+                            Product.closeDlg();
                             $("#product-table").bootstrapTable('refresh');
                         }else{
                             $.alert({
@@ -232,20 +257,21 @@ var Product = function (){
                        
                     }
                 });
+    			}
             }
         },
         //删除
-        deleteproduct:function(id){
+        deleteProduct:function(id){
             $.confirm({
                 title: '提示信息!',
-                content: '您确定要删除这个商户吗？',
+                content: '您确定要删除这个商品吗？',
                 type: 'blue',
                 typeAnimated: true,
                 buttons: {
                     确定: {
                         action: function(){
                             $.ajax({
-                                url:'product/deleteproduct',
+                                url:'product/deleteProduct',
                                 dataType:'json',
                                 type:'post',
                                 data:{
@@ -310,6 +336,27 @@ var Product = function (){
         saveProduct:function(){
             if($("#addForm").data('bootstrapValidator').validate().isValid()){
             	var formData = new FormData(document.getElementById("addForm"));//表单id
+            	flag = true;
+    			//校验商品名称是否存在
+    			var name = $("#add_name").val();
+    			$.ajax({
+    				url:'product/checkName',
+    				dataType:'json',
+    				data:{name:name},
+    				type:'post',
+    				async:false, //同步 验证后再执行
+    				success:function(data){
+    					if(!data){
+    						flag = false;
+    						$.alert({
+    					        title: '提示信息！',
+    					        content: '商品名称已存在！',
+    					        type: 'red'
+    					    });
+    					}
+    				}
+    			})
+    			if(flag){
             	$.ajax({
                     url:'product/saveProduct',
                     type:'post',
@@ -342,6 +389,7 @@ var Product = function (){
                         });
                     }
                 });
+    			}
             }
         },
         //关闭模态框
@@ -430,8 +478,7 @@ function updateproduct(){
 
 }
 //删除
-function deleteproduct(id){
-
+function deleteProduct(id){
 }
 
 

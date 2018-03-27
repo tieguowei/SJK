@@ -115,7 +115,6 @@ public class MenuServiceImpl implements MenuService {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("menuId", menu.getMenuId());
 		map.put("creatorId", merchant.getId());
-		map.put("updateTime", new Date());
 		map.put("menuStatus", "3");
 		menuMapper.deleteMenuByMenuId(map);
 	}

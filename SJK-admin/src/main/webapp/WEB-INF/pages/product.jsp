@@ -112,7 +112,7 @@
                 <h4 class="modal-title" id="myModalLabel">修改商品</h4>
             </div>
             <div class="container">
-			<form enctype="multipart/form-data" class="form-horizontal" id="addForm"  method="post">
+			<form enctype="multipart/form-data" class="form-horizontal" id="updateForm"  method="post">
 			<div class="form-group">
 					<label class="col-md-2 control-label">商品名称：</label>
 					<div class="col-md-3 ">
@@ -131,7 +131,7 @@
 				<div class="form-group">
 					<label class="col-md-2 control-label">上传图片：</label>
 					<div class="col-md-3 ">
-						   <input type="file" name="uploadfile" id="updateUploadfile" multiple="multiple" class="file-loading" style="height:30px;width: 40px;" />  
+						   <input type="file" name="updateUploadfile" id="updateUploadfile" multiple="multiple" class="file-loading" style="height:30px;width: 40px;" />  
 					</div>
 				</div>
 				<div class="form-group">

@@ -445,6 +445,7 @@
 	FROM
 		t_menu
 	where name_zh =#{nameZh}
+	and menu_status = 1
 	<if test="menuId != null">
 		and menu_id != #{menuId}
 	</if>
@@ -456,7 +457,7 @@
   		UPDATE  t_menu
 	SET menu_status = #{menuStatus},
 	 creator_id = #{creatorId},
-	 update_time = #{updateTime}
+	 update_time = now()
 	WHERE
 		menu_id = #{menuId};
   </select>

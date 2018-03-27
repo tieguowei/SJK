@@ -355,4 +355,24 @@
   	SELECT COUNT(*) FROM t_product p   where p.status = 1
   	<include refid="dynamicPageWhere"/> 
   </select>
+  
+  <!-- 校验商品名称是否重复 -->
+  <select id="checkNameIsRepeat" parameterType="hashmap" resultMap="BaseResultMap">
+  		SELECT
+			id,
+			name
+		FROM
+			t_product
+		where name=#{name}
+		and status = 1
+		<if test="id != null">
+			and id != #{id}
+		</if>
+  </select>
+  
+  <!-- 删除 商户-->
+  <update id="deleteProductById" parameterType="hashmap">
+  	update t_product set  status=#{status} ,update_time=now()
+  	where id=#{id} 
+  </update>
 </mapper>

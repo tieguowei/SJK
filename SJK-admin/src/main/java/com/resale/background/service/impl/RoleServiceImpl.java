@@ -102,7 +102,6 @@ public class RoleServiceImpl implements RoleService {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("id", role.getId());
 		map.put("creatorId", merchant.getId());
-		map.put("updateTime", new Date());
 		map.put("roleStatus", "2");
 		roleMapper.deleteRoleById(map);
 	}

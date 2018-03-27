@@ -306,7 +306,7 @@
   		t_merchant
     set 
       merchant_status = #{merchantStatus,jdbcType=CHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time =now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

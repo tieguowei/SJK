@@ -135,7 +135,6 @@ public class MerchantServiceImpl implements MerchantService {
 	public void deleteMerchant(Merchant merchant) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("id", merchant.getId());
-		map.put("updateTime", new Date());
 		map.put("merchantStatus", "2");
 		merchantMapper.deleteMerchant(map);
 	}

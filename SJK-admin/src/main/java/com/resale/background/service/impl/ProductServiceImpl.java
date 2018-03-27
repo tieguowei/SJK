@@ -2,6 +2,7 @@ package com.resale.background.service.impl;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.resale.background.pojo.Product;
 import com.resale.background.service.ProductService;
 import com.resale.background.util.FdfsClient;
 import com.resale.background.util.PageModel;
+import com.resale.util.StringUtil;
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -76,6 +78,42 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product getProductById(int id) {
 		return productMapper.selectByPrimaryKey(id);
+	}
+
+
+	@Override
+	public void updateProduct(Product product, MultipartFile fileField) throws IOException {
+		Product oldproduct = productMapper.selectByPrimaryKey(product.getId());
+		String newFileName = fileField.getOriginalFilename();
+		Subject subject = SecurityUtils.getSubject();
+		Merchant merchant = (Merchant) subject.getPrincipal();
+		//修改上传图片
+		if(StringUtil.notBlank(newFileName)){
+			dfsClient.deleteFile(oldproduct.getProductImageUrl());
+			StorePath uploadFile = dfsClient.uploadFile(fileField);
+			product.setProductImageUrl(uploadFile.getFullPath());
+		}
+		product.setUpdateTime(new Date());
+		product.setStatus(oldproduct.getStatus());
+		product.setSoldNum(oldproduct.getSoldNum());
+		product.setMerchantCode(merchant.getMerchantCode());
+		product.setCreateTime(oldproduct.getCreateTime());
+		productMapper.updateByPrimaryKeySelective(product);
+	}
+
+
+	@Override
+	public Product checkNameIsRepeat(Map<String, Object> map) {
+		return productMapper.checkNameIsRepeat(map);
+	}
+
+
+	@Override
+	public void deleteProduct(Product product) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", product.getId());
+		map.put("status", "2");
+		productMapper.deleteProductById(map);
 	}
 
 
