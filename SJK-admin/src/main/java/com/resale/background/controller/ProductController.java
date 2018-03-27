@@ -1,11 +1,16 @@
 package com.resale.background.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
@@ -15,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.resale.background.pojo.Category;
-import com.resale.background.pojo.Menu;
 import com.resale.background.pojo.Merchant;
 import com.resale.background.pojo.Product;
 import com.resale.background.service.ProductService;
@@ -102,8 +107,14 @@ public class  ProductController {
 	@RequestMapping("/saveProduct")
 	public boolean saveMenu(Product product,@RequestParam(value = "uploadfile",required = false)MultipartFile fileField){
 		try {
-			productService.saveProduct(product,fileField);
-			return true;
+			 
+			BufferedImage read = ImageIO.read(fileField.getInputStream());
+			if(read == null){ 
+			   return false;
+			}else{
+				productService.saveProduct(product,fileField);
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -143,8 +154,13 @@ public class  ProductController {
 	@RequestMapping("/updateProduct")
 	public boolean updateProduct(Product product,@RequestParam(value = "updateUploadfile",required = false)MultipartFile fileField){
 		try {
-			productService.updateProduct(product,fileField);
-			return true;
+			BufferedImage read = ImageIO.read(fileField.getInputStream());
+			if(read == null){ 
+			   return false;
+			}else{
+				productService.updateProduct(product,fileField);
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

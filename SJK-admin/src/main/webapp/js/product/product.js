@@ -397,6 +397,7 @@ var Product = function (){
         	  $("#addDlg").modal('hide');
               $("#updateDlg").modal('hide');
               $("input[type=reset]").trigger("click");
+              $("#category_id").select2("val", ""); 
               $('#addForm').data('bootstrapValidator', null);
               $('#updateForm').data('bootstrapValidator', null);
               Product.formValidator();

@@ -73,7 +73,7 @@
 				<div class="form-group">
 					<label class="col-md-2 control-label">上传图片：</label>
 					<div class="col-md-3 ">
-						   <input type="file" name="uploadfile" id="uploadfile" multiple="multiple" class="file-loading" style="height:30px;width: 40px;" />  
+						   <input type="file" name="uploadfile" id="uploadfile" class="file-loading" style="height:30px;width: 40px;" />  
 					</div>
 				</div>
 				<div class="form-group">
@@ -125,7 +125,7 @@
 					<label class="col-md-2 control-label">商品类别：</label>
 					<div class="col-md-3 ">
 					<input type="hidden" id="cid" >
-					<select  style= "width:260px;" id="update_category_id" name="categoryId" multiple="false"  class="form-control form-control-static"></select>
+					<select  style= "width:260px;" id="update_category_id" name="categoryId"  class="form-control form-control-static"></select>
 					</div>
 				</div>
 				<div class="form-group">
