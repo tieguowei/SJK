@@ -3,6 +3,8 @@ package com.resale.background.mapper;
 import com.resale.background.pojo.Order;
 import com.resale.background.pojo.OrderExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderMapper {
@@ -27,4 +29,8 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<Map<String,Object>> queryAllOrderByPage(Map<String,Object> map);
+
+    int queryAllOrderByPageCount(Map<String,Object> map);
 }

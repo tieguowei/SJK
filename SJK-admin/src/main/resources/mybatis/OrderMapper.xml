@@ -335,4 +335,93 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAllOrderByPage" parameterType="map" resultType="map">
+    select
+     m.merchant_name,a.nickname,o.*
+    FROM t_order o
+    left join t_merchant m on o.merchant_code = m.merchant_code
+    LEFT join t_app_user a on o.user_id = a.id
+    where 1 = 1
+    <if test="orderNo != null" >
+      and o.order_no = #{orderNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+      and o.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="merchantCode != null" >
+      and o.merchant_code = #{merchantCode,jdbcType=VARCHAR}
+    </if>
+    <if test="invitationCode != null" >
+      and o.invitation_code = #{invitationCode,jdbcType=VARCHAR}
+    </if>
+    <if test="repaymentAmount != null" >
+      and o.repayment_amount = #{repaymentAmount,jdbcType=DECIMAL}
+    </if>
+    <if test="actuallyMoney != null" >
+      and o.actually_money = #{actuallyMoney,jdbcType=DECIMAL}
+    </if>
+    <if test="paymentType != null" >
+      and o.payment_type = #{paymentType,jdbcType=INTEGER}
+    </if>
+    <if test="status != null" >
+      and o.status = #{status,jdbcType=CHAR}
+    </if>
+    <if test="paymentTime != null" >
+      and o.payment_time = #{paymentTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endTime != null" >
+      and o.end_time = #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createTime != null" >
+      and o.create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and o.update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    limit #{startIndex},#{pageSize}
+  </select>
+
+  <select id="queryAllOrderByPageCount" parameterType="map" resultType="java.lang.Integer">
+    select
+      COUNT(*)
+    FROM t_order where 1 = 1
+    <if test="orderNo != null" >
+      and order_no = #{orderNo,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+      and user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="merchantCode != null" >
+      and merchant_code = #{merchantCode,jdbcType=VARCHAR}
+    </if>
+    <if test="invitationCode != null" >
+      and invitation_code = #{invitationCode,jdbcType=VARCHAR}
+    </if>
+    <if test="repaymentAmount != null" >
+      and repayment_amount = #{repaymentAmount,jdbcType=DECIMAL}
+    </if>
+    <if test="actuallyMoney != null" >
+      and actually_money = #{actuallyMoney,jdbcType=DECIMAL}
+    </if>
+    <if test="paymentType != null" >
+      and payment_type = #{paymentType,jdbcType=INTEGER}
+    </if>
+    <if test="status != null" >
+      and status = #{status,jdbcType=CHAR}
+    </if>
+    <if test="paymentTime != null" >
+      and payment_time = #{paymentTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endTime != null" >
+      and end_time = #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+
 </mapper>
