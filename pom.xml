@@ -26,10 +26,10 @@
 
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
+		    <dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		    </dependency>
 		
 		<!-- mysql 数据库驱动. -->
 		<dependency>
