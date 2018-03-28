@@ -357,6 +357,8 @@ var Role = function () {
 
                         }
                     });
+                    //折叠所有节点
+                    $('#tree').treeview('collapseAll', { silent: true });
 
                 },
                 error:function(){
