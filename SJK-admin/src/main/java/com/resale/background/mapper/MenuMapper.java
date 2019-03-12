@@ -1,11 +1,12 @@
 package com.resale.background.mapper;
 
-import com.resale.background.pojo.Menu;
-import com.resale.background.pojo.MenuExample;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.resale.background.pojo.Menu;
+import com.resale.background.pojo.MenuExample;
 
 public interface MenuMapper {
     int countByExample(MenuExample example);
@@ -35,14 +36,14 @@ public interface MenuMapper {
      * @param requestMap
      * @return
      */
-	List<Menu> getMenuByMerchantId(Map<String, Object> requestMap);
+	List<Menu> getMenuByEmployeeId(Map<String, Object> requestMap);
 
 	/**
 	 * 查询所有菜单
 	 * @param paramsCondition
 	 * @return
 	 */
-	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
+	List<Map<String, Object>> findAllRetMapByPage();
 	/**
 	 * 查询总条数
 	 * @param paramsCondition
@@ -79,6 +80,28 @@ public interface MenuMapper {
 	 * @return
 	 */
 	List<Menu> queryChildMenuByPid(String pid);
+	
+	public List<Map<String, Object>> getMenuDataList();
+	/**
+	 * 根据父id查询子菜单
+	 * @param object
+	 * @return
+	 */
+	List<Menu> queryChildMenuByPidType(@Param("pid")String pid,@Param("list")List<Integer> list);
+	
+	/**
+	 * 根据角色id查询出所有pid为0的菜单
+	 * @return
+	 */
+	List<Map<String, Object>> getParentMenuListByRoleId(List<Integer> list);
+	/**
+	 * 根据父id查询子菜单
+	 * @param object
+	 * @return
+	 */
+	List<Menu> queryChildMenuManageByPid(String pid);
+
+
 
 
 }

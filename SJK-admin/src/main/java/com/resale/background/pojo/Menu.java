@@ -34,6 +34,7 @@ public class Menu {
 
     
     private List<Menu>children;
+    private String parentMenuName;
 
     public Integer getMenuId() {
         return menuId;
@@ -153,6 +154,14 @@ public class Menu {
 
 	public void setPermission(String permission) {
 		this.permission = permission;
+	}
+
+	public String getParentMenuName() {
+		return parentMenuName;
+	}
+
+	public void setParentMenuName(String parentMenuName) {
+		this.parentMenuName = parentMenuName;
 	}
     
     

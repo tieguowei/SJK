@@ -260,4 +260,14 @@
       )
 	</foreach>
 </insert>
+  <!-- 根据角色集合 查询所拥有的权限id -->
+  <select id="queryMenuIdListByRoleIdList" parameterType="java.util.List" resultType="int">
+  	SELECT
+		menu_id
+	FROM
+		t_role_menu_relation
+	WHERE
+		role_id in <foreach collection="list" item="item" index="index" 
+		open="(" separator="," close=")">#{item}</foreach>
+  </select>
 </mapper>

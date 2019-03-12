@@ -6,7 +6,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,25 +18,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.resale.background.pojo.Employee;
 import com.resale.background.pojo.Role;
 import com.resale.background.service.RoleService;
 import com.resale.background.util.DataMsg;
 import com.resale.background.util.PageModel;
-import com.resale.background.util.ViewTree;
+import com.resale.background.util.TreeView;
 import com.resale.util.StringUtil;
 
+
 /**
- *	角色管理
- * @author tie
- *
+ *<dl>
+ *<dt>类名：RoleController.java</dt>
+ *<dd>描述: 角色管理逻辑实现</dd> 
+ *<dd>创建时间： 2018年8月14日 上午11:36:02</dd>
+ *<dd>创建人： TieGuowei </dd>
+ *<dt>版本历史: </dt>
+ * <pre>
+ * Date         Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2018年8月14日 上午11:36:02    TieGuowei       1.0        1.0 Version 
+ * </pre>
+ *</dl>
  */
 @Controller
 @RequestMapping("/role")
 public class RoleController {
 
-	@Autowired
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
 	private RoleService roleService;
-	
 
 	/**
 	 * 跳转到角色列表页面
@@ -41,7 +57,7 @@ public class RoleController {
 	@RequiresPermissions("roleManager:list")//权限管理;
 	@RequestMapping("/goRolePage")
 	public String goRolePage(){
-		return "role";
+		return "system/role/roleList";
 	}
 	
 	/**
@@ -57,7 +73,7 @@ public class RoleController {
 			Map<String, Object> paramsCondition = new HashMap<String, Object>();
 			paramsCondition.put("pageNo", Integer.valueOf(request.getParameter("pageNumber")));
 			paramsCondition.put("pageSize", Integer.valueOf(request.getParameter("pageSize")));
-			PageModel pageModel =roleService.getRoleList(paramsCondition);
+	    	PageModel pageModel =roleService.getRoleList(paramsCondition);
 			dataMsg.setTotal(pageModel.getTotalRecords());
 			dataMsg.setRows(pageModel.getList());
 		} catch (Exception e) {
@@ -77,7 +93,10 @@ public class RoleController {
 	@RequestMapping("/saveRole")
 	public boolean saveRole(Role role){
 		try {
-			roleService.saveRole(role);
+			Subject subject = SecurityUtils.getSubject();
+			Employee employee = (Employee) subject.getPrincipal();
+		    int employeeId= employee.getEmployeeId();
+			roleService.saveRole(role,employeeId);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,7 +166,10 @@ public class RoleController {
 	@RequestMapping("/updateRole")
 	public boolean updateRole(Role role){
 		try {
-			roleService.updateRole(role);
+			Subject subject = SecurityUtils.getSubject();
+			Employee employee = (Employee) subject.getPrincipal();
+		    int employeeId= employee.getEmployeeId();
+			roleService.updateRole(role,employeeId);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,7 +177,6 @@ public class RoleController {
 		}
 		
 	}
-	
 	
 	/**
 	 * 删除菜单
@@ -167,7 +188,10 @@ public class RoleController {
 	@RequestMapping("/deleteRole")
 	public boolean deleteRole(Role role){
 		try {
-			roleService.deleteRole(role);
+			Subject subject = SecurityUtils.getSubject();
+			Employee employee = (Employee) subject.getPrincipal();
+		    int employeeId= employee.getEmployeeId();
+			roleService.deleteRole(role,employeeId);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,7 +200,6 @@ public class RoleController {
 		
 	}
 	
-	
 	/**
 	 * 加载权限菜单
 	 * @param rid
@@ -184,7 +207,7 @@ public class RoleController {
 	 */
 	@ResponseBody
 	@RequestMapping("/viewTree")
-	public List<ViewTree> getRoleTree(@RequestParam("rid")int rid){
+	public List<TreeView> getRoleTree(@RequestParam("rid")int rid){
 		try {
 			return roleService.getViewTree(rid);
 		} catch (Exception e) {
@@ -196,13 +219,15 @@ public class RoleController {
 	/**
 	 * 修改角色权限
 	 */
-	
 	@ResponseBody
 	@RequiresPermissions("roleManager:updateRoleAuth")
 	@RequestMapping("/updateRoleAuth")
 	public boolean updateRoleAuth(@RequestParam("rid")int rid,@RequestParam("menuIds")String menuIds){
 			try {
-				roleService.updateRoleAuth(rid, menuIds);
+				Subject subject = SecurityUtils.getSubject();
+				Employee employee = (Employee) subject.getPrincipal();
+			    int employeeId= employee.getEmployeeId();
+				roleService.updateRoleAuth(rid, menuIds,employeeId);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

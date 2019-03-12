@@ -8,7 +8,6 @@
   	<module>SJK-admin</module>
   	<module>SJK-util</module>
   	<module>SJK-api</module>
-  	<module>SJK-houseofhello</module>
   </modules>
   
    <!-- spring boot parent节点，引入这个之后，在下面和spring boot相关的就不需要引入版本了; -->

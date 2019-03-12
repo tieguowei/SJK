@@ -5,7 +5,8 @@ import java.util.Map;
 
 import com.resale.background.pojo.Role;
 import com.resale.background.util.PageModel;
-import com.resale.background.util.ViewTree;
+import com.resale.background.util.TreeView;
+
 
 public interface RoleService {
 	/**
@@ -23,7 +24,7 @@ public interface RoleService {
 	/**
 	 * 添加角色
 	 */
-	void saveRole(Role role);
+	void saveRole(Role role,int employeeId);
 	/**
 	 * 修改回显
 	 * @param id
@@ -34,23 +35,28 @@ public interface RoleService {
 	 * 修改角色
 	 * @param role
 	 */
-	void updateRole(Role role);
+	void updateRole(Role role,int employeeId);
 	/**
 	 * 删除菜单
 	 * @param role
 	 */
-	void deleteRole(Role role);
+	void deleteRole(Role role,int employeeId);
 	/**
 	 * 加载权限菜单
 	 * @param rid
 	 * @return
 	 */
-	List<ViewTree> getViewTree(int rid);
+	List<TreeView> getViewTree(int rid);
 	/**
 	 * 修改角色权限
 	 * @param rid
 	 * @param menuIds
 	 * @return
 	 */
-	void updateRoleAuth(int rid, String menuIds);
+	void updateRoleAuth(int rid, String menuIds,int employeeId);
+	/**
+	 * 获取当前用户角色
+	 * @param role
+	 */
+	List<Integer> getRoleByEmployeeId(int employeeId);
 }

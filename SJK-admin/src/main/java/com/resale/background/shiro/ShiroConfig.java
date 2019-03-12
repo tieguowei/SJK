@@ -25,7 +25,6 @@ public class ShiroConfig {
 
 	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-		logger.info("===初始化shiro filter=========");
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();//获取filters  
 	    filters.put("authc", new CustomFormAuthenticationFilter());//将自定义 的FormAuthenticationFilter注入shiroFilter中    

@@ -5,7 +5,7 @@
 <head>
     <title>登录页面</title>
     <link rel="stylesheet" href="${path}/css/common/base.css">
-    <link rel="stylesheet" href="${path}/css/login.css">
+    <link rel="stylesheet" href="${path}/css/system/login.css">
     <script src="${path}/js/jquery-1.8.0.min.js" charset="UTF-8" type="text/javascript"></script>
 </head>
     <script type="text/javascript">
@@ -18,10 +18,9 @@
 <body>
 <div class="top">
     <div class="logoBox">
-        <img src="${path}/images/login/logo.png" alt="">
+        <img src="${path}/images/login/logo.png" alt="" height="60px">
         <div style="display: inline-block">
-            <h3>后台管理系统</h3>
-            <p>商品录入，报表展示，经营分析</p>
+            <h3>金融云平台</h3>
         </div>
     </div>
 </div>
@@ -66,8 +65,8 @@
 </div>
 </div>
 <div class="bottom">
-    <p>版权所有：三剑客 </p>
+    <p>版权所有：汇中公司 </p>
 </div>
 </body>
-<script src="${path}/js/login.js"></script>
+<script src="${path}/js/system/login.js"></script>
 </html>

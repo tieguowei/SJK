@@ -1,12 +1,13 @@
 package com.resale.background.mapper;
 
-import com.resale.background.pojo.Menu;
-import com.resale.background.pojo.Role;
-import com.resale.background.pojo.RoleExample;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.resale.background.pojo.Menu;
+import com.resale.background.pojo.Role;
+import com.resale.background.pojo.RoleExample;
 
 public interface RoleMapper {
     int countByExample(RoleExample example);
@@ -33,7 +34,7 @@ public interface RoleMapper {
     /**
 	 * 根据用户ID查询角色信息
 	 */
-	List<Role> findRoleByMerchantId(Integer id);
+	List<Role> findRoleByEmployeeId(Integer id);
 
 	List<Map<String, Object>> findAllRetMapByPage(Map<String, Object> paramsCondition);
 
@@ -56,4 +57,10 @@ public interface RoleMapper {
 	 * @return
 	 */
 	List<Role> getRoleList();
+	/**
+	 * 根据父id查询子菜单
+	 * @param object
+	 * @return
+	 */
+	List<Menu> queryChildMenuByPid(String pid);
 }

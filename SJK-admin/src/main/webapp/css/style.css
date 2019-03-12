@@ -1506,9 +1506,9 @@ a.list-group-item.active:focus {
 .no-padding .list-group {
   margin-bottom: 0;
 }
-.list-group-item {
+li .list-group-item {
   background-color: inherit;
-  border: 1px solid #e7eaec;
+  border: 1px solid #2f4050;
   display: block;
   margin-bottom: -1px;
   padding: 10px 15px;
@@ -8558,5 +8558,8 @@ body.md-skin {
   }
   #page-wrapper {
     margin: 0;
+  }
+  .btn-toolbar{
+  	margin-top: 30px;
   }
 }

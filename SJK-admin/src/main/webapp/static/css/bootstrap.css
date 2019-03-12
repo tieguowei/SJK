@@ -1964,7 +1964,7 @@ pre code {
     width: 33.33333333%;
   }
   .col-md-3 {
-    width: 25%;
+    width: 21%;
   }
   .col-md-2 {
     width: 16.66666667%;
@@ -2725,6 +2725,7 @@ select[multiple].input-sm {
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
+  width: 185px;
 }
 .form-group-sm select.form-control {
   height: 30px;
@@ -2922,9 +2923,11 @@ select[multiple].input-lg {
     display: inline-block;
     width: auto;
     vertical-align: middle;
+    height: 35px;
   }
   .form-inline .form-control-static {
     display: inline-block;
+    padding-right: 110px;
   }
   .form-inline .input-group {
     display: inline-table;
@@ -2941,6 +2944,8 @@ select[multiple].input-lg {
   .form-inline .control-label {
     margin-bottom: 0;
     vertical-align: middle;
+    width: 100px;
+    line-height: 25px;
   }
   .form-inline .radio,
   .form-inline .checkbox {

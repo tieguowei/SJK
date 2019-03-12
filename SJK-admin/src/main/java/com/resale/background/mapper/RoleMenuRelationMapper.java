@@ -1,9 +1,11 @@
 package com.resale.background.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.resale.background.pojo.RoleMenuRelation;
 import com.resale.background.pojo.RoleMenuRelationExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface RoleMenuRelationMapper {
     int countByExample(RoleMenuRelationExample example);
@@ -46,4 +48,11 @@ public interface RoleMenuRelationMapper {
 	 * @param list
 	 */
 	void insertMenuIds(List<RoleMenuRelation> list);
+	
+	  /**
+     * 通过角色id 查询出所拥有的权限id
+     * @param rid
+     * @return
+     */
+	List<Integer> queryMenuIdListByRoleIdList(List<Integer> list);
 }

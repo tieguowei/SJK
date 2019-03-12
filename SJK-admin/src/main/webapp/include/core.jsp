@@ -32,11 +32,12 @@
 <link href="${path }/static/css/info.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${path }/js/info.js"></script>
 
-
-
 <!-- file input -->  
 <link href="${path }/fileinput/fileinput.min.css" rel="stylesheet">  
 <script src="${path }/fileinput/fileinput.min.js"></script>  
+
+<!-- my97 -->
+ <script src="${path }/static/My97DatePicker/WdatePicker.js"></script> 
 
 </head>
 <body>

@@ -96,7 +96,8 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_menu
+    ,(select tm.name_zh from t_menu tm where tm.menu_id=m.parent_id) parentMenuName
+    from t_menu m
     where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -350,39 +351,33 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
-  <!-- 设置查询条件 -->
-   <sql id="dynamicPageWhere">
-  	<if test="nameZh != null">
-  		and name_zh LIKE CONCAT('%',#{nameZh},'%') 
- 	</if>
-  </sql>
-  
   <!-- 根据用户id查找菜单 -->
-  <select id="getMenuByMerchantId" parameterType="int" resultMap="BaseResultMap">
-  	SELECT
+  <select id="getMenuByEmployeeId" parameterType="int" resultMap="BaseResultMap">
+	select 
 			DISTINCT
-			m.menu_id,
-			m.name_en,
-			m.name_zh,
-			m.menu_icon,
-			m.menu_url,
-			m.parent_id
-		FROM t_merchant_role_relation mrr
-		JOIN t_role_menu_relation rmr ON mrr.role_id = rmr.role_id
-		JOIN t_menu m ON rmr.menu_id = m.menu_id
-		JOIN t_merchant mer on mrr.merchant_id = mer.id 
-		where mer.id = #{id}
-    	and m.parent_id =#{pid}
+				m.menu_id,
+				m.name_en,
+				m.name_zh,
+				m.menu_icon,
+				m.menu_url,
+				m.parent_id
+		FROM t_employee_role_relation err
+		join t_role_menu_relation rmr on err.role_id = rmr.role_id
+		join t_menu m on rmr.menu_id = m.menu_id
+		join t_employee emp on emp.employee_id = err.employee_id
+		where emp.employee_id = #{employeeId}
+		and m.parent_id =#{pid}
 		and m.menu_status != '3'
 		and m.menu_type = 'menu'
 		order by menu_sort
   </select>
   
   
-  <!-- 查询菜单 列表分页 -->
+  <!-- 查询菜单 列表 -->
   <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
   	SELECT
 		menu_id,
+		parent_id,
 		name_zh,
 		menu_icon,
 		permission,
@@ -396,20 +391,19 @@
 	FROM
 		t_menu
 	where menu_status != '3'
-	<include refid="dynamicPageWhere"/> 
-	limit #{startIndex},#{pageSize}
   </select>
   
    <!--查询列表 分页总数 -->
   <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
   	SELECT COUNT(*) FROM t_menu where menu_status != '3'
-  	<include refid="dynamicPageWhere"/> 
+  	
   </select>
   
   <!-- 根据商户角色id 查询权限 -->
   <select id="permissionListRoleId" parameterType="int" resultMap="BaseResultMap">
   	SELECT
 		m.menu_id,
+		m.parent_id,
 		m.name_zh,
 		m.menu_icon,
 		m.menu_type,
@@ -429,8 +423,9 @@
 	  SELECT
 		menu_id menuId,
 		name_zh menuName,
-		parent_id,
-    	menu_icon
+		parent_id parentId,
+    	menu_icon menuIcon,
+    	menu_url menuUrl
 	FROM
 		t_menu
 	where parent_id = 0
@@ -465,14 +460,81 @@
   <select id="queryChildMenuByPid" parameterType="String" resultMap="BaseResultMap">
 	  SELECT
 		menu_id,
+		parent_id,
 		menu_icon,
 		parent_id,
-		name_zh
+		name_zh,
+		menu_url
 	FROM
 		t_menu
 	WHERE
 		parent_id =#{pid}
 	AND menu_status = '1'
+	order by if(isnull(menu_sort),1,0),menu_sort  asc
   </select>
   
+  
+   <!-- 查询所有菜单 -->
+  <select id="getMenuDataList" resultType="hashmap">
+	select 
+			DISTINCT
+				m.menu_id id,
+				m.name_zh name,
+				m.parent_id pId,
+				<!-- m.menu_icon iconSkin, -->
+				m.menu_url menuUrl
+		FROM t_employee_role_relation err
+		join t_role_menu_relation rmr on err.role_id = rmr.role_id
+		join t_menu m on rmr.menu_id = m.menu_id
+		join t_employee emp on emp.employee_id = err.employee_id
+		where emp.employee_id = 1
+		and m.menu_status != '3'
+		and m.menu_type = 'menu'
+		order by menu_sort
+  </select>
+  <select id="queryChildMenuByPidType" resultMap="BaseResultMap">
+	  SELECT
+		menu_id,
+		menu_icon,
+		parent_id,
+		name_zh,
+		menu_url
+	FROM
+		t_menu
+	WHERE
+		parent_id =#{pid}
+	AND	menu_type='menu'
+	AND menu_status = '1' and menu_id in <foreach collection="list" item="item" index="index" 
+		open="(" separator="," close=")">#{item}</foreach>
+	order by if(isnull(menu_sort),1,0),menu_sort  asc
+  </select>
+  <!-- 根据角色查询所有pid为0的菜单 -->
+  <select id="getParentMenuListByRoleId" resultType="hashmap" parameterType="java.util.List">
+	  SELECT
+		menu_id menuId,
+		name_zh menuName,
+		parent_id parentId,
+    	menu_icon menuIcon,
+    	menu_url menuUrl
+	FROM
+		t_menu
+	where parent_id = 0
+	and menu_status = 1 and menu_id in <foreach collection="list" item="item" index="index" 
+		open="(" separator="," close=")">#{item}</foreach>
+  </select>
+    <select id="queryChildMenuManageByPid" parameterType="String" resultMap="BaseResultMap">
+	  SELECT
+		menu_id,
+		parent_id,
+		menu_icon,
+		parent_id,
+		name_zh,
+		menu_url
+	FROM
+		t_menu
+	WHERE
+		parent_id =#{pid} and menu_type='menu'
+	AND menu_status = '1'
+	order by if(isnull(menu_sort),1,0),menu_sort  asc
+  </select>
 </mapper>

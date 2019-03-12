@@ -5,27 +5,43 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.resale.background.pojo.Employee;
 import com.resale.background.pojo.Menu;
-import com.resale.background.pojo.Merchant;
 import com.resale.background.service.MenuService;
 
+
+/**
+ *<dl>
+ *<dt>类名：LoginController.java</dt>
+ *<dd>描述: 登录管理逻辑实现</dd> 
+ *<dd>创建时间： 2018年8月13日 下午5:20:33</dd>
+ *<dd>创建人： TieGuowei </dd>
+ *<dt>版本历史: </dt>
+ * <pre>
+ * Date         Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2018年8月13日 下午5:20:33    TieGuowei       1.0        1.0 Version 
+ * </pre>
+ *</dl>
+ */
 @Controller
 public class LoginController {
 	
 	@Autowired
 	private MenuService menuService;
-	protected final Log logger = LogFactory.getLog(getClass());
+	
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * 根据商户id获取所拥有的菜单
@@ -33,16 +49,16 @@ public class LoginController {
 	 * @param id
 	 * @return
 	 */
-    @RequestMapping({"/","/indexPage"})
+     @RequestMapping({"/","/indexPage"})
 	  public String index(Model model){
     	try {
-    		//从shiro的session中取merchant
+    		//从shiro的session中取Employee
     		Subject subject = SecurityUtils.getSubject();
     		//取身份信息
-    		Merchant merchant = (Merchant) subject.getPrincipal();
-    		List<Menu>menuList=menuService.getMenuByMerchantId(merchant.getId());
+    		Employee employee = (Employee) subject.getPrincipal();
+    		List<Menu>menuList=menuService.getMenuByEmployeeId(employee.getEmployeeId());
     		model.addAttribute("mlist",menuList);
-    		model.addAttribute("merchant",merchant);
+    		model.addAttribute("employee",employee);
             return "index";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,13 +76,13 @@ public class LoginController {
 	        if (exception != null) {
 	        	logger.info("shiro验证授权 异常信息："+exception);
 	            if (UnknownAccountException.class.getName().equals(exception)) {
-	                msg = "<font color='white' size='4px' >账号不存在</font>";
+	                msg = "<font color='white' size='4px' >账号验证失败或已被禁用！</font>";
 	            } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
-	                msg = "<font color='white' size='4px' >密码不正确</font>";
+	                msg = "<font color='white' size='4px' >密码不正确！</font>";
 	            }else if("randomCodeError".equals(exception)){
-	                msg = "<font color='white' size='4px' >验证码有误</font>";
+	                msg = "<font color='white' size='4px' >验证码有误！</font>";
 				} else {
-	                msg = "<font color='white' size='4px' >系统异常</font>";
+	                msg = "<font color='white' size='4px' >系统异常！</font>";
 	            }
 	        }
 	        map.put("msg", msg);
@@ -75,27 +91,10 @@ public class LoginController {
 	        return "/login";
 	    }
 
-	
-	
-	
-	/**
-	 * 删除redis中的图片验证码
-	 */
-	/*@RequestMapping("/deleteImageVerificationCode")
-	public void deleteImageVerificationCode(String key,String value){
-		loginService.deleteImageVerificationCode(key);
-	}*/
-	/**
-	 * 将图片验证码存入redis 并设置过期时间
-	 */
-	/*@RequestMapping("/getImageVerificationCode")
-	public void getImagevVerificationCode(String key,String value){
-		loginService.setImageVerificationCode( key,value);
-	}*/
-	
+
 	 @RequestMapping("/403")
 	 public String unauthorizedRole(){
 	        return "403";
-	  }
+	  } 
 	 
 }

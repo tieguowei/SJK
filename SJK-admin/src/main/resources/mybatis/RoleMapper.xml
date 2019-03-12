@@ -256,7 +256,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!-- 根据用户ID查询角色信息 -->
-  <select id="findRoleByMerchantId" parameterType="int" resultMap="BaseResultMap">
+  <select id="findRoleByEmployeeId" parameterType="int" resultMap="BaseResultMap">
   	SELECT
 		r.id,
 		r.role_code,
@@ -265,8 +265,8 @@
 		r.role_status
 	FROM
 	t_role r
-	left join t_merchant_role_relation mrr on r.id = mrr.role_id
-	where mrr.merchant_id = #{id}
+	left join t_employee_role_relation mrr on r.id = mrr.role_id
+	where mrr.employee_id =#{employeeId}
 	and r.role_status = 1
   </select>
   
