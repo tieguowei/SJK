@@ -41,9 +41,9 @@
     <div id="page-wrapper" class="gray-bg" style="height: 99%;">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
-                  <div class="navbar-header">
+                <!--   <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                </div>
+                </div> -->
                 
                 <div class="nav navbar-top-links navbar-right">
                         <span class="m-r-sm text-muted welcome-message">
