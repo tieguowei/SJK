@@ -13,10 +13,15 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header" style="text-align: center;">
                 		<div class="dropdown profile-element">
-							<span><img alt="image" class="img-circle" src="${path}/static/img/head_portrait.png" />&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span> 
+							<span>
+						
+							<img alt="image" class="img-circle" src="${path}/static/img/${image}" />
+							&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+							</span> 
 								<a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
 									<span class="clear">
-							 			<span style="margin-left:-30px;margin-top: 6px;" class="text-muted text-xs block" th:text="${employee.name}"><b class="caret"></b>${employee.name}
+							 			<span style="color:white;  margin-left:-30px;margin-top: 6px;" class="text-muted text-xs block" th:text="${employee.name}"><b class="caret"></b>
+							 				${employee.name}
 							 			</span>
 									</span>
 								</a>
@@ -37,11 +42,13 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+                   		 <i class="fa fa-bars"></i> 
+                    </a>
                 </div>
                 <div class="nav navbar-top-links navbar-right">
                         <span class="m-r-sm text-muted welcome-message">
-                        <iframe frameborder='0' scrolling='auto' src='${path}/include/time.html' style='padding:0px;width:100%;height:5%;' ></iframe>
+                       		 <iframe frameborder='0' scrolling='auto' src='${path}/include/time.html' style='padding:0px;width:100%;height:5%;' ></iframe>
                         </span>
 				</div>
             </nav>
@@ -55,7 +62,7 @@
 </ul>
 <div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade in active" id="home">
-			<h2 style="text-align: center; margin-top: 180px;">欢迎访问金融云平台</h2>
+			<h2 style="text-align: center; margin-top: 180px;">欢迎使用金融云平台</h2>
 		</div>
 </div>
     </div>

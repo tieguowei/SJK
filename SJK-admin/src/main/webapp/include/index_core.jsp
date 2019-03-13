@@ -6,7 +6,7 @@
    <c:set value="${pageContext.request.contextPath }" var="path"></c:set>
 <html>
 <head>
-	<link href="${path}/static/css/bootstrap.css" rel="stylesheet">
+	 <link href="${path}/static/css/bootstrap.css" rel="stylesheet">
     <link href="${path}/static/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="${path}/static/css/animate.css" rel="stylesheet">
     <link href="${path}/static/css/style.css" rel="stylesheet">
@@ -14,8 +14,10 @@
     <!-- Mainly scripts -->
     <script src="${path}/static/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="${path}/js/index.js"></script>
-    <!-- Custom and plugin javascript -->
     <script type="text/javascript" src="${path }/static/js/bootstrap.js"></script>
+    <script src="${path}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="${path}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
     <script src="${path}/static/js/inspinia.js"></script>
     <script src="${path}/static/js/plugins/pace/pace.min.js"></script>
     <link rel="stylesheet" href="${path}/css/system/index.css">

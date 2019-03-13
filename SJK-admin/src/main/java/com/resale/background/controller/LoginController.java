@@ -59,6 +59,11 @@ public class LoginController {
     		List<Menu>menuList=menuService.getMenuByEmployeeId(employee.getEmployeeId());
     		model.addAttribute("mlist",menuList);
     		model.addAttribute("employee",employee);
+    		if("1".equals(employee.getSex())){
+    			model.addAttribute("image","profile_small_boy.jpg");
+    		}else{
+    			model.addAttribute("image","profile_small_girl.jpg");
+    		}
             return "index";
 		} catch (Exception e) {
 			e.printStackTrace();

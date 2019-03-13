@@ -108,7 +108,7 @@ function quit(){
 		buttons: {
 			确定: {
 				action: function(){
-					location.href="/logout";
+					location.href="logout";
 				}
 			},
 			取消: function () {
@@ -260,7 +260,3 @@ function formValidator(){
 		}
 	});
 }
-
-function jumpurl(){  
-	location.href="/logout";
-}  

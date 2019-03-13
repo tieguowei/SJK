@@ -515,12 +515,7 @@
   <!-- 根据用户登陆账号查询用户信息 -->
   <select id="getEmployeeByEmployeeNo" parameterType="hashmap" resultMap="BaseResultMap">
 	  SELECT
-		employee_id,
-		name,
-		employee_no,
-		password,
-		salt,
-		activated_state
+		<include refid="Base_Column_List"/>
 	FROM
 		t_employee
 	WHERE
