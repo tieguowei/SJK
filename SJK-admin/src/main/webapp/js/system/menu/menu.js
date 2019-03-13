@@ -226,12 +226,12 @@ var Menu = function(){
         //添加
         saveMenu:function(){
         	document.getElementById("saveButton").setAttribute("disabled", true);
-            if($("#addForm").data('bootstrapValidator').validate().isValid()){
+            if($("#addMenuForm").data('bootstrapValidator').validate().isValid()){
         				 $.ajax({
         					url:'menu/saveMenu',
         					dataType:'json',
         					type:'post',
-        					data:$("#addForm").serialize(),
+        					data:$("#addMenuForm").serialize(),
         					success:function(data){
         						if(data){
         						    $.alert({
@@ -332,12 +332,12 @@ var Menu = function(){
         },
         //修改
         updateMenu:function () {
-            if($("#updateForm").data('bootstrapValidator').validate().isValid()){
+            if($("#updateMenuForm").data('bootstrapValidator').validate().isValid()){
             	$.ajax({
                     url:'menu/updateMenu',
                     dataType:'json',
                     type:'post',
-                    data:$("#updateForm").serialize(),
+                    data:$("#updateMenuForm").serialize(),
                     success:function(data){
                         if(data == '1'){
                             $.alert({
@@ -370,14 +370,14 @@ var Menu = function(){
             $("#menuAddDlg").modal('hide');
             $("#menuUpdateDlg").modal('hide');
             $("input[type=reset]").trigger("click");
-            $('#updateForm').data('bootstrapValidator', null);
-            $('#addForm').data('bootstrapValidator', null);
+            $('#updateMenuForm').data('bootstrapValidator', null);
+            $('#addMenuForm').data('bootstrapValidator', null);
 		    document.getElementById("saveButton").removeAttribute("disabled");
             Menu.formValidator();
         },
         
         formValidator:function () {
-            $("#addForm").bootstrapValidator({
+            $("#addMenuForm").bootstrapValidator({
                 fields:{
                     nameZh:{
                         validators:{
@@ -415,7 +415,7 @@ var Menu = function(){
             });
 
 
-            $("#updateForm").bootstrapValidator({
+            $("#updateMenuForm").bootstrapValidator({
                 fields:{
                     nameZh:{
                         validators:{

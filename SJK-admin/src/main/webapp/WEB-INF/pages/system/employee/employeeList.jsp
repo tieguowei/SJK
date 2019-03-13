@@ -86,7 +86,7 @@
             </div>
             
             <div class="container">
-				<form class="form-horizontal" id="addForm"  method="post">
+				<form class="form-horizontal" id="addEmployeeForm"  method="post">
 					<div class="form-group">
 							<label class="col-md-2 control-label">姓名：</label>
 							<div class="col-md-3 ">

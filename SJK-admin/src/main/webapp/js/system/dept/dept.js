@@ -198,12 +198,12 @@ var Department = function(){
         //添加
         saveDepartment:function(){
         	document.getElementById("saveButton").setAttribute("disabled", true);
-            if($("#addForm").data('bootstrapValidator').validate().isValid()){
+            if($("#addDeptForm").data('bootstrapValidator').validate().isValid()){
         				 $.ajax({
         					url:'dept/saveDepartment',
         					dataType:'json',
         					type:'post',
-        					data:$("#addForm").serialize(),
+        					data:$("#addDeptForm").serialize(),
         					success:function(data){
         						if(data){
         						    $.alert({
@@ -276,12 +276,12 @@ var Department = function(){
         },
         //修改
         updateDepartment:function () {
-            if($("#updateForm").data('bootstrapValidator').validate().isValid()){
+            if($("#updateDeptForm").data('bootstrapValidator').validate().isValid()){
 	            	$.ajax({
 	                    url:'dept/updateDepartment',
 	                    dataType:'json',
 	                    type:'post',
-	                    data:$("#updateForm").serialize(),
+	                    data:$("#updateDeptForm").serialize(),
 	                    success:function(data){
 	                        if(data == '1'){
 	                            $.alert({
@@ -314,14 +314,14 @@ var Department = function(){
             $("#dept_addDlg").modal('hide');
             $("#dept_updateDlg").modal('hide');
             $("input[type=reset]").trigger("click");
-            $('#updateForm').data('bootstrapValidator', null);
-            $('#addForm').data('bootstrapValidator', null);
+            $('#updateDeptForm').data('bootstrapValidator', null);
+            $('#addDeptForm').data('bootstrapValidator', null);
 		    document.getElementById("saveButton").removeAttribute("disabled");
             Department.formValidator();
         },
         
         formValidator:function () {
-            $("#addForm").bootstrapValidator({
+            $("#addDeptForm").bootstrapValidator({
                 fields:{
                     deptName:{
                         validators:{
@@ -340,7 +340,7 @@ var Department = function(){
             });
 
 
-            $("#updateForm").bootstrapValidator({
+            $("#updateDeptForm").bootstrapValidator({
                 fields:{
                     deptName:{
                         validators:{

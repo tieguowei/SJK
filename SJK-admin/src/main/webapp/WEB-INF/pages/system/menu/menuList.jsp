@@ -54,7 +54,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加菜单</h4>
             </div>
             <div class="container"> 
-			<form class="form-horizontal" id="addForm"  method="post">
+			<form class="form-horizontal" id="addMenuForm"  method="post">
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">菜单名称：</label>
@@ -156,7 +156,7 @@
                 <h4 class="modal-title" id="myModalLabel">修改菜单</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="updateForm"  method="post">
+			<form class="form-horizontal" id="updateMenuForm"  method="post">
 				<div class="form-group">
 					<label class="col-md-2 control-label">菜单名称：</label>
 				<div class="col-md-3 ">

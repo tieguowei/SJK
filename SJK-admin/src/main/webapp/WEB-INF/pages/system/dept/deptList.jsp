@@ -59,7 +59,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加部门</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="addForm"  method="post">
+			<form class="form-horizontal" id="addDeptForm"  method="post">
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">部门名称：</label>
@@ -124,7 +124,7 @@
                 <h4 class="modal-title" id="myModalLabel">修改部门</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="updateForm"  method="post">
+			<form class="form-horizontal" id="updateDeptForm"  method="post">
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">部门名称：</label>

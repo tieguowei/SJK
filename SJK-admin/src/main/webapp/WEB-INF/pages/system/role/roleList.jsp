@@ -45,7 +45,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加角色</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="addForm"  method="post">
+			<form class="form-horizontal" id="addRoleForm"  method="post">
 			
 			<div class="form-group">
 			<label class="col-md-2 control-label">角色名称：</label>
@@ -90,7 +90,7 @@
                 <h4 class="modal-title" id="myModalLabel">修改角色</h4>
             </div>
             <div class="container">
-			<form class="form-horizontal" id="updateForm"  method="post">
+			<form class="form-horizontal" id="updateRoleForm"  method="post">
 			<div class="form-group">
 				<div class="col-md-3 ">
 					<input type="hidden" id="role_update_id" name="id"  class="form-control form-control-static" readonly="readonly" placeholder="必填">

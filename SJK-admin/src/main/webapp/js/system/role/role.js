@@ -112,7 +112,7 @@ var Role = function () {
         //添加
         addRole:function () {
         	document.getElementById("saveButton").setAttribute("disabled", true);
-            if($("#addForm").data('bootstrapValidator').validate().isValid()){
+            if($("#addRoleForm").data('bootstrapValidator').validate().isValid()){
             	flag = false;
     			//校验角色编码是否存在
     			var roleCode = $("#role_code").val();
@@ -140,7 +140,7 @@ var Role = function () {
 	                    url:'role/saveRole',
 	                    dataType:'json',
 	                    type:'post',
-	                    data:$("#addForm").serialize(),
+	                    data:$("#addRoleForm").serialize(),
 	                    success:function(data){
 	                        if(data){
 	                        	 $.alert({
@@ -201,7 +201,7 @@ var Role = function () {
         },
         //修改角色
         updateRole:function () {
-            if($("#updateForm").data('bootstrapValidator').validate().isValid()){
+            if($("#updateRoleForm").data('bootstrapValidator').validate().isValid()){
             	flag = false;
     			//校验角色编码是否存在
     			var roleCode = $("#role_update_roleCode").val();
@@ -230,7 +230,7 @@ var Role = function () {
 	                    url:'role/updateRole',
 	                    dataType:'json',
 	                    type:'post',
-	                    data:$("#updateForm").serialize(),
+	                    data:$("#updateRoleForm").serialize(),
 	                    success:function(data){
 	                        if(data){
 	                            $.alert({
@@ -396,15 +396,15 @@ var Role = function () {
             $("#roleAddDlg").modal('hide');
             $("#roleMydlg").modal('hide');
             $("input[type=reset]").trigger("click");
-            $('#updateForm').data('bootstrapValidator', null);
-            $('#addForm').data('bootstrapValidator', null);
+            $('#updateRoleForm').data('bootstrapValidator', null);
+            $('#addRoleForm').data('bootstrapValidator', null);
 		    document.getElementById("saveButton").removeAttribute("disabled");
             Role.formValidator();
             
         },
         //表单验证
         formValidator:function () {
-            $("#addForm").bootstrapValidator({
+            $("#addRoleForm").bootstrapValidator({
                 fields:{
                     roleName:{
                         validators:{
@@ -443,7 +443,7 @@ var Role = function () {
             });
 
 
-            $("#updateForm").bootstrapValidator({
+            $("#updateRoleForm").bootstrapValidator({
                 fields:{
                     roleName:{
                         validators:{

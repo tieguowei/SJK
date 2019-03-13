@@ -327,12 +327,12 @@ var Employee = function (){
         //添加用户
         saveEmployee:function(){
         	document.getElementById("saveButton").setAttribute("disabled", true);
-           if($("#addForm").data('bootstrapValidator').validate().isValid()){
+           if($("#addEmployeeForm").data('bootstrapValidator').validate().isValid()){
               $.ajax({
                     url:'employee/saveEmployee',
                     type:'post',
                     dataType:'json',
-                    data:$("#addForm").serialize(),
+                    data:$("#addEmployeeForm").serialize(),
                     success:function(data){
                         if(data){
                             $.alert({
@@ -370,13 +370,13 @@ var Employee = function (){
             $("#employeeUpdateDlg").modal('hide');
             $("#employeeAddDlg").modal('hide');
             $("input[type=reset]").trigger("click");
-            $('#addForm').data('bootstrapValidator', null);
+            $('#addEmployeeForm').data('bootstrapValidator', null);
             $('#employeeUpdateForm').data('bootstrapValidator', null);
 		    document.getElementById("saveButton").removeAttribute("disabled");
             Employee.formValidator();
         },
         formValidator:function () {
-            $("#addForm").bootstrapValidator({
+            $("#addEmployeeForm").bootstrapValidator({
                 fields:{
                 	name:{
                         validators:{
