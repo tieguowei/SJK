@@ -31,21 +31,20 @@
 							</ul>
 						</div>
                 </li>
-                
+                <!-- 展示左侧菜单 -->
                 <div id="treeview" class="" style="margin-top: -28px;"></div>
-                 <input style="display: none" type="input" class="form-control" id="input-expand-node" placeholder="Identify node..." value="">
-            </ul>
+                	 <input style="display: none" type="input" class="form-control" id="input-expand-node" placeholder="Identify node..." value="">
+              </ul>
        </div> 
         </div>
     </nav>
     <div id="page-wrapper" class="gray-bg" style="height: 99%;">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
-                   		 <i class="fa fa-bars"></i> 
-                    </a>
+                  <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                 </div>
+                
                 <div class="nav navbar-top-links navbar-right">
                         <span class="m-r-sm text-muted welcome-message">
                        		 <iframe frameborder='0' scrolling='auto' src='${path}/include/time.html' style='padding:0px;width:100%;height:5%;' ></iframe>

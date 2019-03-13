@@ -101,13 +101,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-2 control-label">邮编：</label>
-						<div class="col-md-3 ">
-							<input type="text"  id="email" name="email" class="form-control form-control-static">
-						</div>
-					</div>
-					
-					<div class="form-group">
 						<label class="col-md-2 control-label">员工编号：</label>
 						<div class="col-md-3 ">
 							<input type="text"  id="employee_no" name="employeeNo" class="form-control form-control-static">
@@ -118,14 +111,6 @@
 						<label class="col-md-2 control-label">手机号：</label>
 						<div class="col-md-3 ">
 							<input type="text"  id="mobile" name="mobile" class="form-control form-control-static">
-						</div>
-					</div>
-					
-					
-					<div class="form-group">
-						<label class="col-md-2 control-label">固定电话：</label>
-						<div class="col-md-3 ">
-							<input type="text"  id="telephone" name="telephone" class="form-control form-control-static">
 						</div>
 					</div>
 					
@@ -202,13 +187,6 @@
 			
 			
 			<div class="form-group">
-						<label class="col-md-2 control-label">邮编：</label>
-						<div class="col-md-3 ">
-							<input type="text"  id="update_email" name="email" class="form-control form-control-static">
-						</div>
-			</div>
-			
-			<div class="form-group">
 				<label class="col-md-2 control-label">员工编号：</label>
 				<div class="col-md-3 ">
 					<input type="text"  id="update_employee_no" name="employeeNo" class="form-control form-control-static">
@@ -222,13 +200,6 @@
 				</div>
 			</div>
 			
-			
-			<div class="form-group">
-					<label class="col-md-2 control-label">固定电话：</label>
-					<div class="col-md-3 ">
-						<input type="text"  id="update_telephone" name="telephone" class="form-control form-control-static">
-					</div>
-			</div>
 					
 			<div class="form-group">
 				<label class="col-md-2 control-label">身份证号：</label>

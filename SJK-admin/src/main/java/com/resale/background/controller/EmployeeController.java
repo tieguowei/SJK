@@ -59,7 +59,6 @@ public class  EmployeeController {
 		@RequiresPermissions("employeeManager:list")//权限管理;
 		@RequestMapping("/goEmployeePage")
 		public String goEmployeePage(){
-			logger.info("===测试docker日志 =====");
 			return "system/employee/employeeList";
 		}
 		
@@ -184,8 +183,10 @@ public class  EmployeeController {
 			    String newPs = new SimpleHash("MD5", employee.getPassword(), employee.getEmployeeNo()+uuid, 2).toHex();
 			    Subject subject = SecurityUtils.getSubject();
 				Employee employeeShiro = (Employee) subject.getPrincipal();
-				DateFormat date = new SimpleDateFormat("yyyy-MM-dd"); 
-				employee.setEntryTime(date.parse(entryDate));    
+				DateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+				if(StringUtil.isNotEmpty(entryDate) ){
+					employee.setEntryTime(date.parse(entryDate));    
+				}
 				employee.setOperator(employeeShiro.getEmployeeId());
 				
 				employeeService.saveEmployee(employee,newPs,uuid);
@@ -225,7 +226,9 @@ public class  EmployeeController {
 				Employee result =employeeService.getEmployeeById(employee.getEmployeeId());
 				String newPs = new SimpleHash("MD5", "123456", result.getEmployeeNo()+result.getSalt(), 2).toHex();
 				DateFormat date = new SimpleDateFormat("yyyy-MM-dd"); 
-				employee.setEntryTime(date.parse(entryDate));   
+				if(StringUtil.isNotEmpty(entryDate)){
+					employee.setEntryTime(date.parse(entryDate));   
+				}
 				employeeService.updateEmployee(employee,newPs);
 				 return true;
 			} catch (Exception e) {
