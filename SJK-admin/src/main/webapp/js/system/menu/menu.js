@@ -225,7 +225,7 @@ var Menu = function(){
         },
         //添加
         saveMenu:function(){
-        	document.getElementById("saveButton").setAttribute("disabled", true);
+        	document.getElementById("saveMenuButton").setAttribute("disabled", true);
             if($("#addMenuForm").data('bootstrapValidator').validate().isValid()){
         				 $.ajax({
         					url:'menu/saveMenu',
@@ -239,7 +239,7 @@ var Menu = function(){
         							     content: '添加成功!',
         							     type: 'blue'
         						    });
-        						    document.getElementById("saveButton").removeAttribute("disabled");
+        						    document.getElementById("saveMenuButton").removeAttribute("disabled");
         						    $("#menu-table").bootstrapTable('refresh');
         						    Menu.closeDlg();
         						}else{
@@ -248,7 +248,7 @@ var Menu = function(){
         						        content: '添加失败！',
         						        type: 'red'
         						    });
-        						    document.getElementById("saveButton").removeAttribute("disabled");
+        						    document.getElementById("saveMenuButton").removeAttribute("disabled");
         						}
         					},
         					error:function(){
@@ -260,7 +260,7 @@ var Menu = function(){
         					}
         				}); 
             }else{
-    		    document.getElementById("saveButton").removeAttribute("disabled");
+    		    document.getElementById("saveMenuButton").removeAttribute("disabled");
             }
         },
         //打开  添加 加载pid为0的菜单
@@ -372,7 +372,7 @@ var Menu = function(){
             $("input[type=reset]").trigger("click");
             $('#updateMenuForm').data('bootstrapValidator', null);
             $('#addMenuForm').data('bootstrapValidator', null);
-		    document.getElementById("saveButton").removeAttribute("disabled");
+		    document.getElementById("saveMenuButton").removeAttribute("disabled");
             Menu.formValidator();
         },
         

@@ -111,7 +111,7 @@ var Role = function () {
         },
         //添加
         addRole:function () {
-        	document.getElementById("saveButton").setAttribute("disabled", true);
+        	document.getElementById("saveRoleButton").setAttribute("disabled", true);
             if($("#addRoleForm").data('bootstrapValidator').validate().isValid()){
             	flag = false;
     			//校验角色编码是否存在
@@ -148,7 +148,7 @@ var Role = function () {
 	                                 content: '添加成功!',
 	                                 type: 'blue'
 	                             });
-	                 		    document.getElementById("saveButton").removeAttribute("disabled");
+	                 		    document.getElementById("saveRoleButton").removeAttribute("disabled");
 	                            $("#role-table").bootstrapTable("refresh");
 	                            Role.closeDlg();
 	                        }else{
@@ -157,7 +157,7 @@ var Role = function () {
 	                                content: '添加失败！',
 	                                type: 'red'
 	                            });
-	                		    document.getElementById("saveButton").removeAttribute("disabled");
+	                		    document.getElementById("saveRoleButton").removeAttribute("disabled");
 	                        }
 	                    },
 	                    error:function(){
@@ -170,7 +170,7 @@ var Role = function () {
 	                });
 	            }
             }else{
-    		    document.getElementById("saveButton").removeAttribute("disabled");
+    		    document.getElementById("saveRoleButton").removeAttribute("disabled");
             }
         },
         //打开修改模态框
@@ -398,7 +398,7 @@ var Role = function () {
             $("input[type=reset]").trigger("click");
             $('#updateRoleForm').data('bootstrapValidator', null);
             $('#addRoleForm').data('bootstrapValidator', null);
-		    document.getElementById("saveButton").removeAttribute("disabled");
+		    document.getElementById("saveRoleButton").removeAttribute("disabled");
             Role.formValidator();
             
         },

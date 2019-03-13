@@ -107,7 +107,7 @@
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />
                	 <button type="button" class="btn btn-default" onclick="Department.closeDlg()">关闭</button>
-             	  <button id="saveButton" type="button" onclick="Department.saveDepartment()" class="btn btn-primary">保存</button>
+             	  <button id="saveDeptButton" type="button" onclick="Department.saveDepartment()" class="btn btn-primary">保存</button>
             </div>
             </form>
             </div>

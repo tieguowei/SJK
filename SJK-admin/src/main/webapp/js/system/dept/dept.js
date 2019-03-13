@@ -197,7 +197,7 @@ var Department = function(){
         },
         //添加
         saveDepartment:function(){
-        	document.getElementById("saveButton").setAttribute("disabled", true);
+        	document.getElementById("saveDeptButton").setAttribute("disabled", true);
             if($("#addDeptForm").data('bootstrapValidator').validate().isValid()){
         				 $.ajax({
         					url:'dept/saveDepartment',
@@ -211,7 +211,7 @@ var Department = function(){
         							     content: '添加成功!',
         							     type: 'blue'
         						    });
-        						    document.getElementById("saveButton").removeAttribute("disabled");
+        						    document.getElementById("saveDeptButton").removeAttribute("disabled");
         						    $("#dept-table").bootstrapTable('refresh');
         						    Department.closeDlg();
         						}else{
@@ -220,7 +220,7 @@ var Department = function(){
         						        content: '添加失败！',
         						        type: 'red'
         						    });
-        						    document.getElementById("saveButton").removeAttribute("disabled");
+        						    document.getElementById("saveDeptButton").removeAttribute("disabled");
         						}
         					},
         					error:function(){
@@ -232,7 +232,7 @@ var Department = function(){
         					}
         				}); 
             }else{
-    		    document.getElementById("saveButton").removeAttribute("disabled");
+    		    document.getElementById("saveDeptButton").removeAttribute("disabled");
             }
         },
         //打开  添加页面
@@ -316,7 +316,7 @@ var Department = function(){
             $("input[type=reset]").trigger("click");
             $('#updateDeptForm').data('bootstrapValidator', null);
             $('#addDeptForm').data('bootstrapValidator', null);
-		    document.getElementById("saveButton").removeAttribute("disabled");
+		    document.getElementById("saveDeptButton").removeAttribute("disabled");
             Department.formValidator();
         },
         

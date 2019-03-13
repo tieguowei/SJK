@@ -326,7 +326,7 @@ var Employee = function (){
         },
         //添加用户
         saveEmployee:function(){
-        	document.getElementById("saveButton").setAttribute("disabled", true);
+        	document.getElementById("saveEmployeeButton").setAttribute("disabled", true);
            if($("#addEmployeeForm").data('bootstrapValidator').validate().isValid()){
               $.ajax({
                     url:'employee/saveEmployee',
@@ -340,14 +340,14 @@ var Employee = function (){
                                 content: '添加成功!',
                                 type: 'blue'
                             });
-						    document.getElementById("saveButton").removeAttribute("disabled");
+						    document.getElementById("saveEmployeeButton").removeAttribute("disabled");
                         }else{
                             $.alert({
                                 title: '提示信息！',
                                 content: '添加失败！',
                                 type: 'red'
                             });
-						    document.getElementById("saveButton").removeAttribute("disabled");
+						    document.getElementById("saveEmployeeButton").removeAttribute("disabled");
                         }
                         $("#employee-table").bootstrapTable('refresh');
                         Employee.closeDlg();
@@ -361,7 +361,7 @@ var Employee = function (){
                     }
                 });
             }else{
-            	document.getElementById("saveButton").removeAttribute("disabled");
+            	document.getElementById("saveEmployeeButton").removeAttribute("disabled");
             }
         },
         //关闭模态框
@@ -372,7 +372,7 @@ var Employee = function (){
             $("input[type=reset]").trigger("click");
             $('#addEmployeeForm').data('bootstrapValidator', null);
             $('#employeeUpdateForm').data('bootstrapValidator', null);
-		    document.getElementById("saveButton").removeAttribute("disabled");
+		    document.getElementById("saveEmployeeButton").removeAttribute("disabled");
             Employee.formValidator();
         },
         formValidator:function () {

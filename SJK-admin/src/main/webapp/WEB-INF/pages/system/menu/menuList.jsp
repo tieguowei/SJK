@@ -138,7 +138,7 @@
             <!--用来清空表单数据-->
             <input type="reset" name="reset" style="display: none;" />
                	 <button type="button" class="btn btn-default" onclick="Menu.closeDlg()">关闭</button>
-             	  <button id="saveButton" type="button" onclick="Menu.saveMenu()" class="btn btn-primary">保存</button>
+             	  <button id="saveMenuButton" type="button" onclick="Menu.saveMenu()" class="btn btn-primary">保存</button>
             </div>
             </form>
             </div>
