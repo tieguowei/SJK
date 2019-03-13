@@ -32,7 +32,29 @@
 		  </exclusions>
 	  </dependency>
   </dependencies>
-  
+  <profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<spring.profiles.active>local</spring.profiles.active>
+			</properties>
+			 <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+		</profile>
+		<profile>
+			<id>beta</id>
+			<properties>
+				<spring.profiles.active>beta</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
     <build>
 		<plugins>
 		<!-- 能够将Spring Boot应用打包为可执行的jar或war文件 -->
